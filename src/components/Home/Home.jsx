@@ -1,6 +1,5 @@
 import RetroStatic from "../../assets/retro_static.gif"
 import headphoneIcon from "../../assets/icons/headphone.svg"
-import "./home.css"
 
 export default function Home() {
   return (
