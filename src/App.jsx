@@ -1,6 +1,6 @@
-import { Routes, Route, useLocation } from "react-router-dom"
+import { Routes, Route, useLocation } from "react-router-dom";
 import { AnimatePresence } from "motion/react";
-import Home from "./components/Home/Home.jsx"
+import Home from "./components/home/Home.jsx";
 
 function App() {
   const location = useLocation();
