@@ -50,15 +50,24 @@ h1, h2, h3, h4, h5, h6 {
 
 :root {
   --BACKGROUND_HOME: #f2f2f2;
+  --TEXT_PRIMARY: #5b5b5a;
   --FONT_WEIGHT_DEFAULT: 400;
+  --TEXT_SPACING: 0.17rem;
 }
 
 html, body {
   width: 100%;
   height: 100%;
   background-color: var(--BACKGROUND_HOME);
+  color: var(--TEXT_PRIMARY);
   font-family: "Poppins", 'Montserrat', 'Avenir', 'Helvetica Neue', Arial, sans-serif;
   font-weight: var(--FONT_WEIGHT_DEFAULT);
+  letter-spacing: var(--TEXT_SPACING);
+}
+
+#root {
+  width: 100%;
+  height: 100%;
 }
 
 .unselectable {

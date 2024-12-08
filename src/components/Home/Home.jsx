@@ -1,4 +1,5 @@
 import RetroStatic from "../../assets/retro_static.gif"
+import headphoneIcon from "../../assets/icons/headphone.svg"
 import "./home.css"
 
 export default function Home() {
@@ -6,9 +7,15 @@ export default function Home() {
     <>
       <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/>
 
+      <main id="home-container">
+      </main>
+
+      <div className="get-headphones-reminder">
+        <img src={headphoneIcon} id="headphone-icon" className="icon" alt="" />
+        <div>Maybe grab a headphone if you haven't?</div>
+      </div>
       <div id="border-text-left" className="border-text">An excuse for me to make botanica</div>
       <div id="border-text-right" className="border-text">Made by Ethan</div>
-
     </>
   )
 }
