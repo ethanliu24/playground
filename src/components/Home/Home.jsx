@@ -1,5 +1,5 @@
-import RetroStatic from "../../assets/retro_static.gif"
-import headphoneIcon from "../../assets/icons/headphone.svg"
+import RetroStatic from "../../assets/retro_static.gif";
+import headphoneIcon from "../../assets/icons/headphone.svg";
 
 export default function Home() {
   return (
@@ -16,5 +16,5 @@ export default function Home() {
       <div id="border-text-left" className="border-text">An excuse for me to make botanica</div>
       <div id="border-text-right" className="border-text">Made by Ethan</div>
     </>
-  )
+  );
 }
