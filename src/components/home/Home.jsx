@@ -1,7 +1,7 @@
 import RetroStatic from "../../assets/retro_static.gif";
 import headphoneIcon from "../../assets/icons/headphone.svg";
 
-export default function Home() {
+function Home() {
   return (
     <>
       <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/>
@@ -18,3 +18,5 @@ export default function Home() {
     </>
   );
 }
+
+export default Home;

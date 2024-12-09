@@ -1,0 +1,29 @@
+#transition-container {
+  width: 100vw;
+  height: 100vh;
+  z-index: 100;
+  position: fixed;
+  top: 0;
+  left: 0;
+}
+
+#transition-cover-layer {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: 0;
+  left: 0;
+  background-color:  var(--BACKGROUND_HOME);
+}
+
+#transition-cover-layer::after {
+  content: "";
+  background: url("../assets/retro_static.gif") no-repeat center;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  bottom: 0px;
+  left: 0px;
+  opacity: 1;
+  transform: scale(-1, -1);
+}
