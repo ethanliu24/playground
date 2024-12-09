@@ -18,14 +18,15 @@
 
 #transition-cover-layer::after {
   content: "";
-  background: url("../assets/retro_static.gif") no-repeat center;
+  background: url("../assets/retro_static_fast.gif") no-repeat center;
+  background-size: cover;
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
   opacity: 1;
-  transform: scaleX(-1) scaleY(-1) scale(1.2);
+  transform: scaleX(-1) scaleY(-1);
 }
 
 .transition-ripple {
