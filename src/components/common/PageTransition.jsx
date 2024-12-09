@@ -12,65 +12,23 @@ export default function PageTransition(props) {
   useGSAP(() => {
     // TODO set duration to max(5, music.length)
     const animationDur = 5;
-    const rippleOpacityDecrementRate = 0.2;
-    const mainRippleIncrementRate = 180;
+    const mainRippleIncrementRate = 900;
 
     const rippleMainTL = gsap.timeline();
     rippleMainTL.to("#ripple-main", {
       keyframes: {
         easeEach: "none",
-        "0%": {
-          width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
-          x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
-          opacity: 0,
-        },
-        "10%": {
-          opacity: 0.7,
-        },
-        "25%": {
-          width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
-          x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
-        },
-        "50%": {
-          width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
-          x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
-        },
-        "75%": {
-          width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
-          x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
-        },
-        "90%": {
-          opacity: 0.7,
-        },
-        "100%": {
-          width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
-          x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
-          opacity: 0,
-        },
+        "0%": { opacity: 0 },
+        "10%": { opacity: 0.7 },
+        "90%": { opacity: 0.7 },
+        "100%": { opacity: 0 },
       },
 
+      width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
+      x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
       ease: "expo.out",
       duration: 3.5,
     })
-
-    // rippleMainTL.from("#ripple-main", {
-    //   opacity: 0,
-    //   duration: 0.2,
-    // }).to("#ripple-main", {
-    //   opacity: 1,
-    //   duration: 0.2,
-    // }).to("#ripple-main", {
-    //   width: `+=${mainRippleIncrementRate}`,
-    //   height: `+=${mainRippleIncrementRate}`,
-    //   x: `-=${mainRippleIncrementRate / 2}`,
-    //   y: `-=${mainRippleIncrementRate / 2}`,
-    //   opacity: `-=${rippleOpacityDecrementRate}`,
-    //   duration: 2,
-    //   ease: "power4.out",
-    // }).to("#ripple-main", {
-    //   opacity: 0,
-    //   duration: 0.2,
-    // })
 
     const master = gsap.timeline({
       onComplete: () => containerRef.current.style.display = 'none',
