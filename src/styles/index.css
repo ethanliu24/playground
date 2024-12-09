@@ -65,6 +65,7 @@ html, body {
   font-family: "Poppins", 'Montserrat', 'Avenir', 'Helvetica Neue', Arial, sans-serif;
   font-weight: var(--FONT_WEIGHT_DEFAULT);
   letter-spacing: var(--TEXT_SPACING);
+  overflow: visible;
 }
 
 #root {

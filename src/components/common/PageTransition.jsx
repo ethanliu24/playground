@@ -31,7 +31,13 @@ export default function PageTransition(props) {
     })
 
     const master = gsap.timeline({
-      onComplete: () => containerRef.current.style.display = 'none',
+      onStart: () => {
+        document.body.style.overflow = "hidden";
+      },
+      onComplete: () => {
+        containerRef.current.style.display = 'none'
+        document.body.style.overflow = "visible";
+      },
       repeat: 0,
       defaults: {
         duration: animationDur,
