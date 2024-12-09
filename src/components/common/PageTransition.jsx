@@ -38,6 +38,8 @@ export default function PageTransition(props) {
         "75%": {
           width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
           x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
+        },
+        "90%": {
           opacity: 0.7,
         },
         "100%": {
@@ -48,7 +50,7 @@ export default function PageTransition(props) {
       },
 
       ease: "expo.out",
-      duration: 3,
+      duration: 3.5,
     })
 
     // rippleMainTL.from("#ripple-main", {
