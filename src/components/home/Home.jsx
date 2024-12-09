@@ -11,7 +11,7 @@ function Home() {
 
       <div className="get-headphones-reminder">
         <img src={headphoneIcon} id="headphone-icon" className="icon" alt="" />
-        <div>Maybe grab a headphone if you haven't?</div>
+        <div>Maybe grab a headphone and use a laptop?</div>
       </div>
       <div id="border-text-left" className="border-text">An excuse for me to make botanica</div>
       <div id="border-text-right" className="border-text">Made by Ethan</div>
