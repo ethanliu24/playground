@@ -87,6 +87,12 @@
   opacity: 0;
 }
 
+@media (max-width: 1023px) {
+  #transition-subtitle {
+    text-wrap: wrap;
+  }
+}
+
 @media (max-width: 767px) {
   #transition-title,
   #transition-subtitle {

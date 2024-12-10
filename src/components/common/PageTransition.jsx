@@ -43,7 +43,7 @@ export default function PageTransition(props) {
         document.body.style.overflow = "hidden";
       },
       onComplete: () => {
-        containerRef.current.style.display = 'none'
+        containerRef.current.style.display = 'none';
         document.body.style.overflow = "visible";
       },
       repeat: 0,
@@ -80,7 +80,8 @@ export default function PageTransition(props) {
       opacity: 1,
       letterSpacing: letterSpacing,
       duration: duration,
-      ease: "expo.out"
+      marginLeft: letterSpacing,
+      ease: "expo.out",
     }
   }
 
