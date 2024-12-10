@@ -15,10 +15,14 @@ function App() {
         <Route
           key={data.path}
           path={data.path}
-          element={<PageTransition page={data.element} />}
-          title={data.title}
-          subtitle={data.subtitle}
-          clipVisual={data.clipVisual}
+          element={
+            <PageTransition
+              page={data.element}
+              title={data.title}
+              subtitle={data.subtitle}
+              clipVisual={data.clipVisual}
+            />
+          }
         />
       })}
       <Route path="/" element={<PageTransition page={<Home />} />} />
