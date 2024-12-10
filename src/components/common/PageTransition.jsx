@@ -8,8 +8,11 @@ gsap.registerPlugin(useGSAP);
 export default function PageTransition(props) {
   const containerRef = useRef();
   const titleRef = useRef();
+  const subtitleRef = useRef();
 
   useGSAP(() => {
+    if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
+
     // TODO set duration to max(5, music.length)
     const animationDur = 5;
 
@@ -30,7 +33,10 @@ export default function PageTransition(props) {
       subRippleTL.to(elem, rippleAnimationProps(subRippleIncrementRate, 0.7, subRippleDur), (i * 0.3) + subRippleDelayTime);
     })
 
-    if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
+    const titleTL = gsap.timeline();
+    titleTL.to(titleRef.current, textAnimationProps("2rem", 3), mainRippleDelayTime);
+    const subtitleTL = gsap.timeline();
+    subtitleTL.to(subtitleRef.current, textAnimationProps("0.4rem", 3), mainRippleDelayTime);
 
     const master = gsap.timeline({
       onStart: () => {
@@ -66,6 +72,16 @@ export default function PageTransition(props) {
       ease: "expo.out",
       duration: duration,
     };
+  }
+
+  // Animation properties for texts. For letterSpacing, include the unit as well.
+  const textAnimationProps = (letterSpacing, duration) => {
+    return {
+      opacity: 1,
+      letterSpacing: letterSpacing,
+      duration: duration,
+      ease: "expo.out"
+    }
   }
 
   // Generate a random position in the second quadrant.
@@ -140,7 +156,7 @@ export default function PageTransition(props) {
 
         <div id="transition-text-wrapper">
           <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
-          <h2 id="transition-subtitle">{props.subtitle}</h2>
+          <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
         </div>
       </div>
 

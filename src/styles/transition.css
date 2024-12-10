@@ -82,6 +82,11 @@
   font-weight: 300;
 }
 
+#transition-title,
+#transition-subtitle {
+  opacity: 0;
+}
+
 @media (max-width: 767px) {
   #transition-title,
   #transition-subtitle {
