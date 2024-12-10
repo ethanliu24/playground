@@ -12,7 +12,7 @@ function App() {
   return (
     <Routes>
       {routes.map((data) => {
-        <Route
+        return <Route
           key={data.path}
           path={data.path}
           element={
@@ -25,7 +25,6 @@ function App() {
           }
         />
       })}
-      <Route path="/" element={<PageTransition page={<Home />} />} />
     </Routes>
   );
 }
