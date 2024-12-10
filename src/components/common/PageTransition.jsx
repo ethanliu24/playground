@@ -20,8 +20,8 @@ export default function PageTransition(props) {
     const mainRippleDur = 3.5;
     const mainRippleDelayTime = 0.5;
 
-    const subRippleIncrementRate = 400;
-    const subRippleDur = 3.5;
+    const subRippleIncrementRate = 500;
+    const subRippleDur = 6;
     const subRippleDelayTime = mainRippleDelayTime + 0.5;
     const subRipples = document.querySelectorAll(".sub-ripple");
 
@@ -30,13 +30,13 @@ export default function PageTransition(props) {
 
     const subRippleTL = gsap.timeline();
     subRipples.forEach((elem, i) => {
-      subRippleTL.to(elem, rippleAnimationProps(subRippleIncrementRate, 0.7, subRippleDur), (i * 0.3) + subRippleDelayTime);
+      subRippleTL.to(elem, rippleAnimationProps(subRippleIncrementRate, 0.9, subRippleDur), (i * 0.3) + subRippleDelayTime);
     })
 
     const titleTL = gsap.timeline();
-    titleTL.to(titleRef.current, textAnimationProps("2rem", 3), mainRippleDelayTime);
+    titleTL.to(titleRef.current, textAnimationProps("2rem", animationDur / 2), mainRippleDelayTime);
     const subtitleTL = gsap.timeline();
-    subtitleTL.to(subtitleRef.current, textAnimationProps("0.4rem", 3), mainRippleDelayTime);
+    subtitleTL.to(subtitleRef.current, textAnimationProps("0.4rem", animationDur / 2), mainRippleDelayTime);
 
     const master = gsap.timeline({
       onStart: () => {

@@ -40,7 +40,7 @@
 .ripple {
   opacity: 0;
   background-color: transparent;
-  border: 2px solid var(--TEXT_PRIMARY);
+  border: 1px solid var(--TEXT_PRIMARY);
   border-radius: 50%;
 }
 
