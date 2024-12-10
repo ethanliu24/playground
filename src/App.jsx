@@ -4,14 +4,19 @@ import PageTransition from "./components/common/PageTransition.jsx";
 import Home from "./components/home/Home.jsx";
 
 function App() {
-  const routes = [
-    {
-      path: "/",
-      element: <Home />,
-      title: "Hey Hello",
-      subtitle: "I got diabetes ahsdkfhjsa sdljkf asflkkasd h",
-      clipVisual: bgImg.forestGIF,
+  const constructRouteData = (path, element, title, subtitle, clipVisual) => {
+    return {
+      path: path,
+      element: element,
+      title: title,
+      subtitle: subtitle,
+      clipVisual: clipVisual,
     }
+  }
+
+  // These routes are intended for pages that needs a page animation
+  const routes = [
+    constructRouteData("/", <Home />, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.forestGIF),
   ];
 
   return (
