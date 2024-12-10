@@ -7,7 +7,7 @@ gsap.registerPlugin(useGSAP);
 // TODO add music param
 export default function PageTransition(props) {
   const containerRef = useRef();
-  // const cover = useRef();
+  const titleRef = useRef();
 
   useGSAP(() => {
     // TODO set duration to max(5, music.length)
@@ -29,6 +29,8 @@ export default function PageTransition(props) {
     subRipples.forEach((elem, i) => {
       subRippleTL.to(elem, rippleAnimationProps(subRippleIncrementRate, 0.7, subRippleDur), (i * 0.3) + subRippleDelayTime);
     })
+
+    if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
 
     const master = gsap.timeline({
       onStart: () => {
@@ -122,6 +124,7 @@ export default function PageTransition(props) {
     <>
       <div id="transition-container" ref={containerRef}>
         <div id="transition-cover-layer"></div>
+
         <div id="ripple-main-wrapper">
           <div id="ripple-main" className="ripple fixed-scalable"></div>
         </div>
@@ -134,6 +137,11 @@ export default function PageTransition(props) {
             <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
           </div>) : null;
         })}
+
+        <div id="transition-text-wrapper">
+          <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
+          <h2 id="transition-subtitle">{props.subtitle}</h2>
+        </div>
       </div>
 
       {props.page}
