@@ -29,13 +29,19 @@
   transform: scaleX(-1) scaleY(-1);
 }
 
-.transition-ripple {
+.fixed-scalable {
+  width: 100%;
+  height: 100%;
+  position: relative;
+  top: -50%;
+  left: -50%;
+}
+
+.ripple {
+  /* opacity: 0; */
   background-color: transparent;
   border: 2px solid var(--TEXT_PRIMARY);
   border-radius: 50%;
-  width: 10px;
-  height: 10px;
-  position: fixed;
 }
 
 #ripple-main-wrapper {
@@ -46,10 +52,3 @@
   left: 50%;
 }
 
-#ripple-main {
-  width: 100%;
-  height: 100%;
-  position: relative;
-  top: -50%;
-  left: -50%;
-}

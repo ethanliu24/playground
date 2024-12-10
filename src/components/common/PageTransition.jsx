@@ -44,18 +44,81 @@ export default function PageTransition(props) {
       }
     });
 
+    master.add(rippleMainTL, "+=0.3")
+
     master
       .to(containerRef.current, { duration: animationDur, opacity: 1 })
       .to(containerRef.current, { duration: 1, opacity: 0 })
   }, { scope: containerRef });
+
+  // Generate a random position in the second quadrant.
+  // The return value's unit is in % relative to the viewport
+  const generatePos = () => {
+    // The amount of space to avoid from the second quadrant
+    const boundLeft = 0.4;
+    const boundRight = 0.8;
+    const boundTop = 0.2;
+    const boundBottom = 0.9;
+
+    // The right and bottom bounds of the second quadrant - their intersection is the origin
+    const quadBoundX = window.innerWidth / 2;
+    const quadBoundY = window.innerHeight / 2;
+
+    // The points inside these bounds are where we generate a ripple
+    const maxBoundX = quadBoundX * boundRight;
+    const minBoundX = quadBoundX * boundLeft;
+    const maxBoundY = quadBoundY * boundBottom;
+    const minBoundY = quadBoundY * boundTop;
+
+    const x = Math.floor((Math.random() * (maxBoundX - minBoundX) + minBoundX) / window.innerWidth * 100);
+    const y = Math.floor((Math.random() * (maxBoundY - minBoundY) + minBoundY) / window.innerHeight * 100);
+    return [x, y];
+  }
+
+  // Generates styles for a sub ripple
+  const generateStyles = (isLeft, isTop) => {
+    const [rawX, rawY] = generatePos();
+
+    let x, y;
+    if (isLeft && isTop) { // quadrant 2
+      x = rawX;
+      y = rawY;
+    } else if (!isLeft && isTop) { // quadrant 1
+      x = 100 - rawX;
+      y = rawY;
+    } else if (isLeft && !isTop) { // quadrant 4
+      x = 100 - rawX;
+      y = 100 - rawY;
+    } else { // quadrant 3
+      x = rawX;
+      y = 100 - rawY;
+    }
+
+    return {
+      position: "fixed",
+      width: "50px",
+      height: "50px",
+      left: `${x}%`,
+      top: `${y}%`,
+    };
+  }
 
   return (
     <>
       <div id="transition-container" ref={containerRef}>
         <div id="transition-cover-layer"></div>
         <div id="ripple-main-wrapper">
-          <div id="ripple-main" className="transition-ripple"></div>
+          <div id="ripple-main" className="ripple fixed-scalable"></div>
         </div>
+
+        {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
+          const [isLeft, isTop] = item;
+          const generateRipple = Math.random() > 0.4;
+
+          return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
+            <div id={`sub-ripple-${i}`} className="ripple fixed-scalable"></div>
+          </div>) : null;
+        })}
       </div>
 
       {props.page}
