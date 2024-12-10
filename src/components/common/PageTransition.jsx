@@ -12,22 +12,22 @@ export default function PageTransition(props) {
   useGSAP(() => {
     // TODO set duration to max(5, music.length)
     const animationDur = 5;
+
     const mainRippleIncrementRate = 900;
+    const mainRippleDur = 3.5;
+    const mainRippleDelayTime = 0.5;
 
-    const rippleMainTL = gsap.timeline();
-    rippleMainTL.to("#ripple-main", {
-      keyframes: {
-        easeEach: "none",
-        "0%": { opacity: 0 },
-        "10%": { opacity: 0.7 },
-        "90%": { opacity: 0.7 },
-        "100%": { opacity: 0 },
-      },
+    const subRippleIncrementRate = 400;
+    const subRippleDur = 3.5;
+    const subRippleDelayTime = mainRippleDelayTime + 0.5;
+    const subRipples = document.querySelectorAll(".sub-ripple");
 
-      width: `+=${mainRippleIncrementRate}`, height: `+=${mainRippleIncrementRate}`,
-      x: `-=${mainRippleIncrementRate / 2}`, y: `-=${mainRippleIncrementRate / 2}`,
-      ease: "expo.out",
-      duration: 3.5,
+    const mainRippleTL = gsap.timeline();
+    mainRippleTL.to("#ripple-main", rippleAnimationProps(mainRippleIncrementRate, 0.7, mainRippleDur), mainRippleDelayTime);
+
+    const subRippleTL = gsap.timeline();
+    subRipples.forEach((elem, i) => {
+      subRippleTL.to(elem, rippleAnimationProps(subRippleIncrementRate, 0.7, subRippleDur), (i * 0.3) + subRippleDelayTime);
     })
 
     const master = gsap.timeline({
@@ -44,12 +44,27 @@ export default function PageTransition(props) {
       }
     });
 
-    master.add(rippleMainTL, "+=0.3")
-
     master
       .to(containerRef.current, { duration: animationDur, opacity: 1 })
       .to(containerRef.current, { duration: 1, opacity: 0 })
   }, { scope: containerRef });
+
+  const rippleAnimationProps = (rate, opacity, duration) => {
+    return {
+      keyframes: {
+        easeEach: "none",
+        "0%": { opacity: 0 },
+        "10%": { opacity: opacity },
+        "80%": { opacity: opacity },
+        "100%": { opacity: 0 },
+      },
+
+      width: `+=${rate}`, height: `+=${rate}`,
+      x: `-=${rate / 2}`, y: `-=${rate / 2}`,
+      ease: "expo.out",
+      duration: duration,
+    };
+  }
 
   // Generate a random position in the second quadrant.
   // The return value's unit is in % relative to the viewport
@@ -96,8 +111,8 @@ export default function PageTransition(props) {
 
     return {
       position: "fixed",
-      width: "50px",
-      height: "50px",
+      width: "30px",
+      height: "30px",
       left: `${x}%`,
       top: `${y}%`,
     };
@@ -116,7 +131,7 @@ export default function PageTransition(props) {
           const generateRipple = Math.random() > 0.4;
 
           return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
-            <div id={`sub-ripple-${i}`} className="ripple fixed-scalable"></div>
+            <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
           </div>) : null;
         })}
       </div>
