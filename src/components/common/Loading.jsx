@@ -1,5 +1,4 @@
 export default function Loading() {
-  console.log("hi")
   return (
     <>
       <div>HI</div>

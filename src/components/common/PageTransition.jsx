@@ -1,11 +1,14 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef } from "react";
+import { useRef, useState } from "react";
+import Loading from "./Loading.jsx";
 
 gsap.registerPlugin(useGSAP);
 
 // TODO add music param
 export default function PageTransition(props) {
+  const [isLoading, setIsLoading] = useState(true);
+
   const containerRef = useRef();
   const titleRef = useRef();
   const subtitleRef = useRef();
@@ -137,31 +140,43 @@ export default function PageTransition(props) {
     };
   }
 
+  // The page to display after the animations
+  const Page = props.page;
+
+  /* It is neccessary that we load both the Loading and the other components together because
+   * in useGSAP, it needs to access those elements in the DOM to apply animations to it.
+   */
   return (
     <>
-      <div id="transition-container" ref={containerRef}>
-        <div id="transition-cover-layer"></div>
-
-        <div id="ripple-main-wrapper">
-          <div id="ripple-main" className="ripple fixed-scalable"></div>
-        </div>
-
-        {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
-          const [isLeft, isTop] = item;
-          const generateRipple = Math.random() > 0.4;
-
-          return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
-            <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
-          </div>) : null;
-        })}
-
-        <div id="transition-text-wrapper">
-          <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
-          <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
-        </div>
+      <div style={{ display: isLoading ? "block" : "none"}}>
+        <Loading />
       </div>
 
-      {props.page}
+      <div style={{ display: !isLoading ? "block" : "none"}}>
+        <div id="transition-container" ref={containerRef}>
+          <div id="transition-cover-layer"></div>
+
+          <div id="ripple-main-wrapper">
+            <div id="ripple-main" className="ripple fixed-scalable"></div>
+          </div>
+
+          {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
+            const [isLeft, isTop] = item;
+            const generateRipple = Math.random() > 0.4;
+
+            return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
+              <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
+            </div>) : null;
+          })}
+
+          <div id="transition-text-wrapper">
+            <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
+            <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
+          </div>
+        </div>
+
+        <Page />
+      </div>
     </>
   );
 }

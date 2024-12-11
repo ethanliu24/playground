@@ -16,7 +16,7 @@ function App() {
 
   // These routes are intended for pages that needs a page animation
   const routes = [
-    constructRouteData("/", <Home />, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.forestGIF),
+    constructRouteData("/", Home, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.forestGIF),
   ];
 
   return (
