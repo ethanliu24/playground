@@ -39,6 +39,7 @@ export default function Loading() {
     // lmfao this is useless
     const loadDuration = 2;
     const loadDelay = 1;
+    let percentage = { progress: 0 };
 
     gsap.timeline({ repeat: 0 }).to("#load-progress", {
       "--progress": "99%",
@@ -58,7 +59,6 @@ export default function Loading() {
     }, loadDelay);
   }, []);
 
-  let percentage = { progress: 0 };
   const startTime = Date.now();
 
   return (
