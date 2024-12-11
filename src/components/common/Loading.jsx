@@ -8,14 +8,12 @@ export default function Loading() {
   const [waitMessage, setWaitMessage] = useState("");
 
   useGSAP(() => {
-    const tl = gsap.timeline({ repeat: -1 });
-
     const loadingTextNodeList = document.querySelectorAll(".loading-text-elem");
     const loader = [document.getElementById("loader")];
     const loadingText = Array.from(loadingTextNodeList);
 
     gsap.timeline({ repeat: -1 }).to(loader.at(0), { duration: 1, rotate: 360, ease: "none" }) // loader spin animation
-    tl.to(loadingText.concat(loader), {
+    gsap.timeline({ repeat: -1 }).to(loadingText.concat(loader), {
       opacity: 1,
       stagger: 0.08,
       duration: 0.7,
@@ -35,12 +33,19 @@ export default function Loading() {
       duration: 5,
       ease: "expo.out",
     }, 6);
+
+    gsap.timeline({ repeat: 0 }).to("#load-progress", {
+      "--progress": "99%",
+      duration: 1,
+      ease: "expo.inOut",
+    }, 1.5);
   }, []);
 
   const startTime = Date.now();
 
   return (
     <>
+      <div id="load-progress"></div>
       <div id="load-percentage-container">
         <div id="load-percentage">00%</div>
       </div>
