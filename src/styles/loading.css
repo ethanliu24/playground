@@ -36,18 +36,3 @@
 #wait-text {
   font-size: 1rem;
 }
-
-/* <>
-<div>HI</div>
-<div id="load-percentage-container">
-  <div id="load-percentage">0</div>
-</div>
-<div id="loading-text-container">
-  <div id="loading-text">
-    {("LOADING").split("").map((letter) => {
-      return <div className="loading-text-letter" key={letter}>{letter}</div>
-    })}
-  </div>
-  <div id="wait-text"></div>
-</div>
-</> */
