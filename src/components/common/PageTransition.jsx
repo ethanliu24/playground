@@ -1,6 +1,6 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useRef, useState } from "react";
+import { useCallback, useRef, useState } from "react";
 import Loading from "./Loading.jsx";
 
 gsap.registerPlugin(useGSAP);
@@ -14,6 +14,8 @@ export default function PageTransition(props) {
   const subtitleRef = useRef();
 
   useGSAP(() => {
+    if (isLoading) return;
+
     if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
 
     // TODO set duration to max(5, music.length)
@@ -58,7 +60,7 @@ export default function PageTransition(props) {
     master
       .to(containerRef.current, { duration: animationDur, opacity: 1 })
       .to(containerRef.current, { duration: 1, opacity: 0 })
-  }, { scope: containerRef });
+  }, [isLoading]);
 
   const rippleAnimationProps = (rate, opacity, duration) => {
     return {
@@ -140,11 +142,16 @@ export default function PageTransition(props) {
     };
   }
 
+  const loadingComplete = useCallback(() => {
+    setIsLoading(false);
+  });
+
   // The page to display after the animations
   const Page = props.page;
 
   /* It is neccessary that we load both the Loading and the other components together because
-   * in useGSAP, it needs to access those elements in the DOM to apply animations to it.
+   * we set the isLoading state to false after the child component is mounted and loaded.
+   * If we just return a Loading component, the isLoading state will never be updated.
    */
   return (
     <>
@@ -175,7 +182,7 @@ export default function PageTransition(props) {
           </div>
         </div>
 
-        <Page />
+        <Page loadingComplete={loadingComplete} />
       </div>
     </>
   );
