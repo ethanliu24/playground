@@ -7,7 +7,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 1px solid #e0e0e0;
+  border: 1px solid var(--LIGHT_GRAY);
   border-radius: 50%;
   margin: max(1.5rem, 3vw);
 }
@@ -31,6 +31,23 @@
 
 #loading-text {
   font-size: 2rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.loading-text-elem {
+  opacity: 0;
+}
+
+#loader {
+  border: 3px solid var(--LIGHT_GRAY);
+  border-top: 3px solid var(--TEXT_PRIMARY);
+  border-radius: 50%;
+  width: 1.7rem;
+  height: 1.7rem;
+  margin-left: 1rem;
+  opacity: 0;
 }
 
 #wait-text {

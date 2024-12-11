@@ -54,6 +54,7 @@ h1, h2, h3, h4, h5, h6 {
 :root {
   --BACKGROUND_HOME: #f2f2f2;
   --TEXT_PRIMARY: #5b5b5a;
+  --LIGHT_GRAY: #e0e0e0;
   --FONT_WEIGHT_DEFAULT: 400;
   --TEXT_SPACING: 0.17rem;
 }
