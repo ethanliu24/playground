@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
@@ -6,6 +6,8 @@ gsap.registerPlugin(useGSAP);
 
 export default function Loading() {
   const [waitMessage, setWaitMessage] = useState("");
+
+  const percentageRef = useRef();
 
   useGSAP(() => {
     const loadingTextNodeList = document.querySelectorAll(".loading-text-elem");
@@ -34,20 +36,36 @@ export default function Loading() {
       ease: "expo.out",
     }, 6);
 
+    // lmfao this is useless
+    const loadDuration = 2;
+    const loadDelay = 1;
+
     gsap.timeline({ repeat: 0 }).to("#load-progress", {
       "--progress": "99%",
-      duration: 1,
+      duration: loadDuration,
       ease: "expo.inOut",
-    }, 1.5);
+    }, loadDelay * 1)
+
+    gsap.timeline({ repeat: 0 }).to(percentage, {
+      progress: 99,
+      duration: loadDuration,
+      ease: "expo.inOut",
+      onUpdate: () => {
+        percentageRef.current.innerText = Math.min(99,
+          Math.floor(percentage.progress)
+        ).toString().padStart(2, "0") + "%";
+      }
+    }, loadDelay);
   }, []);
 
+  let percentage = { progress: 0 };
   const startTime = Date.now();
 
   return (
     <>
       <div id="load-progress"></div>
       <div id="load-percentage-container">
-        <div id="load-percentage">00%</div>
+        <div id="load-percentage" ref={percentageRef}>00%</div>
       </div>
       <div id="loading-text-container">
         <div id="loading-text">

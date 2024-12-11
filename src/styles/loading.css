@@ -1,6 +1,6 @@
 :root {
   --load_progress_size: max(7rem, 16vw); /* size of the progress container */
-  --load_progress_bar_thickness: 3px;
+  --load_progress_bar_thickness: 2px;
   --load_progress_bar_size: calc(var(--load_progress_size) + var(--load_progress_bar_thickness)); /* size of the progress bar */
   --load_progress_margin: max(1.5rem, 3vw);
   --load_percentage_size: max(2rem, 4.5vw);
