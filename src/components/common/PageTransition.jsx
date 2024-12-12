@@ -155,9 +155,10 @@ export default function PageTransition(props) {
    */
   return (
     <>
-      <div className="dummy-container" style={{ display: isLoading ? "block" : "none" }}>
-        <Loading />
-      </div>
+      { isLoading ? <div className="dummy-container" style={{ display: isLoading ? "block" : "none" }}>
+          <Loading />
+        </div> : null
+      }
 
       <div className="dummy-container" style={{ display: !isLoading ? "block" : "none" }}>
         <div id="transition-container" ref={containerRef}>
