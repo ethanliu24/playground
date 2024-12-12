@@ -11,4 +11,4 @@ const bgImg = {
   sakuraIMG,
 };
 
-export default bgImg;
+export { bgImg };
