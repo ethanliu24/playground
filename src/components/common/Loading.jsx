@@ -83,7 +83,7 @@ export default function Loading() {
 
     return () => {
       clearInterval(timer);
-      waitAnimation.kill();
+      // waitAnimation.kill();
     };
   }, [])
 
