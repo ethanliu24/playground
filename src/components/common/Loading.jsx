@@ -1,13 +1,25 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
+const waitMessageDisplay = {
+  0: "one moment",
+  5: "hang in there we'll get there",
+  10: "just a little bit longer",
+  20: "almost there...",
+  30: "it takes quite a bit innit ahahaahh",
+  60: "alr bro its not my problem u need to get better wifi",
+  120: "why are u still here??"
+}
 
 export default function Loading() {
-  const [waitMessage, setWaitMessage] = useState("");
+  const [second, setSecond] = useState(0);
+  const [lastMsgTime, setLastMsgTime] = useState(0);
+  const [waitMessage, setWaitMessage] = useState("*");
 
   const percentageRef = useRef();
+  const waitTextRef = useRef();
 
   useGSAP(() => {
     const loadingTextNodeList = document.querySelectorAll(".loading-text-elem");
@@ -59,10 +71,37 @@ export default function Loading() {
     }, loadDelay);
   }, []);
 
-  const startTime = Date.now();
+  useEffect(() => {
+    const timer = setInterval(() => { setSecond(s => s + 1) } , 1000);
+    // const waitAnimation = gsap.timeline({ repeat: 0, paused: true }).to(waitTextRef, {
+    //   opacity: 1,
+    //   duration: 0.2,
+    // }).to(waitTextRef, {
+    //   opacity: 0,
+    //   duration: 0.2,
+    // }, waitMessageDisplay[lastMsgTime] * 0.8);
+
+    return () => {
+      clearInterval(timer);
+      waitAnimation.kill();
+    };
+  }, [])
+
+  useEffect(() => {
+    setWaitMessage(getWaitMessage());
+    setLastMsgTime(second)
+  }, [second])
+
+  // useEffect(() => {
+  //   waitAnimation.play();
+  // }, [waitMessage])
+
+  const getWaitMessage = () => {
+    return second in waitMessageDisplay ? waitMessageDisplay[second] : waitMessage;
+  }
 
   return (
-    <>
+    <div style={{ display: second < 1 ? "none" : "inline" }}>
       <div id="load-progress"></div>
       <div id="load-percentage-container">
         <div id="load-percentage" ref={percentageRef}>00%</div>
@@ -74,8 +113,8 @@ export default function Loading() {
           })}
           <div id="loader"></div>
         </div>
-        <div id="wait-text">wait</div>
+        <div id="wait-text" ref={waitTextRef}>{waitMessage}</div>
       </div>
-    </>
+    </div>
   );
 }
