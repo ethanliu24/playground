@@ -4,7 +4,7 @@ import { useGSAP } from "@gsap/react";
 
 gsap.registerPlugin(useGSAP);
 const waitMessageDisplay = {
-  0: "one moment",
+  // 0: "one moment",
   5: "hang in there we'll get there",
   10: "just a little bit longer",
   20: "almost there...",
@@ -15,15 +15,20 @@ const waitMessageDisplay = {
 
 export default function Loading() {
   const [second, setSecond] = useState(0);
-  const [lastMsgTime, setLastMsgTime] = useState(0);
   const [waitMessage, setWaitMessage] = useState("*");
 
-  const containerRef = useRef();
-  const percentageRef = useRef();
-  const waitTextRef = useRef();
+  const containerRef = useRef(null);
+  const percentageRef = useRef(null);
+  const waitTextRef = useRef(null);
+  const waitAnimationRef = useRef(null);
 
   useGSAP(() => {
     gsap.timeline().to("#loading-container", {
+      opacity: 1,
+      duration: 1,
+    });
+
+    waitAnimationRef.current = gsap.timeline({ repeat: 0, paused: true }).to(waitTextRef.current, {
       opacity: 1,
       duration: 1,
     });
@@ -79,28 +84,21 @@ export default function Loading() {
 
   useEffect(() => {
     const timer = setInterval(() => { setSecond(s => s + 1) } , 1000);
-    // const waitAnimation = gsap.timeline({ repeat: 0, paused: true }).to(waitTextRef, {
-    //   opacity: 1,
-    //   duration: 0.2,
-    // }).to(waitTextRef, {
-    //   opacity: 0,
-    //   duration: 0.2,
-    // }, waitMessageDisplay[lastMsgTime] * 0.8);
 
     return () => {
       clearInterval(timer);
-      // waitAnimation.kill();
     };
   }, [])
 
   useEffect(() => {
     setWaitMessage(getWaitMessage());
-    setLastMsgTime(second)
   }, [second])
 
-  // useEffect(() => {
-  //   waitAnimation.play();
-  // }, [waitMessage])
+  useEffect(() => {
+    if (waitTextRef.current.innerText != "*" && waitAnimationRef.current) {
+      waitAnimationRef.current.restart();
+    }
+  }, [waitMessage])
 
   const getWaitMessage = () => {
     return second in waitMessageDisplay ? waitMessageDisplay[second] : waitMessage;
