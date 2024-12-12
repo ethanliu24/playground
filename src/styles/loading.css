@@ -7,6 +7,11 @@
   --progress: 0%;
 }
 
+#loading-container {
+  display: inline;
+  opacity: 0;
+}
+
 #load-percentage-container {
   position: absolute;
   bottom: 0;

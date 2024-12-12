@@ -18,10 +18,16 @@ export default function Loading() {
   const [lastMsgTime, setLastMsgTime] = useState(0);
   const [waitMessage, setWaitMessage] = useState("*");
 
+  const containerRef = useRef();
   const percentageRef = useRef();
   const waitTextRef = useRef();
 
   useGSAP(() => {
+    gsap.timeline().to("#loading-container", {
+      opacity: 1,
+      duration: 1,
+    });
+
     const loadingTextNodeList = document.querySelectorAll(".loading-text-elem");
     const loader = [document.getElementById("loader")];
     const loadingText = Array.from(loadingTextNodeList);
@@ -101,7 +107,7 @@ export default function Loading() {
   }
 
   return (
-    <div style={{ display: second < 1 ? "none" : "inline" }}>
+    <div id="loading-container" ref={containerRef}>
       <div id="load-progress"></div>
       <div id="load-percentage-container">
         <div id="load-percentage" ref={percentageRef}>00%</div>
