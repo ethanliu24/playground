@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { bgImg } from "./transitionAssets.js";
-import PageTransition from "./components/common/PageTransition.jsx";
+import PageTransition from "./components/transition/PageTransition.jsx";
 import Home from "./components/home/Home.jsx";
 
 function App() {
