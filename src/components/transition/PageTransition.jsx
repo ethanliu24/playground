@@ -8,6 +8,7 @@ gsap.registerPlugin(useGSAP);
 // TODO add music param
 export default function PageTransition(props) {
   const [isLoading, setIsLoading] = useState(true);
+  const [animationCompleted, setAnimationCompleted] = useState(false);
 
   const containerRef = useRef();
   const titleRef = useRef();
@@ -50,6 +51,7 @@ export default function PageTransition(props) {
       onComplete: () => {
         containerRef.current.style.display = 'none';
         document.body.style.overflow = "visible";
+        setAnimationCompleted(true);
       },
       repeat: 0,
       defaults: {
@@ -183,7 +185,7 @@ export default function PageTransition(props) {
           </div>
         </div>
 
-        <Page loadingComplete={loadingComplete} />
+        <Page loadingComplete={loadingComplete} animationCompleted={animationCompleted} />
       </div>
     </>
   );
