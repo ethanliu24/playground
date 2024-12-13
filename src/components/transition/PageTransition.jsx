@@ -166,10 +166,7 @@ export default function PageTransition(props) {
    */
   return (
     <>
-      { isLoading ? <div className="dummy-container" style={{ display: isLoading ? "block" : "none" }}>
-          <Loading />
-        </div> : null
-      }
+      { isLoading ? <div className="dummy-container"><Loading /></div> : null }
 
       { !userInteracted ? <Entry userDidInteract={userDidInteract} /> : null }
 
