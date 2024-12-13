@@ -3,6 +3,7 @@ import { useRef, useEffect } from "react";
 
 export default function Entry(props) {
   const orbRef = useRef(null);
+  const reminderRef = useRef(null);
 
   useEffect(() => {
     const orb = orbRef.current;
@@ -24,8 +25,15 @@ export default function Entry(props) {
     });
 
     orb.addEventListener("click", () => {
+      console.log(reminderRef.current)
+      gsap.to(reminderRef.current, {
+        scale: 0,
+        y: 30,
+        duration: 0.3,
+        ease: "power4.out",
+      });
+
       gsap.to(orbRef.current, {
-        "--entry-fade": "100%",
         opacity: 0,
         scale: 0,
         duration: 0.5,
@@ -43,15 +51,15 @@ export default function Entry(props) {
     };
   }, []);
 
-  const handleClick = () => {
-    // props.userDidInteract();
-  }
-
   return (
     <div id="entry-container">
       <button className="user-interactable" ref={orbRef}>
         click
       </button>
+
+      <div className="get-headphones-reminder" ref={reminderRef}>
+        <div>reminder - there will be sounds</div>
+      </div>
     </div>
   );
 }
