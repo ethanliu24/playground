@@ -1,4 +1,4 @@
-import { createContext, useRef } from "react";
+import { createContext, useContext, useRef } from "react";
 
 export const TransitionAudioContext = createContext(undefined);
 
@@ -51,3 +51,18 @@ export default function TransitionAudioProvider({ children }) {
   );
 }
 
+/**
+ * Custom hook to avoid the need to explicitly check for audio availability in every componenet
+ * that uses this.
+ */
+export function useTransitionAudio() {
+  const audio = useContext(TransitionAudioContext);
+
+  if (audio === undefined) {
+    throw new Error(
+      "Audio not found - useTransitionAudio hook must be used within a TransitionAudioProvider."
+    );
+  }
+
+  return audio;
+}
