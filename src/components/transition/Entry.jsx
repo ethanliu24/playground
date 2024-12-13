@@ -25,7 +25,6 @@ export default function Entry(props) {
     });
 
     orb.addEventListener("click", () => {
-      console.log(reminderRef.current)
       gsap.to(reminderRef.current, {
         scale: 0,
         y: 30,

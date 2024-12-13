@@ -169,32 +169,37 @@ export default function PageTransition(props) {
    */
   return (
     <>
-      { isLoading ? <div className="dummy-container"><Loading /></div> : null }
+      { isLoading ? <Loading /> : null }
 
-      { !userInteracted ? <Entry userDidInteract={userDidInteract} /> : null }
+      { !isLoading ? (
+          !userInteracted ? <Entry userDidInteract={userDidInteract} /> : null
+        ) : null
+      }
 
       <div className="dummy-container" style={{ display: !isLoading && userInteracted ? "block" : "none" }}>
-        <div id="transition-container" ref={containerRef}>
-          <div id="transition-cover-layer"></div>
+        {/* TODO split the transition animation code and component in a diff file */}
+        { !animationCompleted ? <div id="transition-container" ref={containerRef}>
+            <div id="transition-cover-layer"></div>
 
-          <div id="ripple-main-wrapper">
-            <div id="ripple-main" className="ripple fixed-scalable"></div>
-          </div>
+            <div id="ripple-main-wrapper">
+              <div id="ripple-main" className="ripple fixed-scalable"></div>
+            </div>
 
-          {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
-            const [isLeft, isTop] = item;
-            const generateRipple = Math.random() > 0.4;
+            {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
+              const [isLeft, isTop] = item;
+              const generateRipple = Math.random() > 0.4;
 
-            return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
-              <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
-            </div>) : null;
-          })}
+              return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
+                <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
+              </div>) : null;
+            })}
 
-          <div id="transition-text-wrapper">
-            <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
-            <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
-          </div>
-        </div>
+            <div id="transition-text-wrapper">
+              <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
+              <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
+            </div>
+          </div> : null
+        }
 
         <Page loadingComplete={loadingComplete} animationCompleted={animationCompleted} />
       </div>

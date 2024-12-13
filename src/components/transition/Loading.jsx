@@ -83,10 +83,12 @@ export default function Loading() {
   }, []);
 
   useEffect(() => {
+    document.body.style.overflow = "hidden";
     const timer = setInterval(() => { setSecond(s => s + 1) } , 1000);
 
     return () => {
       clearInterval(timer);
+      document.body.style.overflow = "visible";
     };
   }, [])
 
