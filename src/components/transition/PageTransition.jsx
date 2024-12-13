@@ -2,12 +2,14 @@ import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
 import { useCallback, useRef, useState } from "react";
 import Loading from "./Loading.jsx";
+import Entry from "./Entry.jsx";
 
 gsap.registerPlugin(useGSAP);
 
 // TODO add music param
 export default function PageTransition(props) {
   const [isLoading, setIsLoading] = useState(true);
+  const [userInteracted, setUserInteracted] = useState(false);
   const [animationCompleted, setAnimationCompleted] = useState(false);
 
   const containerRef = useRef();
@@ -17,14 +19,17 @@ export default function PageTransition(props) {
   useGSAP(() => {
     if (isLoading) return;
 
+    if (!userInteracted) return;
+
     if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
 
+    // new Audio("src/assets/botanica_swells/botanica_1.wav").play();
     // TODO set duration to max(5, music.length)
     const animationDur = 5;
 
     const mainRippleIncrementRate = 900;
     const mainRippleDur = 3.5;
-    const mainRippleDelayTime = 0.5;
+    const mainRippleDelayTime = 0.3;
 
     const subRippleIncrementRate = 500;
     const subRippleDur = 6;
@@ -62,7 +67,7 @@ export default function PageTransition(props) {
     master
       .to(containerRef.current, { duration: animationDur, opacity: 1 })
       .to(containerRef.current, { duration: 1, opacity: 0 })
-  }, [isLoading]);
+  }, [isLoading, userInteracted]);
 
   const rippleAnimationProps = (rate, opacity, duration) => {
     return {
@@ -148,6 +153,10 @@ export default function PageTransition(props) {
     setIsLoading(false);
   });
 
+  const userDidInteract = useCallback(() => {
+    setUserInteracted(true);
+  })
+
   // The page to display after the animations
   const Page = props.page;
 
@@ -162,7 +171,9 @@ export default function PageTransition(props) {
         </div> : null
       }
 
-      <div className="dummy-container" style={{ display: !isLoading ? "block" : "none" }}>
+      { !userInteracted ? <Entry userDidInteract={userDidInteract} /> : null }
+
+      <div className="dummy-container" style={{ display: !isLoading && userInteracted ? "block" : "none" }}>
         <div id="transition-container" ref={containerRef}>
           <div id="transition-cover-layer"></div>
 
