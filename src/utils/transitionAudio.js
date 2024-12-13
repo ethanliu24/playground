@@ -7,7 +7,7 @@ function audioData(src, impactTime = 0.5) {
   }
 }
 
-const botanica1 = audioData(botanica_1, 0.3);
+const botanica1 = audioData(botanica_1, 0.4);
 
 export const bgAudio = {
   botanica1,

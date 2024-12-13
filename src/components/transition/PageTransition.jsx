@@ -23,13 +23,16 @@ export default function PageTransition(props) {
 
     if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
 
-    // new Audio("src/assets/botanica_swells/botanica_1.wav").play();
     // TODO set duration to max(5, music.length)
+    const { src, impactTime } = props.audioData;
+    const audio = new Audio(src);
+    audio.play();
+
     const animationDur = 5;
 
     const mainRippleIncrementRate = 900;
     const mainRippleDur = 3.5;
-    const mainRippleDelayTime = 0.3;
+    const mainRippleDelayTime = impactTime; // main ripple plays to the impact time of bg audio
 
     const subRippleIncrementRate = 500;
     const subRippleDur = 6;
