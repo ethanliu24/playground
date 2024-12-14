@@ -1,13 +1,14 @@
 import botanica_1 from "../assets/botanica_swells/botanica_1.wav";
 
-function audioData(src, impactTime = 0.5) {
+function audioData(src, length, impactTime = 0.5) {
   return {
     src: src,
+    length: length,
     impactTime: impactTime,
   }
 }
 
-const botanica1 = audioData(botanica_1, 0.4);
+const botanica1 = audioData(botanica_1, 5, 0.4);
 
 export const bgAudio = {
   botanica1,

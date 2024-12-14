@@ -23,12 +23,13 @@ export default function PageTransition(props) {
 
     if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
 
-    // TODO set duration to max(5, music.length)
-    const { src, impactTime } = props.audioData;
+    const { src, length, impactTime } = props.audioData;
     const audio = new Audio(src);
     audio.play();
 
-    const animationDur = 5;
+    // Generally, length is the length of the audio, but it could be modified to how long we want the
+    // animation to be if the audio tail is too long. It's specified in src/utils/transitionAudio.js
+    const animationDur = Math.max(5, length);
 
     const mainRippleIncrementRate = 900;
     const mainRippleDur = 3.5;
