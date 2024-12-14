@@ -29,7 +29,7 @@ export default function PageTransition(props) {
 
     // Generally, length is the length of the audio, but it could be modified to how long we want the
     // animation to be if the audio tail is too long. It's specified in src/utils/transitionAudio.js
-    const animationDur = Math.max(5, length);
+    const animationDur = length;
 
     const mainRippleIncrementRate = 900;
     const mainRippleDur = 3.5;
