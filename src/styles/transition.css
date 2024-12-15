@@ -86,7 +86,7 @@
 }
 
 #transition-title {
-  font-size: 4rem;
+  font-size: 3rem;
   font-weight: 900;
   color: transparent;
   background-position: center;
@@ -102,23 +102,11 @@
 
 #transition-title,
 #transition-subtitle {
-  text-wrap: nowrap;
+  text-wrap: wrap;
   opacity: 0;
 }
 
-@media (max-width: 767px) {
-  #transition-title,
-  #transition-subtitle {
-    text-wrap: wrap;
-  }
-}
-
 @media (max-width: 639px) {
-  #transition-title,
-  #transition-subtitle {
-    text-wrap: wrap;
-  }
-
   #transition-title {
     font-size: 2.6rem;
   }
