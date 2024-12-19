@@ -9,7 +9,7 @@ function Home(props) {
 
   return (
     <>
-      <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/>
+      {/* <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/> */}
 
       <main id="home-container">
       </main>
