@@ -1,7 +1,7 @@
 import Section from "./Section.jsx";
 import { useEffect } from "react";
 import RetroStatic from "../../assets/retro_static.gif";
-import headphoneIcon from "../../assets/icons/headphone.svg";
+import { icons } from "../../utils/icons.js";
 import { bgImg } from "../../utils/bgImg.js";
 
 function Home(props) {
@@ -18,7 +18,7 @@ function Home(props) {
       </main>
 
       <div className="get-headphones-reminder">
-        <img src={headphoneIcon} id="headphone-icon" className="icon" alt="" />
+        <img src={icons.headphone} id="headphone-icon" className="icon" alt="" />
         <div>Maybe grab a headphone and use a laptop?</div>
       </div>
       <div id="border-text-left" className="border-text">An excuse for me to make botanica</div>

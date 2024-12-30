@@ -1,11 +1,11 @@
-import headphones from "../assets/icons/headphones.svg";
+import headphone from "../assets/icons/headphone.svg";
 import github from "../assets/icons/github.svg";
 import allowTransition from "../assets/icons/allow_transition.svg";
 import blockTransition from "../assets/icons/block_transition.svg";
 
 
 const icons = {
-  headphones,
+  headphone,
   github,
   allowTransition,
   blockTransition,
