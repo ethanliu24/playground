@@ -1,6 +1,8 @@
+import Section from "./Section.jsx";
+import { useEffect } from "react";
 import RetroStatic from "../../assets/retro_static.gif";
 import headphoneIcon from "../../assets/icons/headphone.svg";
-import { useEffect } from "react";
+import { bgImg } from "../../utils/bgImg.js";
 
 function Home(props) {
   useEffect(() => {
@@ -12,6 +14,7 @@ function Home(props) {
       {/* <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/> */}
 
       <main id="home-container">
+        <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
       </main>
 
       <div className="get-headphones-reminder">
