@@ -1,25 +1,19 @@
 import gsap from "gsap";
 import { useGSAP } from "@gsap/react";
-import { useCallback, useRef, useState } from "react";
-import Loading from "./Loading.jsx";
-import Entry from "./Entry.jsx";
+import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
 
 // TODO add music param
-export default function PageTransition(props) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [userInteracted, setUserInteracted] = useState(false);
-  const [animationCompleted, setAnimationCompleted] = useState(false);
-
+export default function Transition(props) {
   const containerRef = useRef();
   const titleRef = useRef();
   const subtitleRef = useRef();
 
   useGSAP(() => {
-    if (isLoading) return;
+    if (props.isLoading) return;
 
-    if (!userInteracted) return;
+    if (!props.userInteracted) return;
 
     if (props.clipVisualPath) titleRef.current.style.backgroundImage = `url("${props.clipVisualPath}")`;
 
@@ -60,7 +54,7 @@ export default function PageTransition(props) {
       onComplete: () => {
         containerRef.current.style.display = 'none';
         document.body.style.overflow = "visible";
-        setAnimationCompleted(true);
+        props.animationComplete(true);
       },
       repeat: 0,
       defaults: {
@@ -71,7 +65,7 @@ export default function PageTransition(props) {
     master
       .to(containerRef.current, { duration: animationDur, opacity: 1 })
       .to(containerRef.current, { duration: 1, opacity: 0 })
-  }, [isLoading, userInteracted]);
+  }, [props.isLoading, props.userInteracted]);
 
   const rippleAnimationProps = (rate, opacity, duration) => {
     return {
@@ -153,56 +147,32 @@ export default function PageTransition(props) {
     };
   }
 
-  const loadingComplete = useCallback(() => {
-    setIsLoading(false);
-  });
-
-  const userDidInteract = useCallback(() => {
-    setUserInteracted(true);
-  })
-
-  // The page to display after the animations
-  const Page = props.page;
-
   /* It is neccessary that we load both the Loading and the other components together because
    * we set the isLoading state to false after the child component is mounted and loaded.
    * If we just return a Loading component, the isLoading state will never be updated.
    */
   return (
     <>
-      { isLoading ? <Loading /> : null }
+      <div id="transition-container" ref={containerRef}>
+        <div id="transition-cover-layer"></div>
 
-      { !isLoading ? (
-          !userInteracted ? <Entry userDidInteract={userDidInteract} /> : null
-        ) : null
-      }
+        <div id="ripple-main-wrapper">
+          <div id="ripple-main" className="ripple fixed-scalable"></div>
+        </div>
 
-      <div className="dummy-container" style={{ display: !isLoading && userInteracted ? "block" : "none" }}>
-        {/* TODO split the transition animation code and component in a diff file */}
-        { !animationCompleted ? <div id="transition-container" ref={containerRef}>
-            <div id="transition-cover-layer"></div>
+        {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
+          const [isLeft, isTop] = item;
+          const generateRipple = Math.random() > 0.4;
 
-            <div id="ripple-main-wrapper">
-              <div id="ripple-main" className="ripple fixed-scalable"></div>
-            </div>
+          return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
+            <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
+          </div>) : null;
+        })}
 
-            {[[true, true], [false, true], [true, false], [false, false]].map((item, i) => {
-              const [isLeft, isTop] = item;
-              const generateRipple = Math.random() > 0.4;
-
-              return generateRipple ? (<div style={generateStyles(isLeft, isTop)} key={`sub-ripple-key${i}`}>
-                <div id={`sub-ripple-${i}`} className="sub-ripple ripple fixed-scalable"></div>
-              </div>) : null;
-            })}
-
-            <div id="transition-text-wrapper">
-              <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
-              <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
-            </div>
-          </div> : null
-        }
-
-        <Page loadingComplete={loadingComplete} animationCompleted={animationCompleted} />
+        <div id="transition-text-wrapper">
+          <h1 id="transition-title" ref={titleRef}>{props.title}</h1>
+          <h2 id="transition-subtitle" ref={subtitleRef}>{props.subtitle}</h2>
+        </div>
       </div>
     </>
   );

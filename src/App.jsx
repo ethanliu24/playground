@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import { bgImg, bgAudio } from "./utils/transitionAssets.js";
-import PageTransition from "./components/transition/PageTransition.jsx";
+import PageWrapper from "./components/transition/PageWrapper.jsx";
 import Home from "./components/home/Home.jsx";
 
 function App() {
@@ -27,7 +27,7 @@ function App() {
           key={data.path}
           path={data.path}
           element={
-            <PageTransition
+            <PageWrapper
               page={data.element}
               title={data.title}
               subtitle={data.subtitle}
