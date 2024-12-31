@@ -8,7 +8,7 @@ export default function Section(props) {
   }, []);
 
   return (
-    <div className="section-container" data-number={props.number} ref={containerRef}>
+    <div className="section-container shadow-narrow" data-number={props.number} ref={containerRef}>
       <div className="section-title">{props.title}</div>
     </div>
   );

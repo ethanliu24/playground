@@ -52,7 +52,7 @@ export default function Entry(props) {
 
   return (
     <div id="entry-container">
-      <button className="user-interactable" ref={orbRef}>
+      <button className="user-interactable shadow-wide" ref={orbRef}>
         click
       </button>
 

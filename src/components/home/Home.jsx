@@ -14,7 +14,17 @@ function Home(props) {
       {/* <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/> */}
 
       <main id="home-container">
-        <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+        <button className="drop-down-btn shadow-wide">
+          <img src={icons.dropdown} />
+        </button>
+
+        <div className="home-section-wrapper">
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+        </div>
       </main>
 
       <div className="get-headphones-reminder">

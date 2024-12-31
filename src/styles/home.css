@@ -39,8 +39,10 @@
   height: 100%;
   display: flex;
   flex-direction: column;
+  justify-content: flex-start;
   align-items: center;
-  justify-content: center;
+  gap: 2rem;
+  padding: 4rem 0;
 }
 
 .get-headphones-reminder {
@@ -84,13 +86,52 @@
   }
 }
 
+.drop-down-btn {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 3rem;
+  height: 3rem;
+  border-radius: 50%;
+  border: none;
+  background-color: var(--INTERACTABLE_COLOR);
+  color: var(--BACKGROUND_HOME);
+  font-size: 150%;
+  rotate: 180deg;
+  cursor: pointer;
+  transition-duration: 0.2s;
+}
+
+.drop-down-btn:hover {
+  transform: scale(1.05);
+  transition-duration: 0.2s;
+}
+
+.drop-down-btn img {
+  width: 20px;
+  height: 20px;
+  transform-origin: center;
+  rotate: 180deg;
+}
+
+.home-section-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  height: 70%;
+  gap: 1rem;
+  overflow-y: scroll;
+}
+
 .section-container {
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
   width: min(30rem, 50vw);
-  height: 3rem;
+  min-width: 250px;
+  min-height: 3rem;
   background-position: center;
   background-size: cover;
   border-radius: 10px;
@@ -110,6 +151,7 @@
   border-radius: 50%;
   width: 1.8rem;
   height: 1.8rem;
+  padding-left: 1%;
   font-size: 1.1rem;
   margin-left: 10px;
   font-style: italic;
