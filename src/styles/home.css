@@ -131,6 +131,7 @@
   height: 70%;
   gap: 1rem;
   overflow-y: scroll;
+  scroll-behavior: smooth;
 }
 
 .section-container {
@@ -150,7 +151,7 @@
 }
 
 .section-container::before {
-  content: attr(data-number);
+  content: attr(data-idx);
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -161,10 +162,11 @@
   border-radius: 50%;
   width: 1.8rem;
   height: 1.8rem;
-  padding-left: 1%;
+  padding-left: 0.5%;
   font-size: 1.1rem;
   margin-left: 10px;
   font-style: italic;
+  letter-spacing: 1px;
   background-color: var(--BACKGROUND_HOME);
   color: var(--INTERACTABLE_COLOR);
 }
