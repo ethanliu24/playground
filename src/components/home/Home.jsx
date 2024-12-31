@@ -19,11 +19,12 @@ function Home(props) {
         </button>
 
         <div className="home-section-wrapper">
-          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
-          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
-          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
-          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
-          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} />
+          {/* Temp link */}
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} link={"/"} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} link={"/"} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} link={"/"} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} link={"/"} />
+          <Section number={"1."} title={"test"} bgImg={bgImg.sakuraIMG} link={"/"} />
         </div>
       </main>
 

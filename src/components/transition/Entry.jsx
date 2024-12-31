@@ -41,7 +41,7 @@ export default function Entry(props) {
           props.userDidInteract();
         },
       });
-    })
+    });
 
     return () => {
       orb.removeEventListener("mouseenter", () => {});

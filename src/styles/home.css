@@ -137,6 +137,7 @@
   border-radius: 10px;
   font-weight: 600;
   position: relative;
+  cursor: pointer;
 }
 
 .section-container::before {
