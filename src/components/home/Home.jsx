@@ -68,7 +68,9 @@ function Home(props) {
 
         <div className="home-section-wrapper">
           {sections.map((data, idx) => {
-            return <Section idx={`${idx + 1}.`} title={data.title} bgImg={data.bgImg} link={data.link} />
+            return (
+              <Section key={idx.toString()} idx={`${idx + 1}.`} title={data.title} bgImg={data.bgImg} link={data.link} />
+            );
           })}
         </div>
       </main>
