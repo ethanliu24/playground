@@ -116,6 +116,48 @@ html, body {
   transform: scale(1.1);
 }
 
+.tooltip {
+  position: absolute;
+  top: 50px;
+  opacity: 0;
+  background-color: var(--BLACK);
+  color: var(--BACKGROUND_HOME);
+  padding: 5px 8px;
+  border-radius: 5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition-duration: 0.2s;
+  pointer-events: none;
+  letter-spacing: 0.5px;
+  font-size: 0.5rem;
+  text-align: center;
+}
+
+.tooltip::before {
+  position: absolute;
+  content: "";
+  width: 10px;
+  height: 10px;
+  background-color: var(--BLACK);
+  transform: rotate(45deg);
+  top: -15%;
+  transition-duration: 0.3s;
+}
+
+.tooltip-ref-obj {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.tooltip-ref-obj:hover .tooltip {
+  top: 60px;
+  opacity: 1;
+  transition-duration: 0.3s;
+}
+
 a {
   text-decoration: none;
   color: var(--BLACK);

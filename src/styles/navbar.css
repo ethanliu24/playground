@@ -22,17 +22,11 @@
   gap: 1rem;
 }
 
+.nav-bar .icon {
+  cursor: pointer;
+}
+
 #allow-transition-icon {
   width: calc(var(--ICON_SIZE) + 8px);
   height: calc(var(--ICON_SIZE) + 8px);
 }
-
-/* <nav className="nav-bar">
-<div className="nav-home"><Link to="/">Home</Link></div>
-<div className='nav-right'>
-  <img src={blockTransition ? icons.blockTransition : icons.allowTransition}
-    className='icon'
-    onClick={handleBlockTransition} />
-  <img src={icons.github} className='icon' />
-</div>
-</nav> */
