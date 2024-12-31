@@ -65,6 +65,7 @@ h1, h2, h3, h4, h5, h6 {
   --FONT_WEIGHT_DEFAULT: 400;
   --TEXT_SPACING: 0.17rem;
   --ICON_SIZE: 30px;
+  --ANIMATION_FAST: 0.2s;
   background-color: var(--BACKGROUND_HOME);
   color: var(--TEXT_PRIMARY);
 }
@@ -138,10 +139,12 @@ html, body {
 .icon {
   width: var(--ICON_SIZE);
   height: var(--ICON_SIZE);
+  transition-duration: var(--ANIMATION_FAST);
 }
 
 .icon:hover {
   transform: scale(1.1);
+  transition-duration: var(--ANIMATION_FAST);
 }
 
 .tooltip {
@@ -155,7 +158,7 @@ html, body {
   display: flex;
   align-items: center;
   justify-content: center;
-  transition-duration: 0.2s;
+  transition-duration: var(--ANIMATION_FAST);
   pointer-events: none;
   letter-spacing: 0.5px;
   font-size: 0.5rem;
@@ -170,7 +173,7 @@ html, body {
   background-color: var(--INTERACTABLE_COLOR);
   transform: rotate(45deg);
   top: -15%;
-  transition-duration: 0.3s;
+  transition-duration: calc(var(--ANIMATION_FAST) + 0.1s);
 }
 
 .tooltip-ref-obj {
@@ -183,15 +186,17 @@ html, body {
 .tooltip-ref-obj:hover .tooltip {
   top: 60px;
   opacity: 1;
-  transition-duration: 0.3s;
+  transition-duration: calc(var(--ANIMATION_FAST) + 0.1s);
 }
 
 a {
   text-decoration: none;
   color: var(--INTERACTABLE_COLOR);
+  transition-duration: var(--ANIMATION_FAST);
 }
 
 a:hover {
-  font-size: 110%;
+  font-size: 105%;
   color: var(--TEXT_PRIMARY);
+  transition-duration: var(--ANIMATION_FAST);
 }

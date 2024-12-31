@@ -15,7 +15,7 @@ function Home(props) {
 
       <main id="home-container">
         <button className="drop-down-btn shadow-wide">
-          <img src={icons.dropdown} />
+          <img src={icons.dropdown} className="icon" />
         </button>
 
         <div className="home-section-wrapper">
