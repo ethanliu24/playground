@@ -23,7 +23,9 @@ export default function NavBar() {
         </div>
 
         <div className="tooltip-ref-obj">
-          <img src={icons.github} className="icon" />
+          <a href="https://github.com/ethanliu24/playground" target="_blank" rel="noopener noreferrer">
+            <img src={icons.github} className="icon" />
+          </a>
           <span className="tooltip">See repo</span>
         </div>
       </div>
