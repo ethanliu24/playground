@@ -53,9 +53,7 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 :root,
-.light,
-.light html
-.light body {
+.light {
   --BACKGROUND_HOME: #f2f2f2;
   --TEXT_PRIMARY: #5b5b5a;
   --GRAY_ACCENT_1: #5b5b5a;
@@ -66,21 +64,15 @@ h1, h2, h3, h4, h5, h6 {
   --TEXT_SPACING: 0.17rem;
   --ICON_SIZE: 30px;
   --ANIMATION_FAST: 0.2s;
-  background-color: var(--BACKGROUND_HOME);
-  color: var(--TEXT_PRIMARY);
 }
 
-.dark,
-.dark html,
-.dark body {
+.dark {
   --BACKGROUND_HOME: #181818;
   --TEXT_PRIMARY: #d0d0d0;
   --GRAY_ACCENT_1: #e0e0e0;
   --GRAY_ACCENT_2: #5b5b5a;
   --INTERACTABLE_COLOR: #dfdede;
   --SHADOW_COLOR: rgba(255, 255, 255, 0.2);
-  background-color: var(--BACKGROUND_HOME);
-  color: var(--TEXT_PRIMARY);
 }
 
 .dark .icon {
@@ -94,6 +86,8 @@ html, body {
   font-weight: var(--FONT_WEIGHT_DEFAULT);
   letter-spacing: var(--TEXT_SPACING);
   overflow: visible;
+  background-color: var(--BACKGROUND_HOME);
+  color: var(--TEXT_PRIMARY);
 }
 
 #root {

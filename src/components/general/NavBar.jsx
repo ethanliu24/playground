@@ -9,9 +9,8 @@ export default function NavBar() {
 
   useEffect(() => {
     const currentTheme = localStorage.getItem(THEME);
-    const bodyElem = document.body;
     setTheme(currentTheme);
-    bodyElem.classList.add(currentTheme);
+    document.documentElement.classList.add(currentTheme);
   }, []);
 
   const handleBlockTransition = () => {
@@ -20,10 +19,10 @@ export default function NavBar() {
   }
 
   const handleTheme = () => {
-    const bodyElem = document.body;
-    bodyElem.classList.remove(theme);
+    // Tbh idk if it's a good practice to put theme classes in the html tag
+    document.documentElement.classList.remove(theme);
     const newTheme = theme === LIGHT ? DARK : LIGHT;
-    bodyElem.classList.add(newTheme);
+    document.documentElement.classList.add(newTheme);
     setTheme(newTheme);
     localStorage.setItem(THEME, newTheme);
   }
