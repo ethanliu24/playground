@@ -4,7 +4,6 @@ import { useRef } from "react";
 
 gsap.registerPlugin(useGSAP);
 
-// TODO add music param
 export default function Transition(props) {
   const containerRef = useRef();
   const titleRef = useRef();
