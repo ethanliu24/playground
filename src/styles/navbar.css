@@ -27,6 +27,11 @@
 }
 
 #allow-transition-icon {
-  width: calc(var(--ICON_SIZE) + 8px);
-  height: calc(var(--ICON_SIZE) + 8px);
+  width: calc(var(--ICON_SIZE) + 7px);
+  height: calc(var(--ICON_SIZE) + 7px);
+}
+
+#theme-icon {
+  width: calc(var(--ICON_SIZE) + 4px);
+  height: calc(var(--ICON_SIZE) + 4px);
 }

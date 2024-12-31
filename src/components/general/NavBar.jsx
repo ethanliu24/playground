@@ -1,13 +1,41 @@
 import { Link } from 'react-router-dom';
 import { icons } from '../../utils/icons.js';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 export default function NavBar() {
   const [blockTransition, setBlockTransition] = useState(JSON.parse(localStorage.getItem("blockTransition")) || false);
+  const [theme, setTheme] = useState("light"); // might add different themes
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("theme");
+    const bodyElem = document.body;
+    setTheme(currentTheme);
+    bodyElem.classList.add(currentTheme);
+  }, []);
 
   const handleBlockTransition = () => {
     setBlockTransition(b => !b);
     localStorage.setItem("blockTransition", JSON.stringify(!blockTransition));
+  }
+
+  const handleTheme = () => {
+    const bodyElem = document.body;
+    bodyElem.classList.remove(theme);
+    const newTheme = theme === "light" ? "dark" : "light";
+    bodyElem.classList.add(newTheme);
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  }
+
+  const getThemeIcon = () => {
+    switch (theme) {
+      case "light":
+        return icons.lightTheme;
+      case "dark":
+        return icons.darkTheme;
+      default:
+        return icons.darkTheme;
+    }
   }
 
   return (
@@ -20,6 +48,14 @@ export default function NavBar() {
             className="icon"
             onClick={handleBlockTransition} />
           <span className="tooltip">Block transitions</span>
+        </div>
+
+        <div className="tooltip-ref-obj">
+          <img src={getThemeIcon()}
+            id="theme-icon"
+            className="icon"
+            onClick={handleTheme} />
+          <span className="tooltip">Theme</span>
         </div>
 
         <div className="tooltip-ref-obj">
