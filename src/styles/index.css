@@ -57,7 +57,7 @@ h1, h2, h3, h4, h5, h6 {
   --TEXT_PRIMARY: #5b5b5a;
   --DARK_GRAY: #5b5b5a;
   --LIGHT_GRAY: #e0e0e0;
-  --BLACK: #070504;
+  --INTERACTABLE_COLOR: #070504;
   --FONT_WEIGHT_DEFAULT: 400;
   --TEXT_SPACING: 0.17rem;
   --ICON_SIZE: 30px;
@@ -97,7 +97,7 @@ html, body {
   --user_interactable_size: max(7rem, 10vw);
   border: none;
   border-radius: 50%;
-  background-color: var(--BLACK);
+  background-color: var(--INTERACTABLE_COLOR);
   color: var(--BACKGROUND_HOME);
   width: var(--user_interactable_size);
   height: var(--user_interactable_size);
@@ -120,7 +120,7 @@ html, body {
   position: absolute;
   top: 50px;
   opacity: 0;
-  background-color: var(--BLACK);
+  background-color: var(--INTERACTABLE_COLOR);
   color: var(--BACKGROUND_HOME);
   padding: 5px 8px;
   border-radius: 5px;
@@ -139,7 +139,7 @@ html, body {
   content: "";
   width: 10px;
   height: 10px;
-  background-color: var(--BLACK);
+  background-color: var(--INTERACTABLE_COLOR);
   transform: rotate(45deg);
   top: -15%;
   transition-duration: 0.3s;
@@ -160,7 +160,7 @@ html, body {
 
 a {
   text-decoration: none;
-  color: var(--BLACK);
+  color: var(--INTERACTABLE_COLOR);
 }
 
 a:hover {
