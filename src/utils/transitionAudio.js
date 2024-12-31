@@ -12,7 +12,7 @@ function audioData(src, length, impactTime = 0.5) {
 const botanica1 = audioData(botanica_1, 6, 0.4);
 const botanica2 = audioData(botanica_2, 8, 0.4)
 
-export const bgAudio = {
+export const transitionAudio = {
   botanica1,
   botanica2,
 }

@@ -1,5 +1,5 @@
 import { Routes, Route } from "react-router-dom";
-import { bgImg, bgAudio } from "./utils/transitionAssets.js";
+import { bgImg, transitionAudio } from "./utils/transitionAssets.js";
 import PageWrapper from "./components/transition/PageWrapper.jsx";
 import Home from "./components/home/Home.jsx";
 import NavBar from "./components/general/NavBar.jsx";
@@ -18,7 +18,7 @@ function App() {
 
   // These routes are intended for pages that needs a page animation
   const routes = [
-    constructRouteData("/", Home, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.forestGIF, bgAudio.botanica1),
+    constructRouteData("/", Home, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.forestGIF, transitionAudio.botanica1),
   ];
 
   return (

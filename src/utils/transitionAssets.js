@@ -1,4 +1,4 @@
 import { bgImg } from "./bgImg";
-import { bgAudio } from "./TransitionAudio";
+import { transitionAudio } from "./TransitionAudio";
 
-export { bgImg, bgAudio };
+export { bgImg, transitionAudio };
