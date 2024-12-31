@@ -9,18 +9,34 @@ function Home(props) {
   const [dropdownOpen, setDropdownOpen] = useState(true);
 
   const dropdownBtnRef = useRef(null);
+  const dropdownAnimation = useRef(null);
 
   useEffect(() => {
+    dropdownAnimation.current = gsap.timeline({ paused: true });
+    dropdownAnimation.current.to(".section-container", {
+      duration: 0.7,
+      scale: 0.7,
+      opacity: 0,
+      ease: "expo.inOut",
+      stagger: 0.05,
+    });
+    dropdownAnimation.current.reverse();
+
     props.loadingComplete();
+
+    return () => {
+      dropdownAnimation.current.kill();
+    }
   }, []);
 
   const handleDropdownClick = () => {
     gsap.to(dropdownBtnRef.current, {
       rotate: dropdownOpen ? 0 : 180,
-      duration: 0.1,
+      duration: 0.3,
       ease: "power4.inOut",
     });
 
+    dropdownAnimation.current.reversed(!dropdownAnimation.current.reversed());
     setDropdownOpen(d => !d);
   }
 

@@ -129,7 +129,7 @@
   flex-direction: row;
   justify-content: center;
   align-items: center;
-  width: min(30rem, 50vw);
+  width: min(28rem, 50vw);
   min-width: 250px;
   min-height: 3rem;
   background-position: center;
