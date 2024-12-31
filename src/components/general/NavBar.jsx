@@ -3,10 +3,12 @@ import { icons } from '../../utils/icons.js';
 import { useState } from 'react';
 
 export default function NavBar() {
-  const [blockTransition, setBlockTransition] = useState(true); // TODO use local storage
+  const [blockTransition, setBlockTransition] = useState(JSON.parse(localStorage.getItem("blockTransition")) || false);
 
   const handleBlockTransition = () => {
     setBlockTransition(b => !b);
+    localStorage.setItem("blockTransition", JSON.stringify(!blockTransition));
+    console.log(typeof JSON.parse(localStorage.getItem("blockTransition")))
   }
 
   return (
