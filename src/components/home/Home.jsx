@@ -1,20 +1,35 @@
-import Section from "./Section.jsx";
-import { useEffect } from "react";
-import RetroStatic from "../../assets/retro_static.gif";
+import { useEffect, useRef, useState } from "react";
+import gsap from "gsap";
 import { icons } from "../../utils/icons.js";
 import { bgImg } from "../../utils/bgImg.js";
+import Section from "./Section.jsx";
+import RetroStatic from "../../assets/retro_static.gif";
 
 function Home(props) {
+  const [dropdownOpen, setDropdownOpen] = useState(true);
+
+  const dropdownBtnRef = useRef(null);
+
   useEffect(() => {
     props.loadingComplete();
   }, []);
+
+  const handleDropdownClick = () => {
+    gsap.to(dropdownBtnRef.current, {
+      rotate: dropdownOpen ? 0 : 180,
+      duration: 0.1,
+      ease: "power4.inOut",
+    });
+
+    setDropdownOpen(d => !d);
+  }
 
   return (
     <>
       {/* <img src={RetroStatic} alt="" draggable="false" className="retro-static unselectable"/> */}
 
       <main id="home-container">
-        <button className="drop-down-btn shadow-wide">
+        <button className="drop-down-btn shadow-wide" ref={dropdownBtnRef} onClick={handleDropdownClick}>
           <img src={icons.dropdown} className="icon" />
         </button>
 
