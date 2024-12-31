@@ -65,8 +65,12 @@
   transform: translate(-50%, -50%);
 }
 
-@media (max-width: 819px) {
+@media (max-width: 1024px) {
   .get-headphones-reminder {
+    font-size: 8px;
+  }
+
+  .border-text {
     font-size: 8px;
   }
 
@@ -90,8 +94,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 3rem;
-  height: 3rem;
+  --btn-size: 3rem;
+  width: var(--btn-size);
+  min-width: var(--btn-size);
+  max-width: var(--btn-size);
+  height: var(--btn-size);
+  min-height: var(--btn-size);
+  max-height: var(--btn-size);
   border-radius: 50%;
   border: none;
   background-color: var(--INTERACTABLE_COLOR);
@@ -130,7 +139,7 @@
   justify-content: center;
   align-items: center;
   width: min(28rem, 50vw);
-  min-width: 250px;
+  min-width: 200px;
   min-height: 3rem;
   background-position: center;
   background-size: cover;
