@@ -1,13 +1,14 @@
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import { icons } from '../../utils/icons.js';
-import { useEffect, useState } from 'react';
+import { BLOCK_TRANSITION, THEME, HOME_ROUTE, LIGHT, DARK } from '../../utils/constants.js';
 
 export default function NavBar() {
-  const [blockTransition, setBlockTransition] = useState(JSON.parse(localStorage.getItem("blockTransition")) || false);
-  const [theme, setTheme] = useState("light"); // might add different themes
+  const [blockTransition, setBlockTransition] = useState(JSON.parse(localStorage.getItem(BLOCK_TRANSITION)) || false);
+  const [theme, setTheme] = useState(LIGHT); // might add different themes
 
   useEffect(() => {
-    const currentTheme = localStorage.getItem("theme");
+    const currentTheme = localStorage.getItem(THEME);
     const bodyElem = document.body;
     setTheme(currentTheme);
     bodyElem.classList.add(currentTheme);
@@ -15,23 +16,23 @@ export default function NavBar() {
 
   const handleBlockTransition = () => {
     setBlockTransition(b => !b);
-    localStorage.setItem("blockTransition", JSON.stringify(!blockTransition));
+    localStorage.setItem(BLOCK_TRANSITION, JSON.stringify(!blockTransition));
   }
 
   const handleTheme = () => {
     const bodyElem = document.body;
     bodyElem.classList.remove(theme);
-    const newTheme = theme === "light" ? "dark" : "light";
+    const newTheme = theme === LIGHT ? DARK : LIGHT;
     bodyElem.classList.add(newTheme);
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
+    localStorage.setItem(THEME, newTheme);
   }
 
   const getThemeIcon = () => {
     switch (theme) {
-      case "light":
+      case LIGHT:
         return icons.lightTheme;
-      case "dark":
+      case DARK:
         return icons.darkTheme;
       default:
         return icons.darkTheme;
@@ -40,7 +41,7 @@ export default function NavBar() {
 
   return (
     <nav className="nav-bar">
-      <div className="nav-home"><Link to="/">Home</Link></div>
+      <div className="nav-home"><Link to={HOME_ROUTE}>Home</Link></div>
       <div className="nav-right">
         <div className="tooltip-ref-obj">
           <img src={blockTransition ? icons.blockTransition : icons.allowTransition}

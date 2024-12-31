@@ -4,6 +4,7 @@ import { useCallback, useEffect, useState } from "react";
 import Loading from "./Loading.jsx";
 import Entry from "./Entry.jsx";
 import Transition from "./Transition.jsx";
+import { BLOCK_TRANSITION } from "../../utils/constants.js";
 
 gsap.registerPlugin(useGSAP);
 
@@ -13,7 +14,7 @@ export default function PageWrapper(props) {
   const [animationCompleted, setAnimationCompleted] = useState(false);
 
   useEffect(() => {
-    const blockTransition = JSON.parse(localStorage.getItem("blockTransition"));
+    const blockTransition = JSON.parse(localStorage.getItem(BLOCK_TRANSITION));
     if (blockTransition) {
       setUserInteracted(true);
       setAnimationCompleted(true);
