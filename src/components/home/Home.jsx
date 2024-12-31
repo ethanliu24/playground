@@ -62,8 +62,8 @@ function Home(props) {
           <img src={icons.dropdown} className="icon" />
         </button>
 
-        <div className="home-section-wrapper">{
-          sections.map((data, idx) => {
+        <div className="home-section-wrapper">
+          {sections.map((data, idx) => {
             return <Section idx={`${idx + 1}.`} title={data.title} bgImg={data.bgImg} link={data.link} />
           })}
         </div>
