@@ -19,7 +19,7 @@ function App() {
 
   // These routes are intended for pages that needs a page animation
   const routes = [
-    constructRouteData(Constants.HOME_ROUTE, Home, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.forestGIF, transitionAudio.botanica1),
+    constructRouteData(Constants.HOME_ROUTE, Home, "OH HEY", "SO YOU'VE CAME HERE HUH", bgImg.skyGIF, transitionAudio.botanica1),
   ];
 
   return (

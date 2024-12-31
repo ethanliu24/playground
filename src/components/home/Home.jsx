@@ -50,7 +50,11 @@ function Home(props) {
   };
 
   const sections = [
-    constructSectionData("Test", bgImg.sakuraIMG, Constants.HOME_ROUTE),
+    constructSectionData("TEST NUMBER 1", bgImg.sakuraIMG, Constants.HOME_ROUTE),
+    constructSectionData("TEST NUMBER 2", bgImg.forestIMG, Constants.HOME_ROUTE),
+    constructSectionData("TEST NUMBER 3", bgImg.skyIMG, Constants.HOME_ROUTE),
+    constructSectionData("TEST NUMBER 4", bgImg.autumnIMG, Constants.HOME_ROUTE),
+    constructSectionData("TEST NUMBER 5", bgImg.nightIMG, Constants.HOME_ROUTE),
   ];
 
   return (
