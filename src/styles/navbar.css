@@ -1,0 +1,38 @@
+.nav-bar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.7rem 1.5rem;
+}
+
+.nav-home {
+  font-size: 1rem;
+}
+
+.nav-right {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+#allow-transition-icon {
+  width: calc(var(--ICON_SIZE) + 8px);
+  height: calc(var(--ICON_SIZE) + 8px);
+}
+
+/* <nav className="nav-bar">
+<div className="nav-home"><Link to="/">Home</Link></div>
+<div className='nav-right'>
+  <img src={blockTransition ? icons.blockTransition : icons.allowTransition}
+    className='icon'
+    onClick={handleBlockTransition} />
+  <img src={icons.github} className='icon' />
+</div>
+</nav> */

@@ -5,6 +5,10 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  background-color: var(--BACKGROUND_HOME);
+  /* z-index: 100;
+  position: absolute;
+  top: 0; */
 }
 
 #transition-container {

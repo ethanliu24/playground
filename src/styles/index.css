@@ -2,6 +2,7 @@
 @import "./transition.css";
 @import "./loading.css";
 @import "./home.css";
+@import "./navbar.css";
 
 /* 1. Use a more-intuitive box-sizing model */
 *, *::before, *::after {
@@ -56,9 +57,10 @@ h1, h2, h3, h4, h5, h6 {
   --TEXT_PRIMARY: #5b5b5a;
   --DARK_GRAY: #5b5b5a;
   --LIGHT_GRAY: #e0e0e0;
-  --USER_INTERACTABLE_COLOR: #070504;
+  --BLACK: #070504;
   --FONT_WEIGHT_DEFAULT: 400;
   --TEXT_SPACING: 0.17rem;
+  --ICON_SIZE: 30px;
 }
 
 html, body {
@@ -95,7 +97,7 @@ html, body {
   --user_interactable_size: max(7rem, 10vw);
   border: none;
   border-radius: 50%;
-  background-color: var(--USER_INTERACTABLE_COLOR);
+  background-color: var(--BLACK);
   color: var(--BACKGROUND_HOME);
   width: var(--user_interactable_size);
   height: var(--user_interactable_size);
@@ -103,4 +105,23 @@ html, body {
   font-size: 100%;
   font-style: italic;
   box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.icon {
+  width: var(--ICON_SIZE);
+  height: var(--ICON_SIZE);
+}
+
+.icon:hover {
+  transform: scale(1.1);
+}
+
+a {
+  text-decoration: none;
+  color: var(--BLACK);
+}
+
+a:hover {
+  font-size: 110%;
+  color: var(--TEXT_PRIMARY);
 }

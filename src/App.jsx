@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { bgImg, bgAudio } from "./utils/transitionAssets.js";
 import PageWrapper from "./components/transition/PageWrapper.jsx";
 import Home from "./components/home/Home.jsx";
+import NavBar from "./components/general/NavBar.jsx";
 
 function App() {
   const constructRouteData = (path, element, title, subtitle, clipVisual, audioData) => {
@@ -21,23 +22,26 @@ function App() {
   ];
 
   return (
-    <Routes>
-      {routes.map((data) => {
-        return <Route
-          key={data.path}
-          path={data.path}
-          element={
-            <PageWrapper
-              page={data.element}
-              title={data.title}
-              subtitle={data.subtitle}
-              clipVisualPath={data.clipVisual}
-              audioData={data.audioData}
-            />
-          }
-        />
-      })}
-    </Routes>
+    <>
+      <NavBar />
+      <Routes>
+        {routes.map((data) => {
+          return <Route
+            key={data.path}
+            path={data.path}
+            element={
+              <PageWrapper
+                page={data.element}
+                title={data.title}
+                subtitle={data.subtitle}
+                clipVisualPath={data.clipVisual}
+                audioData={data.audioData}
+              />
+            }
+          />
+        })}
+      </Routes>
+    </>
   );
 }
 
