@@ -52,22 +52,41 @@ h1, h2, h3, h4, h5, h6 {
   isolation: isolate;
 }
 
-:root {
+:root,
+.light,
+.light html
+.light body {
   --BACKGROUND_HOME: #f2f2f2;
   --TEXT_PRIMARY: #5b5b5a;
-  --DARK_GRAY: #5b5b5a;
-  --LIGHT_GRAY: #e0e0e0;
+  --GRAY_ACCENT_1: #5b5b5a;
+  --GRAY_ACCENT_2: #e0e0e0;
   --INTERACTABLE_COLOR: #070504;
+  --SHADOW_COLOR: rgba(0, 0, 0, 0.35);
   --FONT_WEIGHT_DEFAULT: 400;
   --TEXT_SPACING: 0.17rem;
   --ICON_SIZE: 30px;
 }
 
+.dark,
+.dark html,
+.dark body {
+  --BACKGROUND_HOME: #181818;
+  --TEXT_PRIMARY: #d0d0d0;
+  --GRAY_ACCENT_1: #e0e0e0;
+  --GRAY_ACCENT_2: #5b5b5a;
+  --INTERACTABLE_COLOR: #dfdede;
+  --SHADOW_COLOR: rgba(255, 255, 255, 0.35);
+  background-color: var(--BACKGROUND_HOME);
+  color: var(--TEXT_PRIMARY);
+}
+
+.dark .icon {
+  filter: invert(100%);
+}
+
 html, body {
   width: 100%;
   height: 100%;
-  background-color: var(--BACKGROUND_HOME);
-  color: var(--TEXT_PRIMARY);
   font-family: "Poppins", 'Montserrat', 'Avenir', 'Helvetica Neue', Arial, sans-serif;
   font-weight: var(--FONT_WEIGHT_DEFAULT);
   letter-spacing: var(--TEXT_SPACING);
@@ -104,7 +123,7 @@ html, body {
   font-weight: 200;
   font-size: 100%;
   font-style: italic;
-  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+  box-shadow: var(--SHADOW_COLOR) 0px 5px 15px;
 }
 
 .icon {
