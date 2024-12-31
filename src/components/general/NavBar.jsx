@@ -19,7 +19,6 @@ export default function NavBar() {
   }
 
   const handleTheme = () => {
-    // Tbh idk if it's a good practice to put theme classes in the html tag
     document.documentElement.classList.remove(theme);
     const newTheme = theme === LIGHT ? DARK : LIGHT;
     document.documentElement.classList.add(newTheme);
