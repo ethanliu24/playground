@@ -26,7 +26,7 @@ export default function DrumSequencer(props) {
       <div className="drum-sequencer">
         <div className="track-container">
           {Array(tracks).fill().map((_, trackNum) => {
-            return <Track key={trackNum} track={trackNum} beats={beats} handleNoteClick={handleNoteClick} />
+            return <Track key={trackNum} track={trackNum} beats={beats} handleNoteClick={handleNoteClick} fileName={"snare 6"} />
           })}
         </div>
       </div>

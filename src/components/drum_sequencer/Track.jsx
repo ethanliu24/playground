@@ -1,12 +1,22 @@
 import Notebox from "./NoteBox.jsx";
+import Knob from "./Knob.jsx";
 
 export default function Track(props) {
   return (
-    <div className="note-box-container">
-      {Array(props.beats).fill().map((_, beat) => {
-        const patchOne = beat % 8 >= 4;
-        return <Notebox key={beat} track={props.track} beat={beat} handleNoteClick={props.handleNoteClick} patchOne={patchOne} />;
-      })}
+    <div className="track">
+      <div className="track-controls">
+        <button className="track-mute-btn"></button>
+        <Knob />
+        <Knob />
+        <div className="sound-file-name">{props.fileName}</div>
+      </div>
+
+      <div className="note-box-container">
+        {Array(props.beats).fill().map((_, beat) => {
+          const patchOne = beat % 8 >= 4;
+          return <Notebox key={beat} track={props.track} beat={beat} handleNoteClick={props.handleNoteClick} patchOne={patchOne} />;
+        })}
+      </div>
     </div>
   );
 }
