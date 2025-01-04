@@ -51,7 +51,7 @@ function Home(props) {
   };
 
   const sections = [
-    constructSectionData("TEST NUMBER 1", bgImg.sakuraIMG, Constants.PORTFOLIO_ROUTE, true),
+    constructSectionData("PORTFOLIO", bgImg.sakuraIMG, Constants.PORTFOLIO_ROUTE, true),
     constructSectionData("TEST NUMBER 2", bgImg.forestIMG, Constants.HOME_ROUTE, false),
     constructSectionData("TEST NUMBER 3", bgImg.skyIMG, Constants.HOME_ROUTE, false),
     constructSectionData("TEST NUMBER 4", bgImg.autumnIMG, Constants.HOME_ROUTE, false),

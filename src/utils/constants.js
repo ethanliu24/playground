@@ -12,3 +12,4 @@ export const DARK = "dark";
 
 // Routes
 export const HOME_ROUTE = "/";
+export const PORTFOLIO_ROUTE = "/portfolio"

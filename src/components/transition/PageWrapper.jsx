@@ -61,7 +61,7 @@ export default function PageWrapper(props) {
           ) : null
         }
 
-        <Page loadingComplete={loadingComplete} animationCompleted={animationCompleted} />
+        <Page loadingComplete={loadingComplete} animationCompleted={animationCompleted} extraProps={props.extraProps}/>
       </div>
     </>
   );
