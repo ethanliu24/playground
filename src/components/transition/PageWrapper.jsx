@@ -48,7 +48,7 @@ export default function PageWrapper(props) {
 
       { !isLoading && !userInteracted ? <Entry userDidInteract={userDidInteract} /> : null }
 
-      <div className="dummy-container" style={{ display: !isLoading && userInteracted ? "block" : "none" }}>
+      <div className="page-container" style={{ display: !isLoading && userInteracted ? "block" : "none" }}>
         { !animationCompleted ? (
             <Transition
               title={props.title}
