@@ -1,3 +1,4 @@
+import { Suspense } from "react";
 import { Routes, Route } from "react-router-dom";
 import { bgImg, transitionAudio } from "./utils/transitionAssets.js";
 import * as Constants from "./utils/constants.js";
@@ -29,7 +30,7 @@ function App() {
   ];
 
   return (
-    <>
+    <Suspense>
       <NavBar />
       <Routes>
         {routes.map((data) => {
@@ -49,7 +50,7 @@ function App() {
           />
         })}
       </Routes>
-    </>
+    </Suspense>
   );
 }
 
