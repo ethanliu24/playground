@@ -13,8 +13,8 @@ export default function Track(props) {
     <div className="track">
       <div className="track-controls">
         <button className="track-mute-btn" onClick={muteTrack}><div className={`${muted ? "muted" : "unmuted"}`}></div></button>
-        <Knob />
-        <Knob />
+        <Knob initialAngle={270} />
+        <Knob initialAngle={180} />
         <div className="sound-file-name">{props.fileName}</div>
       </div>
 
