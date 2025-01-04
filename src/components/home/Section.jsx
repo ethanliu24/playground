@@ -1,5 +1,5 @@
 import { useEffect, useRef } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import gsap from "gsap";
 
 export default function Section(props) {
@@ -29,20 +29,17 @@ export default function Section(props) {
       });
     });
 
-    containerRef.current.addEventListener("click", () => {
-      props.newWindow ? window.open(props.link) : navigate(props.link);
-    });
-
     return () => {
       containerRef.current.removeEventListener("mouseenter", () => {});
       containerRef.current.removeEventListener("mouseleave", () => {});
-      containerRef.current.removeEventListener("click", () => {});
     };
   }, []);
 
   return (
-    <div className="section-container shadow-narrow" data-idx={props.idx} ref={containerRef}>
-      <div className="section-title">{props.title}</div>
-    </div>
+    <Link to={props.link} target={props.newWindow ? "_blank" : ""} rel="noopener noreferrer">
+      <div className="section-container shadow-narrow" data-idx={props.idx} ref={containerRef}>
+        <div className="section-title">{props.title}</div>
+      </div>
+    </Link>
   );
 }
