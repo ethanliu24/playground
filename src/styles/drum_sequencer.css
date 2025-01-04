@@ -40,6 +40,32 @@
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+  gap: 0.2rem;
+}
+
+.knob {
+  --knob-size: 0.85rem;
+  width: var(--knob-size);
+  height: var(--knob-size);
+  min-width: var(--knob-size);
+  min-height: var(--knob-size);
+  border-radius: 50%;
+  border: 1px solid var(--TEXT_PRIMARY);
+  background-color: var(--INTERACTABLE_COLOR);
+  position: relative;
+}
+
+.knob::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translate(-50%, 70%);
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  border: 1px solid white;
+  background-color: var(--BACKGROUND_HOME);
 }
 
 .note-box-container {

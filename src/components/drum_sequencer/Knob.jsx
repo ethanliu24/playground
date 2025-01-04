@@ -35,6 +35,6 @@ export default function Knob() {
   };
 
   return (
-    <div className="knob" ref={knobRef}>a</div>
+    <div className="knob" ref={knobRef}></div>
   );
 }
