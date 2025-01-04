@@ -41,20 +41,21 @@ function Home(props) {
     setDropdownOpen(d => !d);
   };
 
-  const constructSectionData = (title, bgImg, link) => {
+  const constructSectionData = (title, bgImg, link, newWindow) => {
     return {
       title: title,
       bgImg: bgImg,
       link: link,
+      newWindow: newWindow,
     };
   };
 
   const sections = [
-    constructSectionData("TEST NUMBER 1", bgImg.sakuraIMG, Constants.HOME_ROUTE),
-    constructSectionData("TEST NUMBER 2", bgImg.forestIMG, Constants.HOME_ROUTE),
-    constructSectionData("TEST NUMBER 3", bgImg.skyIMG, Constants.HOME_ROUTE),
-    constructSectionData("TEST NUMBER 4", bgImg.autumnIMG, Constants.HOME_ROUTE),
-    constructSectionData("TEST NUMBER 5", bgImg.nightIMG, Constants.HOME_ROUTE),
+    constructSectionData("TEST NUMBER 1", bgImg.sakuraIMG, Constants.HOME_ROUTE, true),
+    constructSectionData("TEST NUMBER 2", bgImg.forestIMG, Constants.HOME_ROUTE, false),
+    constructSectionData("TEST NUMBER 3", bgImg.skyIMG, Constants.HOME_ROUTE, false),
+    constructSectionData("TEST NUMBER 4", bgImg.autumnIMG, Constants.HOME_ROUTE, false),
+    constructSectionData("TEST NUMBER 5", bgImg.nightIMG, Constants.HOME_ROUTE, false),
   ];
 
   return (
@@ -69,7 +70,14 @@ function Home(props) {
         <div className="home-section-wrapper">
           {sections.map((data, idx) => {
             return (
-              <Section key={idx.toString()} idx={`${idx + 1}.`} title={data.title} bgImg={data.bgImg} link={data.link} />
+              <Section
+                key={idx.toString()}
+                idx={`${idx + 1}.`}
+                title={data.title}
+                bgImg={data.bgImg}
+                link={data.link}
+                newWindow={data.newWindow}
+              />
             );
           })}
         </div>

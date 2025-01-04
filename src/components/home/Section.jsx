@@ -30,15 +30,7 @@ export default function Section(props) {
     });
 
     containerRef.current.addEventListener("click", () => {
-      // gsap.to(containerRef.current, {
-      //   opacity: 0,
-      //   scale: 0,
-      //   duration: animaitonDur,
-      //   ease: "power4.inOut",
-      //   onComplete: () => {
-      //     navigate(props.link);
-      //   }
-      // });
+      props.newWindow ? window.open(props.link) : navigate(props.link);
     });
 
     return () => {
