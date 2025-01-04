@@ -194,3 +194,12 @@ a:hover {
   color: var(--TEXT_PRIMARY);
   transition-duration: var(--ANIMATION_FAST);
 }
+
+.redirect {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-style: italic;
+}
