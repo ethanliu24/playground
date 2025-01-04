@@ -43,6 +43,38 @@
   gap: 0.2rem;
 }
 
+.track-mute-btn {
+  --size: 0.7rem;
+  width: var(--size);
+  height: var(--size);
+  min-width: var(--size);
+  min-height: var(--size);
+  border-radius: 50%;
+  border: none;
+  background-color: var(--INTERACTABLE_COLOR);
+  position: relative;
+  cursor: pointer;
+}
+
+.unmuted {
+  display: none;
+}
+
+.muted {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  border: none;
+  border-radius: 50%;
+  background-color: var(--BACKGROUND_HOME);
+  --circle-size: calc(var(--size) - 0.45rem);
+  width: var(--circle-size);
+  height: var(--circle-size);
+  min-width: var(--circle-size);
+  min-height: var(--circle-size);
+}
+
 .knob {
   --knob-size: 0.85rem;
   width: var(--knob-size);
@@ -88,7 +120,7 @@
 }
 
 .note-patch-2 {
-  background-color: var(--BACKGROUND_COLOR);
+  background-color: var(--BACKGROUND_HOME);
 }
 
 .note-box:hover {
