@@ -56,11 +56,11 @@
   cursor: pointer;
 }
 
-.unmuted {
+.muted {
   display: none;
 }
 
-.muted {
+.unmuted {
   position: absolute;
   top: 50%;
   left: 50%;

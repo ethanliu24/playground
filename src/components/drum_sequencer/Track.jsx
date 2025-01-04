@@ -3,7 +3,7 @@ import Knob from "./Knob.jsx";
 import { useState } from "react";
 
 export default function Track(props) {
-  const [muted, setMuted] = useState(true);
+  const [muted, setMuted] = useState(false);
 
   const muteTrack = () => {
     setMuted(m => !m);
