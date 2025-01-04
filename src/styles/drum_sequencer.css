@@ -58,3 +58,7 @@
 .note-box:hover {
   background-color: var(--GRAY_ACCENT_1);
 }
+
+.note-is-active {
+  background-color: var(--TEXT_PRIMARY);
+}

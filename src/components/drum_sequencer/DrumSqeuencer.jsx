@@ -2,7 +2,7 @@ import { useCallback, useEffect, useState } from "react";
 import Track from "./Track.jsx";
 
 export default function DrumSequencer(props) {
-  const [beats, setBeats] = useState(128);
+  const [beats, setBeats] = useState(64);
   const [tracks, setTracks] = useState(5);
   const [bpm, setBpm] = useState(97);
   const [grid, setGrid] = useState([]);
@@ -19,7 +19,6 @@ export default function DrumSequencer(props) {
   }, []);
 
   const handleNoteClick = useCallback((clickedTrack, clickedBeat) => {
-    console.log("hi");
   }, []);
 
   return (

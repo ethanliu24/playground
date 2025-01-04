@@ -70,7 +70,7 @@ h1, h2, h3, h4, h5, h6 {
 .dark {
   --BACKGROUND_HOME: #181818;
   --TEXT_PRIMARY: #d0d0d0;
-  --GRAY_ACCENT_1: #e0e0e0;
+  --GRAY_ACCENT_1: #999999;
   --GRAY_ACCENT_2: #5b5b5a;
   --INTERACTABLE_COLOR: #dfdede;
   --SHADOW_COLOR: rgba(255, 255, 255, 0.2);
