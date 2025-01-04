@@ -6,6 +6,7 @@ import PageWrapper from "./components/transition/PageWrapper.jsx";
 import NavBar from "./components/general/NavBar.jsx";
 import Home from "./components/home/Home.jsx";
 import Redirect from "./components/general/Redirect.jsx";
+import DrumSequencer from "./components/drum_sequencer/DrumSqeuencer.jsx";
 
 function App() {
   const constructRouteData = (path, element, title, subtitle, clipVisual, audioData, extraProps) => {
@@ -23,6 +24,7 @@ function App() {
   // These routes are intended for pages that needs a page animation
   const routes = [
     constructRouteData(Constants.HOME_ROUTE, Home, "OH HEY", "YOU'VE CAME HERE", bgImg.skyGIF, transitionAudio.botanica2, {}),
+    constructRouteData(Constants.DRUM_SEQUENCER_ROUTE, DrumSequencer, "TEMP", "FIX LATER", bgImg.skyGIF, transitionAudio.botanica2, {}),
     constructRouteData(Constants.PORTFOLIO_ROUTE, Redirect, "STALK ME PROFESIONALLY", "LINKED IN MODE ACTIVATED", bgImg.forestGIF, transitionAudio.botanica1,
       {
         link: "https://ethanliu24.github.io/portfolio/",

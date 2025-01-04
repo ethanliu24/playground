@@ -51,7 +51,8 @@ function Home(props) {
   };
 
   const sections = [
-    constructSectionData("PORTFOLIO", bgImg.sakuraIMG, Constants.PORTFOLIO_ROUTE, true),
+    constructSectionData("DRUM SEQUENCER", bgImg.skyIMG, Constants.DRUM_SEQUENCER_ROUTE, false),
+    constructSectionData("PORTFOLIO", bgImg.forestIMG, Constants.PORTFOLIO_ROUTE, true),
   ];
 
   return (

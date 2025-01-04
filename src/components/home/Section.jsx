@@ -1,10 +1,9 @@
 import { useEffect, useRef } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import gsap from "gsap";
 
 export default function Section(props) {
   const containerRef = useRef(null);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const animaitonDur = 0.35;
@@ -30,10 +29,12 @@ export default function Section(props) {
     });
 
     return () => {
+      if (!containerRef.current) return;
+
       containerRef.current.removeEventListener("mouseenter", () => {});
       containerRef.current.removeEventListener("mouseleave", () => {});
     };
-  }, []);
+  }, [props.bgImg]);
 
   return (
     <Link to={props.link} target={props.newWindow ? "_blank" : ""} rel="noopener noreferrer">

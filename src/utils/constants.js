@@ -12,4 +12,5 @@ export const DARK = "dark";
 
 // Routes
 export const HOME_ROUTE = "/";
-export const PORTFOLIO_ROUTE = "/portfolio"
+export const PORTFOLIO_ROUTE = "/portfolio";
+export const DRUM_SEQUENCER_ROUTE = "/drum-sequencer";
