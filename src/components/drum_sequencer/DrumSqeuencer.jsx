@@ -2,23 +2,34 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import * as Tone from "tone";
 import Track from "./Track.jsx";
 import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
+import * as Constants from "./msgConstants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
   const [subdivisions, setSubdivisions] = useState(8);
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
+  const [subdivisionTime, setSubdivisionTime] = useState(bpm / 60.0 / 4); // how long each subdivision is
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
 
 
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
+  const timerRef = useRef(new Worker(new URL("./timer.js", import.meta.url), { type: "module" }));
 
   useEffect(() => {
-    Tone.loaded().then(() => {
-      window.addEventListener("click", startAudioContext, { once: true });
-      props.loadingComplete();
+    window.addEventListener("click", startAudioContext, { once: true });
+
+    // Set up timer in the main thread, it listens to when to schedule a subdivision
+    const timer = timerRef.current;
+    timer.postMessage({ interval: subdivisionTime });
+    timer.addEventListener("message", (e) => {
+      if (e.data === Constants.TICK) {
+
+      }
     });
+
+    props.loadingComplete();
   }, []);
 
   /**
@@ -32,8 +43,8 @@ export default function DrumSequencer(props) {
   };
 
   const startAudioContext = () => {
-    initSchedule();
-    Tone.start();
+    // initSchedule();
+    // Tone.start();
     setStarted(true);
   };
 
