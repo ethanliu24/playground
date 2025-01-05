@@ -21,10 +21,10 @@ export default forwardRef(function Notebox(props, ref) {
   useImperativeHandle(ref, () => {
     return {
       active: () => isActive,
-      play: () => {
+      play: (time) => {
         soundRef.current.stop();
         soundRef.current.seek(0);
-        soundRef.current.start();
+        soundRef.current.start(time);
       },
     };
   });

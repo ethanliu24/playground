@@ -6,29 +6,22 @@ import * as Constants from "./msgConstants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
-  const [subdivisions, setSubdivisions] = useState(8);
+  const [subdivisions, setSubdivisions] = useState(16); // Each beat is divided into 4 subdivisions, i.e. 16th notes
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
-  const [subdivisionTime, setSubdivisionTime] = useState(bpm / 60.0 / 4); // how long each subdivision is
+  const [subdivisionTime, setSubdivisionTime] = useState((60000.0 / bpm) / 4); // how long each subdivision is
+  const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
+  const [curSubdivision, setCurSubdivision] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
 
 
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
-  const timerRef = useRef(new Worker(new URL("./timer.js", import.meta.url), { type: "module" }));
+  const timerRef = useRef(null);
 
   useEffect(() => {
     window.addEventListener("click", startAudioContext, { once: true });
-
-    // Set up timer in the main thread, it listens to when to schedule a subdivision
-    const timer = timerRef.current;
-    timer.postMessage({ interval: subdivisionTime });
-    timer.addEventListener("message", (e) => {
-      if (e.data === Constants.TICK) {
-
-      }
-    });
-
+    initTimer();
     props.loadingComplete();
   }, []);
 
@@ -42,11 +35,40 @@ export default function DrumSequencer(props) {
     gridRef.current[trackIdx][subdivisionIdx] = ref;
   };
 
+  // Set up timer in the main thread, it listens to when to schedule a subdivision
+  const initTimer = () => {
+    timerRef.current = new Worker(new URL("./timer.js", import.meta.url), { type: "module" })
+    const timer = timerRef.current;
+    timer.postMessage({ interval: subdivisionTime }); // set timer interval
+    timer.addEventListener("message", (e) => {
+      if (e.data === Constants.TICK) {
+        schedule();
+      }
+    });
+  };
+
   const startAudioContext = () => {
     // initSchedule();
-    // Tone.start();
+    Tone.start();
     setStarted(true);
   };
+
+  const schedule = () => {
+    var noteTime = nextNoteTime; // for percision timing
+
+    while (noteTime < Tone.getContext().currentTime + Constants.SCHEDULE_TIME_AHEAD) {
+      setCurSubdivision(c => {
+        scheduleNote(c);
+
+        return (c + 1) % subdivisions;
+      });
+
+      noteTime += subdivisionTime;
+      console.log(noteTime, Tone.getContext().currentTime);
+    }
+
+    setNextNoteTime(noteTime);
+  }
 
   const initSchedule = () => {
     const transport = Tone.getTransport();
@@ -54,30 +76,31 @@ export default function DrumSequencer(props) {
     transport.scheduleRepeat(sequenceLoop, "16n");
   };
 
-  var subdivision = 0 // Can't use useState because it's asynchronous, it messes up the timing
-  const sequenceLoop = () => {
+  const scheduleNote = (subdivision, time) => {
     gridRef.current.forEach((track) => {
       const noteBox = track[subdivision];
 
       if (noteBox.active()) {
-        noteBox.play();
+        noteBox.play(time);
       }
     });
-
-    subdivision = (subdivision + 1) % subdivisions;
   };
 
   const handlePlay = () => {
     if (!started) {
       startAudioContext();
-    } else {
+    }
+    if(true){
       const transport = Tone.getTransport();
 
       if (playing) {
-        transport.stop();
+        // transport.stop();
+        timerRef.current.postMessage(Constants.STOP);
         setPlaying(false);
       } else {
-        transport.start();
+        // transport.start();
+        setNextNoteTime(Tone.getContext().currentTime);
+        timerRef.current.postMessage(Constants.START);
         setPlaying(true);
       }
     }
