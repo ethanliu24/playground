@@ -46,8 +46,8 @@ export default forwardRef(function Track(props, ref) {
     <div className="track">
       <div className="track-controls">
         <button className="track-mute-btn" onClick={muteTrack}><div className={`${muted ? "muted" : "unmuted"}`}></div></button>
-        <Knob initialAngle={270} />
-        <Knob initialAngle={180} />
+        <Knob initialAngle={270} maxAngle={330} minAngle={30} />
+        <Knob initialAngle={180} maxAngle={330} minAngle={30} />
         <div className="sound-file-name">{parseFileName()}</div>
       </div>
 
