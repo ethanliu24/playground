@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 import * as Tone from "tone";
 import Track from "./Track.jsx";
 import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
+import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
-  const [beats, setBeats] = useState(64);
-  const [curBeat, setCurBeat] = useState(0);
-  const [tracks, setTracks] = useState(2);
+  const [beats, setBeats] = useState(16);
+  const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
@@ -14,6 +14,7 @@ export default function DrumSequencer(props) {
   const gridRef = useRef([]); // format: grid[trackIdx][beatIdx] is a note cell
 
   useEffect(() => {
+    console.log(samples.spinz808)
     window.addEventListener("click", startAudioContext, { once: true });
     props.loadingComplete();
   }, []);
@@ -37,21 +38,20 @@ export default function DrumSequencer(props) {
   const initSchedule = () => {
     const transport = Tone.getTransport();
     transport.bpm.value = bpm;
-    transport.scheduleRepeat(sequenceLoop, "8n");
+    transport.scheduleRepeat(sequenceLoop, "16n");
   };
 
+  var beat = 0 // Can't use useState because it's asynchronous, it messes up the timing
   const sequenceLoop = () => {
-    setCurBeat(c => {
-      gridRef.current.forEach((track) => {
-        const noteBox = track[c];
+    gridRef.current.forEach((track) => {
+      const noteBox = track[beat];
 
-        if (noteBox.active()) {
-          noteBox.play();
-        }
-      });
-
-      return (c + 1) % beats
+      if (noteBox.active()) {
+        noteBox.play();
+      }
     });
+
+    beat = (beat + 1) % beats
   };
 
   const handlePlay = () => {
@@ -78,14 +78,14 @@ export default function DrumSequencer(props) {
       <div className="drum-sequencer">
         <DrumSequencerSettings handlePlay={handlePlay} />
         <div className="track-container">
-          {Array(tracks).fill().map((_, trackNum) => {
+          {samples.map((soundFile, trackNum) => {
             return (
               <Track
                 key={trackNum}
                 track={trackNum}
                 beats={beats}
                 handleNoteClick={handleNoteClick}
-                soundFile={"src/assets/drum_sequencer_sounds/test.mp3"}
+                soundFile={soundFile}
                 setGridCellRef={setGridCellRef}
               />
             );
