@@ -6,6 +6,7 @@ import Knob from "./Knob.jsx";
 export default function Track(props) {
   const [muted, setMuted] = useState(false);
 
+  const cellRefs = useRef([]);
   const channelRef = useRef(null);
 
   useEffect(() => {
@@ -43,6 +44,7 @@ export default function Track(props) {
               patchOne={patchOne}
               soundFile={props.soundFile}
               channel={channelRef.current}
+              ref={(cell) => props.setGridCellRef(props.track, beat, cell)}
             />
           );
         })}

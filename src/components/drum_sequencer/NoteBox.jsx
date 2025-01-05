@@ -1,10 +1,9 @@
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef, useEffect, useImperativeHandle, forwardRef } from "react";
 import * as Tone from "tone";
 
-export default function Notebox(props) {
+export default forwardRef(function Notebox(props, ref) {
   const [isActive, setIsActive] = useState(false);
 
-  const noteBoxRef = useRef(null);
   const soundRef = useRef(null);
 
   useEffect(() => {
@@ -18,6 +17,12 @@ export default function Notebox(props) {
 
     soundRef.current = new Tone.Player(props.soundFile).connect(props.channel);
   }, [props.channel]);
+
+  useImperativeHandle(ref, () => {
+    return {
+      active: () => isActive,
+    };
+  });
 
   const handleClick = () => {
     handleNoteActiveness();
@@ -41,8 +46,7 @@ export default function Notebox(props) {
       className={`note-box ${props.patchOne ? "note-patch-1" : "note-patch-2"} ${isActive ? "note-is-active" : ""}`}
       onClick={handleClick}
       onMouseEnter={handleHover}
-      ref={noteBoxRef}
     >
     </button>
   );
-}
+})
