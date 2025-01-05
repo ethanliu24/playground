@@ -38,18 +38,18 @@ export default function Track(props) {
       </div>
 
       <div className="note-box-container">
-        {Array(props.beats).fill().map((_, beat) => {
-          const patchOne = beat % 8 >= 4;
+        {Array(props.subdivisions).fill().map((_, subdivision) => {
+          const patchOne = subdivision % 8 >= 4;
           return (
             <Notebox
-              key={beat}
+              key={subdivision}
               track={props.track}
-              beat={beat}
+              subdivision={subdivision}
               handleNoteClick={props.handleNoteClick}
               patchOne={patchOne}
               soundFile={props.soundFile}
               channel={channelRef.current}
-              ref={(cell) => props.setGridCellRef(props.track, beat, cell)}
+              ref={(cell) => props.setGridCellRef(props.track, subdivision, cell)}
             />
           );
         })}

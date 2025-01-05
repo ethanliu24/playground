@@ -22,11 +22,9 @@ export default forwardRef(function Notebox(props, ref) {
     return {
       active: () => isActive,
       play: () => {
-        Tone.loaded().then(() => {
-          soundRef.current.stop();
-          soundRef.current.seek(0);
-          soundRef.current.start();
-        });
+        soundRef.current.stop();
+        soundRef.current.seek(0);
+        soundRef.current.start();
       },
     };
   });
@@ -41,7 +39,7 @@ export default forwardRef(function Notebox(props, ref) {
 
   const handleNoteActiveness = () => {
     setIsActive(i => !i);
-    props.handleNoteClick(props.track, props.beat);
+    props.handleNoteClick(props.track, props.subdivision);
   }
 
   return (

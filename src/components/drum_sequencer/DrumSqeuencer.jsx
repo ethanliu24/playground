@@ -5,33 +5,35 @@ import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
-  const [beats, setBeats] = useState(16);
+  const [subdivisions, setSubdivisions] = useState(8);
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
 
-  const gridRef = useRef([]); // format: grid[trackIdx][beatIdx] is a note cell
+
+  const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
 
   useEffect(() => {
-    console.log(samples.spinz808)
-    window.addEventListener("click", startAudioContext, { once: true });
-    props.loadingComplete();
+    Tone.loaded().then(() => {
+      window.addEventListener("click", startAudioContext, { once: true });
+      props.loadingComplete();
+    });
   }, []);
 
   /**
    * Each note cell will be referenced in gridRef when the sequencer is first mounted
    */
-  const setGridCellRef = (trackIdx, beatIdx, ref) => {
+  const setGridCellRef = (trackIdx, subdivisionIdx, ref) => {
     if (!gridRef.current[trackIdx]) {
       gridRef.current[trackIdx] = [];
     }
-    gridRef.current[trackIdx][beatIdx] = ref;
+    gridRef.current[trackIdx][subdivisionIdx] = ref;
   };
 
   const startAudioContext = () => {
-    Tone.start();
     initSchedule();
+    Tone.start();
     setStarted(true);
   };
 
@@ -41,17 +43,17 @@ export default function DrumSequencer(props) {
     transport.scheduleRepeat(sequenceLoop, "16n");
   };
 
-  var beat = 0 // Can't use useState because it's asynchronous, it messes up the timing
+  var subdivision = 0 // Can't use useState because it's asynchronous, it messes up the timing
   const sequenceLoop = () => {
     gridRef.current.forEach((track) => {
-      const noteBox = track[beat];
+      const noteBox = track[subdivision];
 
       if (noteBox.active()) {
         noteBox.play();
       }
     });
 
-    beat = (beat + 1) % beats
+    subdivision = (subdivision + 1) % subdivisions;
   };
 
   const handlePlay = () => {
@@ -70,7 +72,7 @@ export default function DrumSequencer(props) {
     }
   };
 
-  const handleNoteClick = useCallback((clickedTrack, clickedBeat) => {
+  const handleNoteClick = useCallback((clickedTrack, clickedsubdivision) => {
   }, []);
 
   return (
@@ -83,7 +85,7 @@ export default function DrumSequencer(props) {
               <Track
                 key={trackNum}
                 track={trackNum}
-                beats={beats}
+                subdivisions={subdivisions}
                 handleNoteClick={handleNoteClick}
                 soundFile={soundFile}
                 setGridCellRef={setGridCellRef}
