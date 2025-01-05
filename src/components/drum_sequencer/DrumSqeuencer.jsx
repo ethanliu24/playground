@@ -15,15 +15,24 @@ export default function DrumSequencer(props) {
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
 
-
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
+  const tracksRef = useRef([]); // each element corresponds to a track
   const timerRef = useRef(null);
 
   useEffect(() => {
-    window.addEventListener("click", startAudioContext, { once: true });
-    initTimer();
-    props.loadingComplete();
+    Tone.loaded().then(() => {
+      window.addEventListener("click", startAudioContext, { once: true });
+      initTimer();
+      props.loadingComplete();
+    });
   }, []);
+
+  /**
+   * Each track will be referenced in gridRef when the sequencer is first mounted
+   */
+  const setTracksRef = (trackIdx, ref) => {
+    tracksRef.current[trackIdx] = ref;
+  }
 
   /**
    * Each note cell will be referenced in gridRef when the sequencer is first mounted
@@ -48,6 +57,7 @@ export default function DrumSequencer(props) {
   };
 
   const startAudioContext = () => {
+    Tone.start();
     setStarted(true);
   };
 
@@ -68,11 +78,11 @@ export default function DrumSequencer(props) {
   }
 
   const scheduleNote = (subdivision, time) => {
-    gridRef.current.forEach((track) => {
+    gridRef.current.forEach((track, trackRefIdx) => {
       const noteBox = track[subdivision];
 
       if (noteBox.active()) {
-        noteBox.play(time);
+        tracksRef.current[trackRefIdx].play(time);
       }
     });
   };
@@ -84,10 +94,12 @@ export default function DrumSequencer(props) {
 
     if (playing) {
       timerRef.current.postMessage(Constants.STOP);
+      Tone.stop();
       setPlaying(false);
     } else {
       setNextNoteTime(Tone.getContext().currentTime);
       timerRef.current.postMessage(Constants.START);
+      Tone.start();
       setPlaying(true);
     }
   };
@@ -109,6 +121,7 @@ export default function DrumSequencer(props) {
                 handleNoteClick={handleNoteClick}
                 soundFile={soundFile}
                 setGridCellRef={setGridCellRef}
+                ref={(track) => setTracksRef(trackNum, track)}
               />
             );
           })}

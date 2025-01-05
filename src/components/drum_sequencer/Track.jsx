@@ -1,20 +1,34 @@
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, forwardRef, useImperativeHandle } from "react";
 import * as Tone from "tone";
 import Notebox from "./NoteBox.jsx";
 import Knob from "./Knob.jsx";
 
-export default function Track(props) {
+export default forwardRef(function Track(props, ref) {
   const [muted, setMuted] = useState(false);
 
   const channelRef = useRef(null);
+  const sampleRef = useRef();
 
   useEffect(() => {
     channelRef.current = new Tone.Channel({ volume: 9, pan: 0, mute: false }).toDestination();
+    sampleRef.current = new Tone.Player(props.soundFile).connect(channelRef.current);
 
     return () => {
       channelRef.current.dispose();
+      sampleRef.current.dispose();
     };
   }, []);
+
+  useImperativeHandle(ref, () => {
+    return {
+      play: (time) => {
+        // TODO check if channel cuts itself
+        sampleRef.current.stop();
+        sampleRef.current.seek(0);
+        sampleRef.current.start(time);
+      },
+    };
+  });
 
   const muteTrack = () => {
     const muted = channelRef.current.mute;
@@ -47,8 +61,6 @@ export default function Track(props) {
               subdivision={subdivision}
               handleNoteClick={props.handleNoteClick}
               patchOne={patchOne}
-              soundFile={props.soundFile}
-              channel={channelRef.current}
               ref={(cell) => props.setGridCellRef(props.track, subdivision, cell)}
             />
           );
@@ -56,4 +68,4 @@ export default function Track(props) {
       </div>
     </div>
   );
-}
+})
