@@ -48,13 +48,11 @@ export default function DrumSequencer(props) {
   };
 
   const startAudioContext = () => {
-    // initSchedule();
-    Tone.start();
     setStarted(true);
   };
 
   const schedule = () => {
-    var noteTime = nextNoteTime; // for percision timing
+    var noteTime = nextNoteTime; // for more percision timing
 
     while (noteTime < Tone.getContext().currentTime + Constants.SCHEDULE_TIME_AHEAD) {
       setCurSubdivision(c => {
@@ -68,12 +66,6 @@ export default function DrumSequencer(props) {
 
     setNextNoteTime(noteTime);
   }
-
-  const initSchedule = () => {
-    const transport = Tone.getTransport();
-    transport.bpm.value = bpm;
-    transport.scheduleRepeat(sequenceLoop, "16n");
-  };
 
   const scheduleNote = (subdivision, time) => {
     gridRef.current.forEach((track) => {
@@ -89,19 +81,14 @@ export default function DrumSequencer(props) {
     if (!started) {
       startAudioContext();
     }
-    if(true){
-      const transport = Tone.getTransport();
 
-      if (playing) {
-        // transport.stop();
-        timerRef.current.postMessage(Constants.STOP);
-        setPlaying(false);
-      } else {
-        // transport.start();
-        setNextNoteTime(Tone.getContext().currentTime);
-        timerRef.current.postMessage(Constants.START);
-        setPlaying(true);
-      }
+    if (playing) {
+      timerRef.current.postMessage(Constants.STOP);
+      setPlaying(false);
+    } else {
+      setNextNoteTime(Tone.getContext().currentTime);
+      timerRef.current.postMessage(Constants.START);
+      setPlaying(true);
     }
   };
 
