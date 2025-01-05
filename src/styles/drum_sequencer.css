@@ -108,6 +108,11 @@
   border: 2px solid var(--INTERACTABLE_COLOR);
   border-radius: 5px;
   padding: 0 0.3rem;
+  width: 80px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
 
 .note-box-container {

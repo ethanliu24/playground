@@ -97,7 +97,7 @@ export default function Loading() {
   }, [second])
 
   useEffect(() => {
-    if (waitTextRef.current.innerText != "*" && waitAnimationRef.current) {
+    if (waitTextRef.current.innerText !== "*" && waitAnimationRef.current) {
       waitAnimationRef.current.restart();
     }
   }, [waitMessage])
