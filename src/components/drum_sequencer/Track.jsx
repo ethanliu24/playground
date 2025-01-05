@@ -6,7 +6,6 @@ import Knob from "./Knob.jsx";
 export default function Track(props) {
   const [muted, setMuted] = useState(false);
 
-  const cellRefs = useRef([]);
   const channelRef = useRef(null);
 
   useEffect(() => {

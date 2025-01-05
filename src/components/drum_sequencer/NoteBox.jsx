@@ -21,15 +21,18 @@ export default forwardRef(function Notebox(props, ref) {
   useImperativeHandle(ref, () => {
     return {
       active: () => isActive,
+      play: () => {
+        Tone.loaded().then(() => {
+          soundRef.current.stop();
+          soundRef.current.seek(0);
+          soundRef.current.start();
+        });
+      },
     };
   });
 
   const handleClick = () => {
     handleNoteActiveness();
-    // TODO auto play
-    Tone.loaded().then(() => {
-      soundRef.current.start();
-    });
   }
 
   const handleHover = (e) => {
@@ -44,7 +47,7 @@ export default forwardRef(function Notebox(props, ref) {
   return (
     <button
       className={`note-box ${props.patchOne ? "note-patch-1" : "note-patch-2"} ${isActive ? "note-is-active" : ""}`}
-      onClick={handleClick}
+      onMouseDown={handleClick}
       onMouseEnter={handleHover}
     >
     </button>

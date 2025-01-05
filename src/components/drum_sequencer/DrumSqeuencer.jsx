@@ -6,7 +6,7 @@ import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
 export default function DrumSequencer(props) {
   const [beats, setBeats] = useState(64);
   const [curBeat, setCurBeat] = useState(0);
-  const [tracks, setTracks] = useState(1);
+  const [tracks, setTracks] = useState(2);
   const [bpm, setBpm] = useState(97);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
@@ -26,7 +26,33 @@ export default function DrumSequencer(props) {
       gridRef.current[trackIdx] = [];
     }
     gridRef.current[trackIdx][beatIdx] = ref;
-  }
+  };
+
+  const startAudioContext = () => {
+    Tone.start();
+    initSchedule();
+    setStarted(true);
+  };
+
+  const initSchedule = () => {
+    const transport = Tone.getTransport();
+    transport.bpm.value = bpm;
+    transport.scheduleRepeat(sequenceLoop, "8n");
+  };
+
+  const sequenceLoop = () => {
+    setCurBeat(c => {
+      gridRef.current.forEach((track) => {
+        const noteBox = track[c];
+
+        if (noteBox.active()) {
+          noteBox.play();
+        }
+      });
+
+      return (c + 1) % beats
+    });
+  };
 
   const handlePlay = () => {
     if (!started) {
@@ -42,27 +68,7 @@ export default function DrumSequencer(props) {
         setPlaying(true);
       }
     }
-  }
-
-  const startAudioContext = () => {
-    Tone.start();
-    initSchedule();
-    setStarted(true);
-  }
-
-  const initSchedule = () => {
-    const transport = Tone.getTransport();
-    transport.bpm.value = bpm;
-    transport.scheduleRepeat(sequenceLoop, `${beats}n`);
-  }
-
-  const sequenceLoop = (time) => {
-    // grid.forEach((track) => {
-    //   if (track[curBeat]) {
-
-    //   }
-    // });
-  }
+  };
 
   const handleNoteClick = useCallback((clickedTrack, clickedBeat) => {
   }, []);
