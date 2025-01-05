@@ -64,7 +64,6 @@ export default function DrumSequencer(props) {
       });
 
       noteTime += subdivisionTime;
-      console.log(noteTime, Tone.getContext().currentTime);
     }
 
     setNextNoteTime(noteTime);
