@@ -45,6 +45,14 @@ export default forwardRef(function Track(props, ref) {
     channelRef.current.mute = !muted;
   };
 
+  const updateChannelVolume = (volumePercentage) => {
+    console.log(volumePercentage)
+  }
+
+  const updateChannelPan = (panPercentage) => {
+    console.log(panPercentage)
+  }
+
   const parseFileName = () => {
     const fileName = props.soundFile.split("/").pop();
     const sampleName = fileName.split(".")[0];
@@ -55,8 +63,8 @@ export default forwardRef(function Track(props, ref) {
     <div className="track">
       <div className="track-controls">
         <button className="track-mute-btn" onClick={muteTrack}><div className={`${muted ? "muted" : "unmuted"}`}></div></button>
-        <Knob initialAngle={270} maxAngle={330} minAngle={30} />
-        <Knob initialAngle={180} maxAngle={330} minAngle={30} />
+        <Knob initialAngle={270} maxAngle={330} minAngle={30} updateKnobFunction={updateChannelVolume} />
+        <Knob initialAngle={180} maxAngle={330} minAngle={30} updateKnobFunction={updateChannelPan} />
         <div className="sound-file-name">{parseFileName()}</div>
       </div>
 

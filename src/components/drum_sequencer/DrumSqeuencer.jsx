@@ -119,6 +119,7 @@ export default function DrumSequencer(props) {
   };
 
   const handleNoteClick = useCallback((clickedTrack, clickedsubdivision) => {
+    // Maybe it'll be useful one day
   }, []);
 
   const updateBPM = (newBPM) => {
@@ -127,6 +128,10 @@ export default function DrumSequencer(props) {
 
   const updateNumBars = (numBars) => {
     subdivisionsRef.current = numBars * Constants.DIVISIONS_PER_BAR;
+  }
+
+  const updateSwing = (swingAmt) => {
+    console.log(swingAmt)
   }
 
   const clearGrid = () => {
@@ -148,6 +153,7 @@ export default function DrumSequencer(props) {
           clearGrid={clearGrid}
           bars={Math.floor(subdivisionsRef.current / Constants.DIVISIONS_PER_BAR)}
           updateNumBars={updateNumBars}
+          updateSwing={updateSwing}
           forceUpdate={forceUpdate}
         />
 

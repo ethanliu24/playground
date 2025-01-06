@@ -1,31 +1,29 @@
-import { useEffect, useRef, useState } from "react";
+import { useEffect, useImperativeHandle, useRef, useState } from "react";
 import gsap from "gsap";
 import { Draggable } from "gsap/all";
+import { ROTATION_STYLE_REGEX } from "./constants";
 
 gsap.registerPlugin(Draggable)
-const ROTATIO_STYLE_REGEX = /rotate\((-?\d+(\.\d+)?)deg\)/;
 
 export default function Knob(props) {
-  const [rotation, setRotation] = useState(props.initialAngle); // in degrees
+  const [angle, setAngle] = useState(props.initialAngle); // in degrees
 
   const knobRef = useRef(null);
 
   useEffect(() => {
     const knob = knobRef.current;
-    knob.style.transform = `rotate(${rotation}deg)`
+    knob.style.transform = `rotate(${angle}deg)`
 
     Draggable.create(knob, {
       type: "rotation",
       onDrag: () => {
-        const matchRotation = knob.style.transform.match(ROTATIO_STYLE_REGEX);
-        const angle = matchRotation ? Math.floor(parseFloat(matchRotation[1])) : props.initialAngle;
-        setRotation(angle);
-
-        if (angle > props.maxAngle || angle < props.minAngle) {
-          const clampedAngle = Math.max(props.minAngle, Math.min(props.maxAngle, angle));
-          knob.style.transform = `rotate(${clampedAngle}deg)`;
-          setRotation(clampedAngle);
-        }
+        const matchRotation = knob.style.transform.match(ROTATION_STYLE_REGEX);
+        const rawAngle = matchRotation ? Math.floor(parseFloat(matchRotation[1])) : props.initialAngle;
+        const clampedAngle = Math.max(props.minAngle, Math.min(props.maxAngle, rawAngle));
+        knob.style.transform = `rotate(${clampedAngle}deg)`;
+        const anglePercentage = (clampedAngle - props.minAngle) / (props.maxAngle - props.minAngle);
+        props.updateKnobFunction(anglePercentage);
+        setAngle(clampedAngle);
       }
     });
   }, []);
