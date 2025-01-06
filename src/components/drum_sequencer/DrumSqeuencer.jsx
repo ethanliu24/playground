@@ -88,18 +88,17 @@ export default function DrumSequencer(props) {
   };
 
   const handlePlay = () => {
+    console.log(playing)
     if (!started) {
       startAudioContext();
     }
 
     if (playing) {
       timerRef.current.postMessage(Constants.STOP);
-      Tone.stop();
       setPlaying(false);
     } else {
       setNextNoteTime(Tone.getContext().currentTime);
       timerRef.current.postMessage(Constants.START);
-      Tone.start();
       setPlaying(true);
     }
   };
@@ -115,6 +114,7 @@ export default function DrumSequencer(props) {
     <div className="drum-sequencer-container">
       <div className="drum-sequencer">
         <DrumSequencerSettings
+          playing={playing}
           bpm={bpm}
           updateBPM={updateBPM}
           handlePlay={handlePlay}
