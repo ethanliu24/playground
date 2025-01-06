@@ -11,7 +11,7 @@ export default forwardRef(function Track(props, ref) {
 
   useEffect(() => {
     channelRef.current = new Tone.Channel({ volume: 9, pan: 0, mute: false }).toDestination();
-    sampleRef.current = new Tone.Player(props.soundFile).connect(channelRef.current);
+    sampleRef.current = new Tone.Player({ url: props.soundFile, fadeOut: 0.01 }).connect(channelRef.current);
 
     return () => {
       channelRef.current.dispose();
