@@ -1,5 +1,5 @@
 // This script has the logics for timing the intervals
-import * as Constants from "./msgConstants";
+import * as Constants from "./constants";
 
 var interval = 25;
 var timer = null;

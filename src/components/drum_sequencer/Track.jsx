@@ -1,5 +1,6 @@
 import { useEffect, useState, useRef, forwardRef, useImperativeHandle } from "react";
 import * as Tone from "tone";
+import * as Constants from "./constants.js"
 import Notebox from "./NoteBox.jsx";
 import Knob from "./Knob.jsx";
 
@@ -10,8 +11,16 @@ export default forwardRef(function Track(props, ref) {
   const sampleRef = useRef();
 
   useEffect(() => {
-    channelRef.current = new Tone.Channel({ volume: 9, pan: 0, mute: false }).toDestination();
-    sampleRef.current = new Tone.Player({ url: props.soundFile, fadeOut: 0.01 }).connect(channelRef.current);
+    channelRef.current = new Tone.Channel({
+      volume: Constants.CHANNEL_DEFAULT_VOL,
+      pan: Constants.CHANNEL_DEFAULT_PAN,
+      mute: false,
+    }).toDestination();
+
+    sampleRef.current = new Tone.Player({
+      url: props.soundFile,
+      fadeOut: Constants.SAMPLE_FADE_OUT,
+    }).connect(channelRef.current);
 
     return () => {
       channelRef.current.dispose();
@@ -53,7 +62,7 @@ export default forwardRef(function Track(props, ref) {
 
       <div className="note-box-container">
         {Array(props.subdivisions).fill().map((_, subdivision) => {
-          const patchOne = subdivision % 8 >= 4;
+          const patchOne = subdivision % (Constants.DIVISIONS_PER_BEAT * 2) >= Constants.DIVISIONS_PER_BEAT;
           return (
             <Notebox
               key={subdivision}

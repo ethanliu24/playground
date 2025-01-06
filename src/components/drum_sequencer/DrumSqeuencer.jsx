@@ -2,12 +2,12 @@ import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import * as Tone from "tone";
 import Track from "./Track.jsx";
 import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
-import * as Constants from "./msgConstants.js";
+import * as Constants from "./constants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
   const [tracks, setTracks] = useState(samples.length);
-  const [bpm, setBpm] = useState(97);
+  const [bpm, setBpm] = useState(Constants.INITIAL_BPM);
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
@@ -16,7 +16,7 @@ export default function DrumSequencer(props) {
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
   const tracksRef = useRef([]); // each element corresponds to a track
   const timerRef = useRef(null);
-  const subdivisionsRef = useRef(64); // Each beat is divided into 4 subdivisions, i.e. 16th notes
+  const subdivisionsRef = useRef(Constants.INITIAL_SUBDIVISIONS);
   const subdivisionTimeRef = useRef(0); // how long each subdivision is
   const curSubdivisionRef = useRef(0);
 
@@ -98,7 +98,8 @@ export default function DrumSequencer(props) {
   };
 
   const calcSubdivisionTime = (curBPM) => {
-    return (60000.0 / curBPM) / 4;
+    // If implementing divisions such as triplets, store divions per beat in a var
+    return (60000.0 / curBPM) / Constants.DIVISIONS_PER_BEAT;
   };
 
   const handlePlay = () => {
@@ -125,7 +126,7 @@ export default function DrumSequencer(props) {
   };
 
   const updateNumBars = (numBars) => {
-    subdivisionsRef.current = numBars * 16;
+    subdivisionsRef.current = numBars * Constants.DIVISIONS_PER_BAR;
   }
 
   const clearGrid = () => {
@@ -145,7 +146,7 @@ export default function DrumSequencer(props) {
           updateBPM={updateBPM}
           handlePlay={handlePlay}
           clearGrid={clearGrid}
-          bars={Math.floor(subdivisionsRef.current / 16)}
+          bars={Math.floor(subdivisionsRef.current / Constants.DIVISIONS_PER_BAR)}
           updateNumBars={updateNumBars}
           forceUpdate={forceUpdate}
         />
