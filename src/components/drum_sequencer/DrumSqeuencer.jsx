@@ -75,7 +75,7 @@ export default function DrumSequencer(props) {
 
     while (noteTime < Tone.getContext().currentTime + Constants.SCHEDULE_TIME_AHEAD) {
       const subdivision = curSubdivisionRef.current; // the current note box
-      scheduleNote(subdivision, 0);
+      scheduleNote(subdivision);
       curSubdivisionRef.current = (subdivision + 1) % subdivisionsRef.current;
       noteTime += subdivisionTimeRef.current;
     }
@@ -83,12 +83,16 @@ export default function DrumSequencer(props) {
     setNextNoteTime(noteTime);
   };
 
-  const scheduleNote = (subdivision, time) => {
+  const scheduleNote = (subdivision) => {
+    // TODO temp swing implementation as a reminder, the maximum swing offset is subdivisionTime * 0.6
+    const swingNote = subdivision % 2 === 1;
+    const swingOffset = swingNote ? subdivisionTimeRef.current * 0.6 / 1000 : 0;
+
     gridRef.current.forEach((track, trackRefIdx) => {
       const noteBox = track[subdivision];
 
       if (noteBox && noteBox.active()) {
-        tracksRef.current[trackRefIdx].play(time);
+        tracksRef.current[trackRefIdx].play(Tone.now() + swingOffset);
       }
     });
   };
