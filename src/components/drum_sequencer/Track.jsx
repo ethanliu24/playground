@@ -59,7 +59,8 @@ export default forwardRef(function Track(props, ref) {
   }
 
   const updateChannelPan = (panPercentage) => {
-    console.log(panPercentage)
+    const panValue = 2 * panPercentage - 1;
+    channelRef.current.pan.value = panValue;
   }
 
   const parseFileName = () => {
