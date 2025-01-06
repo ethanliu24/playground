@@ -10,7 +10,6 @@ export default function DrumSequencer(props) {
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
-  const [curSubdivision, setCurSubdivision] = useState(0);
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
 
@@ -18,6 +17,7 @@ export default function DrumSequencer(props) {
   const tracksRef = useRef([]); // each element corresponds to a track
   const timerRef = useRef(null);
   const subdivisionTimeRef = useRef(0); // how long each subdivision is
+  const curSubdivisionRef = useRef(0);
 
   useEffect(() => {
     Tone.loaded().then(() => {
@@ -70,15 +70,12 @@ export default function DrumSequencer(props) {
   };
 
   const schedule = () => {
-    var noteTime = nextNoteTime; // for more percision timing
+    var noteTime = nextNoteTime;
 
     while (noteTime < Tone.getContext().currentTime + Constants.SCHEDULE_TIME_AHEAD) {
-      setCurSubdivision(c => {
-        scheduleNote(c);
-
-        return (c + 1) % subdivisions;
-      });
-
+      const subdivision = curSubdivisionRef.current; // the current note box
+      scheduleNote(subdivision);
+      curSubdivisionRef.current = (subdivision + 1) % subdivisions;
       noteTime += subdivisionTimeRef.current;
     }
 
@@ -100,7 +97,6 @@ export default function DrumSequencer(props) {
   }
 
   const handlePlay = () => {
-    console.log(playing)
     if (!started) {
       startAudioContext();
     }
