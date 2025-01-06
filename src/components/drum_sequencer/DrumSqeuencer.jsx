@@ -119,6 +119,10 @@ export default function DrumSequencer(props) {
     setBpm(newBPM);
   };
 
+  const updateNumBars = (numBars) => {
+    setSubdivisions(numBars * 16);
+  }
+
   const clearGrid = () => {
     gridRef.current.forEach((track) => {
       track.forEach((note) => {
@@ -136,6 +140,8 @@ export default function DrumSequencer(props) {
           updateBPM={updateBPM}
           handlePlay={handlePlay}
           clearGrid={clearGrid}
+          bars={Math.floor(subdivisions / 16)}
+          updateNumBars={updateNumBars}
         />
 
         <div className="track-container">

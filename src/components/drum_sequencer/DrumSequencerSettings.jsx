@@ -10,11 +10,16 @@ export default function DrumSequencerSettings(props) {
     props.updateBPM(newBPM);
   }
 
+  const handleBarChange = (e) => {
+    const numBars = parseInt(e.target.value);
+    props.updateNumBars(numBars);
+  }
+
   return (
     <div className="sequencer-settings-container">
       <img src={props.playing ? icons.pause : icons.play} id="sequencer-play-btn" className="icon" onClick={props.handlePlay} />
       <Knob initialAngle={30} maxAngle={330} minAngle={30} id="swing-knob" />
-      <select name="bars" id="bars-selector" className="dropdown-selector channel-rack-ui" onChange={() => {}}>
+      <select name="bars" id="bars-selector" className="dropdown-selector channel-rack-ui" value={props.bars} onChange={handleBarChange}>
         <option value="1">1 bar</option>
         <option value="2">2 bars</option>
         <option value="4">4 bars</option>
