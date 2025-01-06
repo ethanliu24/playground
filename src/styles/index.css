@@ -91,6 +91,11 @@ html, body {
   color: var(--TEXT_PRIMARY);
 }
 
+button, select {
+  border: 1px solid var(--TEXT_PRIMARY);
+  cursor: pointer;
+}
+
 #root {
   width: 100%;
   height: 100%;
@@ -135,6 +140,7 @@ html, body {
   width: var(--ICON_SIZE);
   height: var(--ICON_SIZE);
   transition-duration: var(--ANIMATION_FAST);
+  cursor: pointer;
 }
 
 .icon:hover {
@@ -203,4 +209,12 @@ a:hover {
   justify-content: center;
   align-items: center;
   font-style: italic;
+}
+
+.slider-container {
+  position: relative;
+}
+
+.slider {
+  accent-color: var(--INTERACTABLE_COLOR);
 }

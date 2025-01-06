@@ -31,6 +31,6 @@ export default function Knob(props) {
   }, []);
 
   return (
-    <div className="knob" ref={knobRef}></div>
+    <div id={props.id ? props.id : ""} className={`knob ${props.className ? props.className : ""}`} ref={knobRef}></div>
   );
 }

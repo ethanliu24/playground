@@ -6,7 +6,7 @@ import * as Constants from "./msgConstants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
-  const [subdivisions, setSubdivisions] = useState(16); // Each beat is divided into 4 subdivisions, i.e. 16th notes
+  const [subdivisions, setSubdivisions] = useState(64); // Each beat is divided into 4 subdivisions, i.e. 16th notes
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
   const [subdivisionTime, setSubdivisionTime] = useState((60000.0 / bpm) / 4); // how long each subdivision is
@@ -107,10 +107,19 @@ export default function DrumSequencer(props) {
   const handleNoteClick = useCallback((clickedTrack, clickedsubdivision) => {
   }, []);
 
+  const updateBPM = (newBPM) => {
+    setBpm(newBPM);
+  }
+
   return (
     <div className="drum-sequencer-container">
       <div className="drum-sequencer">
-        <DrumSequencerSettings handlePlay={handlePlay} />
+        <DrumSequencerSettings
+          bpm={bpm}
+          updateBPM={updateBPM}
+          handlePlay={handlePlay}
+        />
+
         <div className="track-container">
           {samples.map((soundFile, trackNum) => {
             return (
