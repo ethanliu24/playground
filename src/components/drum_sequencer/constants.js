@@ -8,6 +8,8 @@ export const DIVISIONS_PER_BAR = DIVISIONS_PER_BEAT * BEATS_PER_BAR;
 export const INITIAL_BPM = 97;
 export const INITIAL_BARS = 4;
 export const INITIAL_SUBDIVISIONS = INITIAL_BARS * DIVISIONS_PER_BAR;
+export const INITIAL_SWING_AMOUNT = 0;
+export const MAX_SWING_AMT_PERCENTAGE = 0.5;
 
 // For the timer thread
 export const START = "start";
@@ -21,3 +23,6 @@ export const CHANNEL_DEFAULT_PAN = 0;
 export const SAMPLE_FADE_OUT = 0.01; // in s
 
 export const ROTATION_STYLE_REGEX = /rotate\((-?\d+(\.\d+)?)deg\)/;
+
+export const MS_PER_SECOND = 1000.0;
+export const MS_PER_MINUTE = MS_PER_SECOND * 60.0;

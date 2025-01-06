@@ -19,6 +19,7 @@ export default function DrumSequencer(props) {
   const subdivisionsRef = useRef(Constants.INITIAL_SUBDIVISIONS);
   const subdivisionTimeRef = useRef(0); // how long each subdivision is
   const curSubdivisionRef = useRef(0);
+  const swingAmtRef = useRef(Constants.INITIAL_SWING_AMOUNT);
 
   useEffect(() => {
     Tone.loaded().then(() => {
@@ -84,9 +85,10 @@ export default function DrumSequencer(props) {
   };
 
   const scheduleNote = (subdivision) => {
-    // TODO temp swing implementation as a reminder, the maximum swing offset is subdivisionTime * 0.6
-    const swingNote = subdivision % 2 === 1;
-    const swingOffset = 0 // swingNote ? subdivisionTimeRef.current * 0.6 / 1000 : 0;
+    const isSwingNote = subdivision % 2 === 1;
+    const swingOffset = isSwingNote
+      ? swingAmtRef.current / Constants.MS_PER_SECOND
+      : 0;
 
     gridRef.current.forEach((track, trackRefIdx) => {
       const noteBox = track[subdivision];
@@ -99,7 +101,7 @@ export default function DrumSequencer(props) {
 
   const calcSubdivisionTime = (curBPM) => {
     // If implementing divisions such as triplets, store divions per beat in a var
-    return (60000.0 / curBPM) / Constants.DIVISIONS_PER_BEAT;
+    return (Constants.MS_PER_MINUTE / curBPM) / Constants.DIVISIONS_PER_BEAT;
   };
 
   const handlePlay = () => {
@@ -131,7 +133,8 @@ export default function DrumSequencer(props) {
   }
 
   const updateSwing = (swingAmt) => {
-    console.log(swingAmt)
+    const maxSwingOffset = subdivisionTimeRef.current * Constants.MAX_SWING_AMT_PERCENTAGE;
+    swingAmtRef.current = maxSwingOffset * swingAmt;
   }
 
   const clearGrid = () => {
