@@ -25,7 +25,7 @@ export default function DrumSequencerSettings(props) {
         <option value="8">8</option>
         <option value="16">16</option>
       </select>
-      <button id="clear-btn" className="channel-rack-ui">Clear</button>
+      <button id="clear-btn" className="channel-rack-ui" onClick={props.clearGrid}>Clear</button>
     </div>
   );
 }

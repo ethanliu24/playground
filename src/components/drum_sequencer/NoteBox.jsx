@@ -6,11 +6,7 @@ export default forwardRef(function Notebox(props, ref) {
   useImperativeHandle(ref, () => {
     return {
       active: () => isActive,
-      play: (time) => {
-        soundRef.current.stop();
-        soundRef.current.seek(0);
-        soundRef.current.start(time);
-      },
+      reset: () => resetNote(),
     };
   });
 
@@ -25,6 +21,10 @@ export default forwardRef(function Notebox(props, ref) {
   const handleNoteActiveness = () => {
     setIsActive(i => !i);
     props.handleNoteClick(props.track, props.subdivision);
+  }
+
+  const resetNote = () => {
+    setIsActive(false);
   }
 
   return (

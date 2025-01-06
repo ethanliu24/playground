@@ -40,7 +40,7 @@ export default function DrumSequencer(props) {
    */
   const setTracksRef = (trackIdx, ref) => {
     tracksRef.current[trackIdx] = ref;
-  }
+  };
 
   /**
    * Each note cell will be referenced in gridRef when the sequencer is first mounted
@@ -80,7 +80,7 @@ export default function DrumSequencer(props) {
     }
 
     setNextNoteTime(noteTime);
-  }
+  };
 
   const scheduleNote = (subdivision, time) => {
     gridRef.current.forEach((track, trackRefIdx) => {
@@ -94,7 +94,7 @@ export default function DrumSequencer(props) {
 
   const calcSubdivisionTime = (curBPM) => {
     return (60000.0 / curBPM) / 4;
-  }
+  };
 
   const handlePlay = () => {
     if (!started) {
@@ -116,7 +116,15 @@ export default function DrumSequencer(props) {
 
   const updateBPM = (newBPM) => {
     setBpm(newBPM);
-  }
+  };
+
+  const clearGrid = () => {
+    gridRef.current.forEach((track) => {
+      track.forEach((note) => {
+        note.reset();
+      });
+    });
+  };
 
   return (
     <div className="drum-sequencer-container">
@@ -126,6 +134,7 @@ export default function DrumSequencer(props) {
           bpm={bpm}
           updateBPM={updateBPM}
           handlePlay={handlePlay}
+          clearGrid={clearGrid}
         />
 
         <div className="track-container">
