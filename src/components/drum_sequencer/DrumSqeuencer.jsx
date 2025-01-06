@@ -104,10 +104,11 @@ export default function DrumSequencer(props) {
     if (playing) {
       timerRef.current.postMessage(Constants.STOP);
       setPlaying(false);
+      curSubdivisionRef.current = 0;
     } else {
-      setNextNoteTime(Tone.getContext().currentTime);
       timerRef.current.postMessage(Constants.START);
       setPlaying(true);
+      setNextNoteTime(Tone.getContext().currentTime);
     }
   };
 
