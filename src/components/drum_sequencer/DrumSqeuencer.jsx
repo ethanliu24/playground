@@ -127,7 +127,7 @@ export default function DrumSequencer(props) {
   const clearGrid = () => {
     gridRef.current.forEach((track) => {
       track.forEach((note) => {
-        note.reset();
+        if (note) note.reset();
       });
     });
   };
