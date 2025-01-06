@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useRef, useState } from "react";
+import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import * as Tone from "tone";
 import Track from "./Track.jsx";
 import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
@@ -6,16 +6,17 @@ import * as Constants from "./msgConstants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
 export default function DrumSequencer(props) {
-  const [subdivisions, setSubdivisions] = useState(64); // Each beat is divided into 4 subdivisions, i.e. 16th notes
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
+  const [_, forceUpdate] = useReducer(x => x + 1, 0); // need this because states is asynchronous and isn't percise
 
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
   const tracksRef = useRef([]); // each element corresponds to a track
   const timerRef = useRef(null);
+  const subdivisionsRef = useRef(64); // Each beat is divided into 4 subdivisions, i.e. 16th notes
   const subdivisionTimeRef = useRef(0); // how long each subdivision is
   const curSubdivisionRef = useRef(0);
 
@@ -74,8 +75,8 @@ export default function DrumSequencer(props) {
 
     while (noteTime < Tone.getContext().currentTime + Constants.SCHEDULE_TIME_AHEAD) {
       const subdivision = curSubdivisionRef.current; // the current note box
-      scheduleNote(subdivision);
-      curSubdivisionRef.current = (subdivision + 1) % subdivisions;
+      scheduleNote(subdivision, 0);
+      curSubdivisionRef.current = (subdivision + 1) % subdivisionsRef.current;
       noteTime += subdivisionTimeRef.current;
     }
 
@@ -86,7 +87,7 @@ export default function DrumSequencer(props) {
     gridRef.current.forEach((track, trackRefIdx) => {
       const noteBox = track[subdivision];
 
-      if (noteBox.active()) {
+      if (noteBox && noteBox.active()) {
         tracksRef.current[trackRefIdx].play(time);
       }
     });
@@ -120,7 +121,7 @@ export default function DrumSequencer(props) {
   };
 
   const updateNumBars = (numBars) => {
-    setSubdivisions(numBars * 16);
+    subdivisionsRef.current = numBars * 16;
   }
 
   const clearGrid = () => {
@@ -140,8 +141,9 @@ export default function DrumSequencer(props) {
           updateBPM={updateBPM}
           handlePlay={handlePlay}
           clearGrid={clearGrid}
-          bars={Math.floor(subdivisions / 16)}
+          bars={Math.floor(subdivisionsRef.current / 16)}
           updateNumBars={updateNumBars}
+          forceUpdate={forceUpdate}
         />
 
         <div className="track-container">
@@ -150,7 +152,7 @@ export default function DrumSequencer(props) {
               <Track
                 key={trackNum}
                 track={trackNum}
-                subdivisions={subdivisions}
+                subdivisions={subdivisionsRef.current}
                 handleNoteClick={handleNoteClick}
                 soundFile={soundFile}
                 setGridCellRef={setGridCellRef}
