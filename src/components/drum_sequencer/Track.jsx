@@ -8,12 +8,15 @@ export default forwardRef(function Track(props, ref) {
   const [muted, setMuted] = useState(false);
 
   const channelRef = useRef(null);
-  const sampleRef = useRef();
+  const sampleRef = useRef(null);
+
+  const defaultVolRef = useRef(Constants.CHANNEL_DEFAULT_VOL);
+  const defaultPanRef = useRef(Constants.CHANNEL_DEFAULT_PAN);
 
   useEffect(() => {
     channelRef.current = new Tone.Channel({
-      volume: Constants.CHANNEL_DEFAULT_VOL,
-      pan: Constants.CHANNEL_DEFAULT_PAN,
+      volume: defaultVolRef.current,
+      pan: defaultPanRef.current,
       mute: false,
     }).toDestination();
 
@@ -46,7 +49,13 @@ export default forwardRef(function Track(props, ref) {
   };
 
   const updateChannelVolume = (volumePercentage) => {
-    console.log(volumePercentage)
+    // Since volume expects db values, we need to convert db into linear gain and convert it back
+    const initialVolumeDb = defaultVolRef.current;
+    const initialLinearGain = Math.pow(10, initialVolumeDb / 20);
+    const scaledLinearGain = initialLinearGain * volumePercentage;
+    const scaledVolumeDb = 20 * Math.log10(scaledLinearGain);
+
+    channelRef.current.volume.value = scaledVolumeDb;
   }
 
   const updateChannelPan = (panPercentage) => {

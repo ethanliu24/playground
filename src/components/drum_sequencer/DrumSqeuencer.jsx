@@ -86,7 +86,7 @@ export default function DrumSequencer(props) {
   const scheduleNote = (subdivision) => {
     // TODO temp swing implementation as a reminder, the maximum swing offset is subdivisionTime * 0.6
     const swingNote = subdivision % 2 === 1;
-    const swingOffset = swingNote ? subdivisionTimeRef.current * 0.6 / 1000 : 0;
+    const swingOffset = 0 // swingNote ? subdivisionTimeRef.current * 0.6 / 1000 : 0;
 
     gridRef.current.forEach((track, trackRefIdx) => {
       const noteBox = track[subdivision];
