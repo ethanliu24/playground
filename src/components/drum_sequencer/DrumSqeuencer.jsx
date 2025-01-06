@@ -9,7 +9,6 @@ export default function DrumSequencer(props) {
   const [subdivisions, setSubdivisions] = useState(64); // Each beat is divided into 4 subdivisions, i.e. 16th notes
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(97);
-  const [subdivisionTime, setSubdivisionTime] = useState((60000.0 / bpm) / 4); // how long each subdivision is
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
   const [curSubdivision, setCurSubdivision] = useState(0);
   const [playing, setPlaying] = useState(false);
@@ -18,14 +17,23 @@ export default function DrumSequencer(props) {
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
   const tracksRef = useRef([]); // each element corresponds to a track
   const timerRef = useRef(null);
+  const subdivisionTimeRef = useRef(0); // how long each subdivision is
 
   useEffect(() => {
     Tone.loaded().then(() => {
+      subdivisionTimeRef.current = calcSubdivisionTime(bpm);
       window.addEventListener("click", startAudioContext, { once: true });
       initTimer();
       props.loadingComplete();
     });
   }, []);
+
+  useEffect(() => {
+    if (!timerRef.current) return;
+    const newInterval = calcSubdivisionTime(bpm);
+    timerRef.current.postMessage({ interval: newInterval });
+    subdivisionTimeRef.current = newInterval;
+  }, [bpm]);
 
   /**
    * Each track will be referenced in gridRef when the sequencer is first mounted
@@ -48,12 +56,12 @@ export default function DrumSequencer(props) {
   const initTimer = () => {
     timerRef.current = new Worker(new URL("./timer.js", import.meta.url), { type: "module" })
     const timer = timerRef.current;
-    timer.postMessage({ interval: subdivisionTime }); // set timer interval
     timer.addEventListener("message", (e) => {
       if (e.data === Constants.TICK) {
         schedule();
       }
     });
+    timer.postMessage({ interval: subdivisionTimeRef.current }); // set timer interval
   };
 
   const startAudioContext = () => {
@@ -71,7 +79,7 @@ export default function DrumSequencer(props) {
         return (c + 1) % subdivisions;
       });
 
-      noteTime += subdivisionTime;
+      noteTime += subdivisionTimeRef.current;
     }
 
     setNextNoteTime(noteTime);
@@ -86,6 +94,10 @@ export default function DrumSequencer(props) {
       }
     });
   };
+
+  const calcSubdivisionTime = (curBPM) => {
+    return (60000.0 / curBPM) / 4;
+  }
 
   const handlePlay = () => {
     console.log(playing)
