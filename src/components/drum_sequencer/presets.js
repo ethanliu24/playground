@@ -2,7 +2,7 @@
  * To make a pattern, create a function and fill in valid data to construct a json file.
  * Then, call that function. Refer to jsonParser.js on how to construct data.
  */
-import { createTrack, createPattern } from "./jsonParser.js";
+import { createTrack, createPreset } from "./jsonParser.js";
 import { sampleNames } from "../../utils/drumSequencerFiles.js";
 import * as C from "./constants.js";
 
@@ -87,6 +87,6 @@ export function createHipHop() {
     ),
   ];
 
-  createPattern("hip_hop", 0, 2, 97, tracks);
+  return createPreset("hip_hop", 0, 2, 97, tracks);
 }
 

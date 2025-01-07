@@ -11,19 +11,42 @@ import { samples } from "../../utils/drumSequencerFiles.js";
  * @param {array} tracks - Holds the data for tracks.
  * @returns void
  */
-export function createPattern(name, swing, bars, bpm, tracks) {
-  if (!validPatternData(name, swing, bars, bpm, tracks)) {
+export function createPreset(name, swing, bars, bpm, tracks) {
+  if (!validPresetData(name, swing, bars, bpm, tracks)) {
     console.error("Invalid pattern data");
     return;
   }
 
-  return patternData = {
+  return {
     [C.PRESET_NAME]: name,
     [C.PATTERN_SWING]: swing,
     [C.PATTERN_BARS]: bars,
     [C.PATTERN_BPM]: bpm,
     [C.PATTERN_TRACKS]: tracks,
   };
+}
+
+function validPresetData(name, swing, bars, bpm, tracks) {
+  // TODO return useful messages
+  if (typeof name !== "string")
+    return false;
+  if (typeof swing !== "number" || (swing < 0 || swing > 1))
+    return false;
+  if (typeof bars !== "number" || ![1, 2, 4, 8, 16].includes(bars))
+    return false;
+  if (typeof bpm != "number" || (bpm < C.MIN_BPM || bpm > C.MAX_BPM))
+    return false;
+  if (!isArray(tracks))
+    return false;
+
+  const subdivisions = bars * C.DIVISIONS_PER_BAR;
+  tracks.forEach((track, idx) => {
+    if (track[C.TRACK_PATTERN].length !== subdivisions) {
+      return false;
+    }
+  });
+
+  return true;
 }
 
 /**
@@ -59,29 +82,6 @@ export function createTrack(fileName, muted, volume, pan, trackPattern) {
     [C.TRACK_PATTERN]: trackPattern,
     [C.TRACK_INDEX]: trackIdx,
   }
-}
-
-function validPatternData(name, swing, bars, bpm, tracks) {
-  // TODO return useful messages
-  if (typeof name !== "string")
-    return false;
-  if (typeof swing !== "number" || (swing < 0 || swing > 1))
-    return false;
-  if (typeof bars !== "number" || ![1, 2, 4, 8, 16].includes(bars))
-    return false;
-  if (typeof bpm != "number" || (bpm < C.MIN_BPM || bpm > C.MAX_BPM))
-    return false;
-  if (!isArray(tracks))
-    return false;
-
-  const subdivisions = bars * C.DIVISIONS_PER_BAR;
-  tracks.forEach((track, idx) => {
-    if (track[C.TRACK_PATTERN].length !== subdivisions) {
-      return false;
-    }
-  });
-
-  return true;
 }
 
 function validTrackData(fileName, muted, volume, pan, trackPattern) {
