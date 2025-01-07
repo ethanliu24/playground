@@ -1,9 +1,16 @@
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import Knob from "./Knob.jsx";
 import { icons } from "../../utils/icons.js"
 import * as C from "./constants.js";
 
 export default function DrumSequencerSettings(props) {
+  const [swing, setSwing] = useState(props.initialSwing);
+
+  useEffect(() => {
+    if (!props.initialSwing) return;
+    setSwing(props.initialSwing);
+  }, [props.initialSwing]);
+
   const bpmSliderRef = new useRef(null);
 
   const updateSwing = (swingAmt) => {
@@ -28,7 +35,7 @@ export default function DrumSequencerSettings(props) {
   return (
     <div className="sequencer-settings-container">
       <img src={props.playing ? icons.pause : icons.play} id="sequencer-play-btn" className="icon" onClick={props.handlePlay} />
-      <Knob initialAngle={30} maxAngle={330} minAngle={30} updateKnobFunction={updateSwing} id="swing-knob" />
+      <Knob initialAngle={(300 * swing) + 30} maxAngle={330} minAngle={30} updateKnobFunction={updateSwing} id="swing-knob" />
       <select name="bars" id="bars-selector" className="dropdown-selector channel-rack-ui" value={props.bars} onChange={handleBarChange}>
         <option value="1">1 bar</option>
         <option value="2">2 bars</option>
