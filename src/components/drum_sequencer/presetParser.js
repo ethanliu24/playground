@@ -9,7 +9,7 @@ import { samples } from "../../utils/drumSequencerFiles.js";
  * @param {number} bars - The number of bars the pattern has.
  * @param {number} bpm - The bpm of the pattern, it's an integer.
  * @param {array} tracks - Holds the data for tracks.
- * @returns void
+ * @returns The pattern data for the sequencer.
  */
 export function createPreset(name, swing, bars, bpm, tracks) {
   if (!validPresetData(name, swing, bars, bpm, tracks)) {
@@ -53,10 +53,10 @@ function validPresetData(name, swing, bars, bpm, tracks) {
  *
  * @param {string} fileName - The name of the audio file.
  * @param {boolean} muted - Whether the track is muted or not.
- * @param {number} volume - The volume of the track, in db.
+ * @param {number} volume - The volume of the track, in range [0, 1].
  * @param {number} pan - The panning of the track, in range [-1, 1].
  * @param {array} trackPattern - The notes to be placed in the track. 0 is not activated, 1 is.
- * @returns
+ * @returns A channel rack (track)'s data.
  */
 export function createTrack(fileName, muted, volume, pan, trackPattern) {
   if (!validTrackData(fileName, muted, volume, pan, trackPattern)) {
@@ -89,7 +89,7 @@ function validTrackData(fileName, muted, volume, pan, trackPattern) {
     return false;
   if (typeof muted !== "boolean")
     return false;
-  if (typeof volume !== "number" || volume > C.CHANNEL_DEFAULT_VOL)
+  if (typeof volume !== "number" || (volume < 0 || volume > 1))
     return false;
   if (typeof pan !== "number" || (pan < -1 || pan > 1))
     return false
