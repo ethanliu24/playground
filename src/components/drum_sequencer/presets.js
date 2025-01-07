@@ -94,6 +94,6 @@ export function createHipHop() {
     ),
   ];
 
-  return createPreset("hip_hop", 0, 2, 97, tracks);
+  return createPreset(C.HIP_HOP, 0, 2, 97, tracks);
 }
 
