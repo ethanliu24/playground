@@ -5,11 +5,13 @@ import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
 import BeatIndicator from "./BeatIndicator.jsx";
 import * as Constants from "./constants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
+import * as Presets from "./presets.js";
 
 export default function DrumSequencer(props) {
   const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(Constants.INITIAL_BPM);
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
+  const [preset, setPreset] = useState("");
   const [playing, setPlaying] = useState(false);
   const [started, setStarted] = useState(false); // keep track of first user event
   const [_, forceUpdate] = useReducer(x => x + 1, 0); // need this because states is asynchronous and isn't percise
@@ -22,12 +24,19 @@ export default function DrumSequencer(props) {
   const subdivisionTimeRef = useRef(0); // how long each subdivision is
   const curSubdivisionRef = useRef(0);
   const swingAmtRef = useRef(Constants.INITIAL_SWING_AMOUNT);
+  const presetsRef = useRef([]);
 
   useEffect(() => {
     Tone.loaded().then(() => {
-      subdivisionTimeRef.current = calcSubdivisionTime(bpm);
       window.addEventListener("click", startAudioContext, { once: true });
+      
+      subdivisionTimeRef.current = calcSubdivisionTime(bpm);
       initTimer();
+
+      presetsRef.current = constructPresets();
+      const initialPreset = presetsRef.current[0][Constants.PRESET_NAME];
+      setPreset(initialPreset ? initialPreset : "");
+
       props.loadingComplete();
     });
   }, []);
@@ -38,6 +47,10 @@ export default function DrumSequencer(props) {
     timerRef.current.postMessage({ interval: newInterval });
     subdivisionTimeRef.current = newInterval;
   }, [bpm]);
+
+  useEffect(() => {
+
+  }, [preset])
 
   /**
    * Each track will be referenced in gridRef when the sequencer is first mounted
@@ -109,6 +122,12 @@ export default function DrumSequencer(props) {
     return (Constants.MS_PER_MINUTE / curBPM) / Constants.DIVISIONS_PER_BEAT;
   };
 
+  const constructPresets = () => {
+    const presets = [];
+    presets.push(Presets.createHipHop());
+    return presets;
+  };
+
   const handlePlay = () => {
     if (!started) {
       startAudioContext();
@@ -125,14 +144,14 @@ export default function DrumSequencer(props) {
     timerRef.current.postMessage(Constants.START);
     setPlaying(true);
     setNextNoteTime(Tone.getContext().currentTime);
-  }
+  };
 
   const pause = () => {
     timerRef.current.postMessage(Constants.STOP);
     setPlaying(false);
     curSubdivisionRef.current = 0;
     beatIndicatorRef.current.clearIndicators();
-  }
+  };
 
   const handleNoteClick = useCallback((clickedTrack, clickedsubdivision) => {
     // Maybe it'll be useful one day
@@ -144,12 +163,16 @@ export default function DrumSequencer(props) {
 
   const updateNumBars = (numBars) => {
     subdivisionsRef.current = numBars * Constants.DIVISIONS_PER_BAR;
-  }
+  };
 
   const updateSwing = (swingAmt) => {
     const maxSwingOffset = subdivisionTimeRef.current * Constants.MAX_SWING_AMT_PERCENTAGE;
     swingAmtRef.current = maxSwingOffset * swingAmt;
-  }
+  };
+
+  const updatePreset = (presetName) => {
+    setPreset(presetName);
+  };
 
   const clearGrid = () => {
     gridRef.current.forEach((track) => {
@@ -169,8 +192,10 @@ export default function DrumSequencer(props) {
           handlePlay={handlePlay}
           clearGrid={clearGrid}
           bars={Math.floor(subdivisionsRef.current / Constants.DIVISIONS_PER_BAR)}
+          preset={preset}
           updateNumBars={updateNumBars}
           updateSwing={updateSwing}
+          updatePreset={updatePreset}
           forceUpdate={forceUpdate}
         />
         <div id="sequencer-content">

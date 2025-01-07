@@ -21,6 +21,11 @@ export default function DrumSequencerSettings(props) {
     props.forceUpdate();
   }
 
+  const handlePresetChange = (e) => {
+    const presetName = e.target.value;
+    props.updatePreset(presetName);
+  }
+
   return (
     <div className="sequencer-settings-container">
       <img src={props.playing ? icons.pause : icons.play} id="sequencer-play-btn" className="icon" onClick={props.handlePlay} />
@@ -31,6 +36,10 @@ export default function DrumSequencerSettings(props) {
         <option value="4">4 bars</option>
         <option value="8">8 bars</option>
         <option value="16">16 bars</option>
+      </select>
+      <select name="presets" id="preset-selector" className="dropdown-selector channel-rack-ui" value={props.preset} onChange={handlePresetChange}>
+        <option value="hip_hop">Hip Hop</option>
+        <option value="new_jack_swing">New Jack Swing</option>
       </select>
       <button id="clear-btn" className="channel-rack-ui" onClick={props.clearGrid}>clear</button>
       <input type="range" min={MIN_BPM} max={MAX_BPM} value={props.bpm} className="slider" onChange={updateBPM} ref={bpmSliderRef} />
