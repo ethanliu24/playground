@@ -44,7 +44,7 @@ const sampleNames = {
   hitC: "hit_C.mp3",
   kick: "kick.mp3",
   openHat: "open_hat.mp3",
-  snarePower: "snare.mp3",
+  snarePower: "snare_power.mp3",
   tambourine: "tamb.mp3",
   triangle: "triangle.mp3",
   woodblock: "woodblock.mp3",

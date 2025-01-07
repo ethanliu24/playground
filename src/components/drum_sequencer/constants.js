@@ -45,3 +45,4 @@ export const TRACK_MUTED = "muted";
 export const TRACK_VOL = "volume";
 export const TRACK_PAN = "pan";
 export const TRACK_PATTERN = "track_pattern";
+export const TRACK_INDEX = "track_index";

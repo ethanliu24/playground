@@ -1,8 +1,9 @@
 import { isArray } from "tone";
 import * as C from "./constants.js";
+import { samples } from "../../utils/drumSequencerFiles.js";
 
 /**
- * Writes the pattern data as a json file.
+ * Constructs a json obj of a pre made pattern
  * @param {string} name - The name of the pattern.
  * @param {number} swing - The amount of swing on the pattern, in the range [0, 1].
  * @param {number} bars - The number of bars the pattern has.
@@ -10,13 +11,13 @@ import * as C from "./constants.js";
  * @param {array} tracks - Holds the data for tracks.
  * @returns void
  */
-export default function createPattern(name, swing, bars, bpm, tracks) {
+export function createPattern(name, swing, bars, bpm, tracks) {
   if (!validPatternData(name, swing, bars, bpm, tracks)) {
     console.error("Invalid pattern data");
     return;
   }
 
-  const patternData = {
+  return patternData = {
     [C.NAME]: name,
     [C.SWING]: swing,
     [C.BARS]: bars,
@@ -34,11 +35,21 @@ export default function createPattern(name, swing, bars, bpm, tracks) {
  * @param {array} trackPattern - The notes to be placed in the track. 0 is not activated, 1 is.
  * @returns
  */
-export default function createTrack(fileName, muted, volume, pan, trackPattern) {
+export function createTrack(fileName, muted, volume, pan, trackPattern) {
   if (!validTrackData(fileName, muted, volume, pan, trackPattern)) {
     console.error("Invalid track data");
     return;
   }
+
+  let trackIdx = -1;
+  samples.forEach((sample, idx) => {
+    const sampleName = sample.split("/").at(-1);
+    if (sampleName === fileName) {
+      trackIdx = idx;
+    }
+  });
+
+  if (trackIdx === -1) console.error(`File ${fileName} doesn't exist`);
 
   return {
     [C.FILE_NAME]: fileName,
@@ -46,6 +57,7 @@ export default function createTrack(fileName, muted, volume, pan, trackPattern) 
     [C.TRACK_VOL]: volume,
     [C.TRACK_PAN]: pan,
     [C.TRACK_PATTERN]: trackPattern,
+    [C.TRACK_INDEX]: trackIdx,
   }
 }
 
@@ -64,7 +76,7 @@ function validPatternData(name, swing, bars, bpm, tracks) {
 
   const subdivisions = bars * C.DIVISIONS_PER_BAR;
   tracks.forEach((track, idx) => {
-    if (track[C.PATTERN].length !== subdivisions) {
+    if (track[C.TRACK_PATTERN].length !== subdivisions) {
       return false;
     }
   });
@@ -89,4 +101,6 @@ function validTrackData(fileName, muted, volume, pan, trackPattern) {
       return false;
     }
   });
+
+  return true;
 }
