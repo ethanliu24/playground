@@ -133,7 +133,7 @@ export default function DrumSequencer(props) {
     // I got lazy lol can change up how presets are stored to get instant access instead of looping
     presetsRef.current.forEach((curPreset) => {
       if (curPreset[Constants.PRESET_NAME] === presetName) {
-        clearGrid();
+        resetSequencerTracks();
         loadPresetDetails(curPreset); // curPreset here is the json obj data
       }
     });
@@ -157,7 +157,7 @@ export default function DrumSequencer(props) {
       channel.setVolume(track[Constants.TRACK_VOL]);
       channel.setPan(track[Constants.TRACK_PAN]);
     });
-  }
+  };
 
   const handlePlay = () => {
     if (!started) {
@@ -205,10 +205,19 @@ export default function DrumSequencer(props) {
 
   const calcMaxSwingOffset = () => {
     return subdivisionTimeRef.current * Constants.MAX_SWING_AMT_PERCENTAGE;
-  }
+  };
 
   const updatePreset = (presetName) => {
     setPreset(presetName);
+  };
+
+  const resetSequencerTracks = () => {
+    tracksRef.current.forEach(track => { clearTrack(track); });
+    clearGrid();
+  };
+
+  const clearTrack = (track) => {
+    track.reset();
   };
 
   const clearGrid = () => {

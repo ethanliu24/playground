@@ -38,6 +38,11 @@ export default forwardRef(function Track(props, ref) {
       setMute: (muted) => setMuted(muted),
       setVolume: (percentage) => updateChannelVolume(percentage),
       setPan: (percentage) => updateChannelPan(percentage),
+      reset: () => {
+        setMuted(false);
+        setVolume(Constants.CHANNEL_DEFAULT_VOL_PERCENTAGE);
+        setPan(Constants.CHANNEL_DEFAULT_PAN_PERCENTAGE);
+      },
       play: (time) => {
         // TODO check if channel cuts itself
         sampleRef.current.stop();
