@@ -21,7 +21,9 @@ export const SCHEDULE_TIME_AHEAD = 0.01;
 
 // For channels
 export const CHANNEL_DEFAULT_VOL = 9; // in db
+export const CHANNEL_DEFAULT_VOL_PERCENTAGE = 0.8;
 export const CHANNEL_DEFAULT_PAN = 0;
+export const CHANNEL_DEFAULT_PAN_PERCENTAGE = 0.5;
 export const SAMPLE_FADE_OUT = 0.01; // in s
 
 // Others

@@ -6,6 +6,8 @@ import Knob from "./Knob.jsx";
 
 export default forwardRef(function Track(props, ref) {
   const [muted, setMuted] = useState(false);
+  const [volume, setVolume] = useState(Constants.CHANNEL_DEFAULT_PAN_PERCENTAGE); // in percentage
+  const [pan, setPan] = useState(Constants.CHANNEL_DEFAULT_VOL_PERCENTAGE); // in percentage
 
   const channelRef = useRef(null);
   const sampleRef = useRef(null);
@@ -33,6 +35,9 @@ export default forwardRef(function Track(props, ref) {
 
   useImperativeHandle(ref, () => {
     return {
+      setMute: (muted) => setMuted(muted),
+      setVolume: (percentage) => updateChannelVolume(percentage),
+      setPan: (percentage) => updateChannelPan(percentage),
       play: (time) => {
         // TODO check if channel cuts itself
         sampleRef.current.stop();
@@ -56,11 +61,13 @@ export default forwardRef(function Track(props, ref) {
     const scaledVolumeDb = 20 * Math.log10(scaledLinearGain);
 
     channelRef.current.volume.value = scaledVolumeDb;
+    setVolume(volumePercentage);
   }
 
   const updateChannelPan = (panPercentage) => {
     const panValue = 2 * panPercentage - 1;
     channelRef.current.pan.value = panValue;
+    setPan(panPercentage);
   }
 
   const parseFileName = () => {
@@ -73,8 +80,8 @@ export default forwardRef(function Track(props, ref) {
     <div className="track">
       <div className="track-controls">
         <button className="track-mute-btn" onClick={muteTrack}><div className={`${muted ? "muted" : "unmuted"}`}></div></button>
-        <Knob initialAngle={270} maxAngle={330} minAngle={30} updateKnobFunction={updateChannelVolume} />
-        <Knob initialAngle={180} maxAngle={330} minAngle={30} updateKnobFunction={updateChannelPan} />
+        <Knob initialAngle={(300 * volume) + 30} maxAngle={330} minAngle={30} updateKnobFunction={updateChannelVolume} />
+        <Knob initialAngle={(300 * pan) + 30} maxAngle={330} minAngle={30} updateKnobFunction={updateChannelPan} />
         <div className="sound-file-name">{parseFileName()}</div>
       </div>
 

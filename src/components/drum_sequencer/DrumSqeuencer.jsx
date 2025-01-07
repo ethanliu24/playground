@@ -151,6 +151,10 @@ export default function DrumSequencer(props) {
         if (placeNote) targetTrack[idx].activateNote();
       });
 
+      const channel = tracksRef.current[trackIdx];
+      channel.setMute(track[Constants.TRACK_MUTED]);
+      channel.setVolume(track[Constants.TRACK_VOL]);
+      channel.setPan(track[Constants.TRACK_PAN]);
     });
   }
 
