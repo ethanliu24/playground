@@ -2,6 +2,7 @@ import { useCallback, useEffect, useReducer, useRef, useState } from "react";
 import * as Tone from "tone";
 import Track from "./Track.jsx";
 import DrumSequencerSettings from "./DrumSequencerSettings.jsx";
+import BeatIndicator from "./BeatIndicator.jsx";
 import * as Constants from "./constants.js";
 import { samples } from "../../utils/drumSequencerFiles.js";
 
@@ -15,6 +16,7 @@ export default function DrumSequencer(props) {
 
   const gridRef = useRef([]); // format: grid[trackIdx][subdivisionIdx] is a note cell
   const tracksRef = useRef([]); // each element corresponds to a track
+  const beatIndicatorRef = useRef(null);
   const timerRef = useRef(null);
   const subdivisionsRef = useRef(Constants.INITIAL_SUBDIVISIONS);
   const subdivisionTimeRef = useRef(0); // how long each subdivision is
@@ -159,21 +161,23 @@ export default function DrumSequencer(props) {
           updateSwing={updateSwing}
           forceUpdate={forceUpdate}
         />
-
-        <div className="track-container">
-          {samples.map((soundFile, trackNum) => {
-            return (
-              <Track
-                key={trackNum}
-                track={trackNum}
-                subdivisions={subdivisionsRef.current}
-                handleNoteClick={handleNoteClick}
-                soundFile={soundFile}
-                setGridCellRef={setGridCellRef}
-                ref={(track) => setTracksRef(trackNum, track)}
-              />
-            );
-          })}
+        <div id="sequencer-content">
+          <BeatIndicator subdivisions={subdivisionsRef.current}/>
+          <div className="track-container">
+            {samples.map((soundFile, trackNum) => {
+              return (
+                <Track
+                  key={trackNum}
+                  track={trackNum}
+                  subdivisions={subdivisionsRef.current}
+                  handleNoteClick={handleNoteClick}
+                  soundFile={soundFile}
+                  setGridCellRef={setGridCellRef}
+                  ref={(track) => setTracksRef(trackNum, track)}
+                />
+              );
+            })}
+          </div>
         </div>
       </div>
     </div>
