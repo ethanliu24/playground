@@ -33,6 +33,13 @@ export function createHipHop() {
       sampleNames.hitC, false, C.CHANNEL_DEFAULT_VOL, C.CHANNEL_DEFAULT_PAN,
       [
        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+      ]
+    ),
+    createTrack(
+      sampleNames.crash, false, C.CHANNEL_DEFAULT_VOL, C.CHANNEL_DEFAULT_PAN,
+      [
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
       ]
     ),
@@ -68,7 +75,7 @@ export function createHipHop() {
       sampleNames.glassBell, false, C.CHANNEL_DEFAULT_VOL, C.CHANNEL_DEFAULT_PAN,
       [
        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0,
       ]
     ),
     createTrack(
