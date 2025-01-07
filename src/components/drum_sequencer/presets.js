@@ -206,7 +206,7 @@ export function createHipHop() {
     ),
   ];
 
-  return createPreset(C.HIP_HOP, 0, 2, 97, tracks);
+  return createPreset(C.HIP_HOP, 0.4, 2, 97, tracks);
 }
 
 export function createClean() {
