@@ -22,6 +22,7 @@ export default forwardRef(function BeatIndicator(props, ref) {
       },
       clearIndicators: () => {
         indicatorsRef.current.forEach(indicator => {
+          if (!indicator) return;
           indicator.style.opacity = BEAT_INDICATOR_OFF_OPACITY;
         });
       },
