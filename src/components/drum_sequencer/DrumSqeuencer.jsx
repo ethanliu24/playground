@@ -9,6 +9,7 @@ import * as Presets from "./presets.js";
 
 export default function DrumSequencer(props) {
   const [bpm, setBpm] = useState(Constants.INITIAL_BPM);
+  const [swingPercentage, setSwingPercentage] = useState(Constants.INITIAL_SWING_AMOUNT);
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
   const [preset, setPreset] = useState("");
   const [playing, setPlaying] = useState(false);
@@ -140,8 +141,8 @@ export default function DrumSequencer(props) {
 
   const loadPresetDetails = (data) => {
     updateNumBars(data[Constants.PATTERN_BARS]);
-    updateSwing(data[Constants.PATTERN_SWING]);
     updateBPM(data[Constants.PATTERN_BPM]);
+    updateSwing(data[Constants.PATTERN_SWING]);
 
     data[Constants.PATTERN_TRACKS].forEach((track) => {
       const trackIdx = track[Constants.TRACK_INDEX];
@@ -197,9 +198,14 @@ export default function DrumSequencer(props) {
   };
 
   const updateSwing = (swingAmt) => {
-    const maxSwingOffset = subdivisionTimeRef.current * Constants.MAX_SWING_AMT_PERCENTAGE;
+    const maxSwingOffset = calcMaxSwingOffset();
     swingAmtRef.current = maxSwingOffset * swingAmt;
+    setSwingPercentage(swingAmt);
   };
+
+  const calcMaxSwingOffset = () => {
+    return subdivisionTimeRef.current * Constants.MAX_SWING_AMT_PERCENTAGE;
+  }
 
   const updatePreset = (presetName) => {
     setPreset(presetName);
@@ -219,6 +225,7 @@ export default function DrumSequencer(props) {
         <DrumSequencerSettings
           playing={playing}
           bpm={bpm}
+          initialSwing={swingPercentage}
           updateBPM={updateBPM}
           handlePlay={handlePlay}
           clearGrid={clearGrid}
