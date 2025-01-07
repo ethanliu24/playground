@@ -97,3 +97,6 @@ export function createHipHop() {
   return createPreset(C.HIP_HOP, 0, 2, 97, tracks);
 }
 
+export function createClean() {
+  return createPreset(C.CLEAN, C.INITIAL_SWING_AMOUNT, C.INITIAL_BARS, C.INITIAL_BPM, [])
+}

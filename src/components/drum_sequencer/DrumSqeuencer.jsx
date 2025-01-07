@@ -124,20 +124,21 @@ export default function DrumSequencer(props) {
   const constructPresets = () => {
     const presets = [];
     presets.push(Presets.createHipHop());
+    presets.push(Presets.createClean());
     return presets;
   };
 
   const loadPreset = (presetName) => {
     // I got lazy lol can change up how presets are stored to get instant access instead of looping
-    presetsRef.current.forEach((curPreset, idx) => {
+    presetsRef.current.forEach((curPreset) => {
       if (curPreset[Constants.PRESET_NAME] === presetName) {
+        clearGrid();
         loadPresetDetails(curPreset); // curPreset here is the json obj data
       }
     });
   };
 
   const loadPresetDetails = (data) => {
-    console.log(data)
     updateNumBars(data[Constants.PATTERN_BARS]);
     updateSwing(data[Constants.PATTERN_SWING]);
     updateBPM(data[Constants.PATTERN_BPM]);

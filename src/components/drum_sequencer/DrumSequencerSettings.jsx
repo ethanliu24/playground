@@ -39,6 +39,7 @@ export default function DrumSequencerSettings(props) {
       <select name="presets" id="preset-selector" className="dropdown-selector channel-rack-ui" value={props.preset} onChange={handlePresetChange}>
         <option value={C.HIP_HOP}>Hip Hop</option>
         <option value={C.NEW_JACK_SWING}>New Jack Swing</option>
+        <option value={C.CLEAN}>Clean</option>
       </select>
       <button id="clear-btn" className="channel-rack-ui" onClick={props.clearGrid}>clear</button>
       <input type="range" min={C.MIN_BPM} max={C.MAX_BPM} value={props.bpm} className="slider" onChange={updateBPM} ref={bpmSliderRef} />

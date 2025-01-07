@@ -5,7 +5,7 @@
 export const DIVISIONS_PER_BEAT = 4;
 export const BEATS_PER_BAR = 4
 export const DIVISIONS_PER_BAR = DIVISIONS_PER_BEAT * BEATS_PER_BAR;
-export const INITIAL_BPM = 97;
+export const INITIAL_BPM = 120;
 export const INITIAL_BARS = 4;
 export const INITIAL_SUBDIVISIONS = INITIAL_BARS * DIVISIONS_PER_BAR;
 export const INITIAL_SWING_AMOUNT = 0;
@@ -49,3 +49,4 @@ export const TRACK_INDEX = "track_index";
 // Preset names
 export const HIP_HOP = "hip_hop";
 export const NEW_JACK_SWING = "new_jack_swing";
+export const CLEAN = "clean";
