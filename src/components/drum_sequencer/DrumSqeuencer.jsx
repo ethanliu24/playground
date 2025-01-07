@@ -124,6 +124,7 @@ export default function DrumSequencer(props) {
 
   const constructPresets = () => {
     const presets = [];
+    presets.push(Presets.createNewJackSwing());
     presets.push(Presets.createHipHop());
     presets.push(Presets.createClean());
     return presets;
