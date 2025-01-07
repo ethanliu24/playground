@@ -12,6 +12,7 @@ export default forwardRef(function BeatIndicator(props, ref) {
   useImperativeHandle(ref, () => {
     return {
       updateIndicator: (subdivision, time) => {
+        if (!indicatorsRef) return;
         const firstBeat = subdivision === 0;
         setTimeout(() => {
           indicatorsRef.current[subdivision].style.opacity = BEAT_INDICATOR_ON_OPACITY;

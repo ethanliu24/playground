@@ -7,7 +7,6 @@ export default function DrumSequencerSettings(props) {
   const [swing, setSwing] = useState(props.initialSwing);
 
   useEffect(() => {
-    if (!props.initialSwing) return;
     setSwing(props.initialSwing);
   }, [props.initialSwing]);
 

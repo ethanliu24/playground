@@ -50,7 +50,7 @@ export default function DrumSequencer(props) {
 
   useEffect(() => {
     loadPreset(preset);
-  }, [preset])
+  }, [preset]);
 
   /**
    * Each track will be referenced in gridRef when the sequencer is first mounted
