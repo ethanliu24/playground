@@ -19,7 +19,7 @@ export function createNewJackSwing() {
       sampleNames.spinz808, false, C.CHANNEL_DEFAULT_VOL_PERCENTAGE, C.CHANNEL_DEFAULT_PAN_PERCENTAGE,
       [
         1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0,
+        1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0,
       ]
     ),
     createTrack(
@@ -115,7 +115,7 @@ export function createNewJackSwing() {
     ),
   ];
 
-  return createPreset(C.NEW_JACK_SWING, 0.75, 4, 97, tracks);
+  return createPreset(C.NEW_JACK_SWING, 0.85, 4, 97, tracks);
 }
 
 export function createHipHop() {
