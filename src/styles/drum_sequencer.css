@@ -232,11 +232,13 @@
   font-style: italic;
 }
 
-#bars-selector,
-#clear-btn {
-  padding: 0 0.4rem;
-}
-
 #clear-btn:hover {
   background-color: var(--GRAY_ACCENT_2);
+}
+
+#preset-selector {
+  width: 5.5rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  text-align: center;
 }
