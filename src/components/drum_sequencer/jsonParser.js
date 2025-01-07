@@ -30,6 +30,7 @@ export default function createTrack() {
 }
 
 function invalidPatternData(name, swing, bars, bpm, tracks) {
+  // TODO return useful messages
   if (typeof swing !== "number" && (swing < 0 || swing > 1))
     return false;
   if (typeof bars !== "number" && ![1, 2, 4, 8, 16].includes(bars))
@@ -38,6 +39,13 @@ function invalidPatternData(name, swing, bars, bpm, tracks) {
     return false;
   if (!isArray(tracks))
     return false;
+
+  const subdivisions = bars * C.DIVISIONS_PER_BAR;
+  tracks.forEach((track, idx) => {
+    if (track[C.PATTERN].length !== subdivisions) {
+      return false;
+    }
+  });
 
   return true;
 }
