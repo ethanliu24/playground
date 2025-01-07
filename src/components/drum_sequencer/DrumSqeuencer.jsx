@@ -133,6 +133,7 @@ export default function DrumSequencer(props) {
     // I got lazy lol can change up how presets are stored to get instant access instead of looping
     presetsRef.current.forEach((curPreset) => {
       if (curPreset[Constants.PRESET_NAME] === presetName) {
+        pause();
         resetSequencerTracks();
         loadPresetDetails(curPreset); // curPreset here is the json obj data
       }
