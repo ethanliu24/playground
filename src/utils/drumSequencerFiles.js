@@ -9,27 +9,45 @@ import hitB from "../assets/drum_sequencer_sounds/hit_B.mp3";
 import hitC from "../assets/drum_sequencer_sounds/hit_C.mp3";
 import kick from "../assets/drum_sequencer_sounds/kick.mp3";
 import openHat from "../assets/drum_sequencer_sounds/open_hat.mp3";
-import snare from "../assets/drum_sequencer_sounds/snare.mp3";
+import snarePower from "../assets/drum_sequencer_sounds/snare_power.mp3";
 import tambourine from "../assets/drum_sequencer_sounds/tamb.mp3";
 import triangle from "../assets/drum_sequencer_sounds/triangle.mp3";
 import woodblock from "../assets/drum_sequencer_sounds/woodblock.mp3";
 
 const samples = [
-  kick,
-  spinz808,
-  snare,
   hitC,
   hitB,
+  kick,
+  spinz808,
+  snarePower,
+  clap,
   crash,
   hihatMain,
   hihatSoft,
   openHat,
   tambourine,
-  clap,
   glassBell,
   triangle,
   woodblock,
   djScratch,
 ];
 
-export { samples };
+const sampleNames = {
+  spinz808: "808_spinz_C.mp3",
+  clap: "clap.mp3",
+  crash: "crash.mp3",
+  djScratch: "dj_scratch.mp3",
+  glassBell: "glass_bell.mp3",
+  hihatMain: "hihat_main.mp3",
+  hihatSoft: "hihat_soft.mp3",
+  hitB: "hit_B.mp3",
+  hitC: "hit_C.mp3",
+  kick: "kick.mp3",
+  openHat: "open_hat.mp3",
+  snarePower: "snare.mp3",
+  tambourine: "tamb.mp3",
+  triangle: "triangle.mp3",
+  woodblock: "woodblock.mp3",
+};
+
+export { samples, sampleNames };
