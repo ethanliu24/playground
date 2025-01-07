@@ -18,7 +18,6 @@ export default function DrumSequencerSettings(props) {
   const handleBarChange = (e) => {
     const numBars = parseInt(e.target.value);
     props.updateNumBars(numBars);
-    props.forceUpdate();
   }
 
   const handlePresetChange = (e) => {

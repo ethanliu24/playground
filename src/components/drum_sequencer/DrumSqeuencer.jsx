@@ -8,7 +8,6 @@ import { samples } from "../../utils/drumSequencerFiles.js";
 import * as Presets from "./presets.js";
 
 export default function DrumSequencer(props) {
-  const [tracks, setTracks] = useState(samples.length);
   const [bpm, setBpm] = useState(Constants.INITIAL_BPM);
   const [nextNoteTime, setNextNoteTime] = useState(0); // time to play the next note
   const [preset, setPreset] = useState("");
@@ -29,7 +28,7 @@ export default function DrumSequencer(props) {
   useEffect(() => {
     Tone.loaded().then(() => {
       window.addEventListener("click", startAudioContext, { once: true });
-      
+
       subdivisionTimeRef.current = calcSubdivisionTime(bpm);
       initTimer();
 
@@ -49,7 +48,7 @@ export default function DrumSequencer(props) {
   }, [bpm]);
 
   useEffect(() => {
-
+    loadPreset(preset);
   }, [preset])
 
   /**
@@ -128,6 +127,32 @@ export default function DrumSequencer(props) {
     return presets;
   };
 
+  const loadPreset = (presetName) => {
+    // I got lazy lol can change up how presets are stored to get instant access instead of looping
+    presetsRef.current.forEach((curPreset, idx) => {
+      if (curPreset[Constants.PRESET_NAME] === presetName) {
+        loadPresetDetails(curPreset); // curPreset here is the json obj data
+      }
+    });
+  };
+
+  const loadPresetDetails = (data) => {
+    console.log(data)
+    updateNumBars(data[Constants.PATTERN_BARS]);
+    updateSwing(data[Constants.PATTERN_SWING]);
+    updateBPM(data[Constants.PATTERN_BPM]);
+
+    data[Constants.PATTERN_TRACKS].forEach((track) => {
+      const trackIdx = track[Constants.TRACK_INDEX];
+      const targetTrack = gridRef.current[trackIdx];
+      const pattern = track[Constants.TRACK_PATTERN];
+      pattern.forEach((placeNote, idx) => {
+        if (placeNote) targetTrack[idx].activateNote();
+      });
+
+    });
+  }
+
   const handlePlay = () => {
     if (!started) {
       startAudioContext();
@@ -163,6 +188,7 @@ export default function DrumSequencer(props) {
 
   const updateNumBars = (numBars) => {
     subdivisionsRef.current = numBars * Constants.DIVISIONS_PER_BAR;
+    forceUpdate();
   };
 
   const updateSwing = (swingAmt) => {
@@ -196,7 +222,6 @@ export default function DrumSequencer(props) {
           updateNumBars={updateNumBars}
           updateSwing={updateSwing}
           updatePreset={updatePreset}
-          forceUpdate={forceUpdate}
         />
         <div id="sequencer-content">
           <BeatIndicator subdivisions={subdivisionsRef.current} ref={beatIndicatorRef} />

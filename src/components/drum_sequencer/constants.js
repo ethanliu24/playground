@@ -40,7 +40,6 @@ export const PATTERN_BARS = "bars";
 export const PATTERN_BPM = "bpm";
 export const PATTERN_TRACKS = "tracks";
 export const FILE_NAME = "file_name";
-export const TRACK_ID = "track_id";
 export const TRACK_MUTED = "muted";
 export const TRACK_VOL = "volume";
 export const TRACK_PAN = "pan";

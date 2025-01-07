@@ -7,6 +7,7 @@ export default forwardRef(function Notebox(props, ref) {
     return {
       active: () => isActive,
       reset: () => resetNote(),
+      activateNote: () => setIsActive(true),
     };
   });
 
