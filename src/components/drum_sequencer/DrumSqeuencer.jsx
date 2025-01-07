@@ -94,10 +94,13 @@ export default function DrumSequencer(props) {
 
     gridRef.current.forEach((track, trackRefIdx) => {
       const noteBox = track[subdivision];
+      const delayAmt = Tone.now() + swingOffset;
 
       if (noteBox && noteBox.active()) {
-        tracksRef.current[trackRefIdx].play(Tone.now() + swingOffset);
+        tracksRef.current[trackRefIdx].play(delayAmt);
       }
+
+      beatIndicatorRef.current.updateIndicator(curSubdivisionRef.current, delayAmt);
     });
   };
 
@@ -112,15 +115,24 @@ export default function DrumSequencer(props) {
     }
 
     if (playing) {
-      timerRef.current.postMessage(Constants.STOP);
-      setPlaying(false);
-      curSubdivisionRef.current = 0;
+      pause();
     } else {
-      timerRef.current.postMessage(Constants.START);
-      setPlaying(true);
-      setNextNoteTime(Tone.getContext().currentTime);
+      play();
     }
   };
+
+  const play = () => {
+    timerRef.current.postMessage(Constants.START);
+    setPlaying(true);
+    setNextNoteTime(Tone.getContext().currentTime);
+  }
+
+  const pause = () => {
+    timerRef.current.postMessage(Constants.STOP);
+    setPlaying(false);
+    curSubdivisionRef.current = 0;
+    beatIndicatorRef.current.clearIndicators();
+  }
 
   const handleNoteClick = useCallback((clickedTrack, clickedsubdivision) => {
     // Maybe it'll be useful one day
@@ -162,7 +174,7 @@ export default function DrumSequencer(props) {
           forceUpdate={forceUpdate}
         />
         <div id="sequencer-content">
-          <BeatIndicator subdivisions={subdivisionsRef.current}/>
+          <BeatIndicator subdivisions={subdivisionsRef.current} ref={beatIndicatorRef} />
           <div className="track-container">
             {samples.map((soundFile, trackNum) => {
               return (

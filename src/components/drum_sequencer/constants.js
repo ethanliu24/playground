@@ -26,3 +26,6 @@ export const ROTATION_STYLE_REGEX = /rotate\((-?\d+(\.\d+)?)deg\)/;
 
 export const MS_PER_SECOND = 1000.0;
 export const MS_PER_MINUTE = MS_PER_SECOND * 60.0;
+
+export const BEAT_INDICATOR_ON_OPACITY = 1;
+export const BEAT_INDICATOR_OFF_OPACITY = 0.2;
