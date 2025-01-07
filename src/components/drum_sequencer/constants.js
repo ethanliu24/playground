@@ -10,6 +10,8 @@ export const INITIAL_BARS = 4;
 export const INITIAL_SUBDIVISIONS = INITIAL_BARS * DIVISIONS_PER_BAR;
 export const INITIAL_SWING_AMOUNT = 0;
 export const MAX_SWING_AMT_PERCENTAGE = 0.5;
+export const MIN_BPM = 40;
+export const MAX_BPM = 200;
 
 // For the timer thread
 export const START = "start";
@@ -22,6 +24,7 @@ export const CHANNEL_DEFAULT_VOL = 9; // in db
 export const CHANNEL_DEFAULT_PAN = 0;
 export const SAMPLE_FADE_OUT = 0.01; // in s
 
+// Others
 export const ROTATION_STYLE_REGEX = /rotate\((-?\d+(\.\d+)?)deg\)/;
 
 export const MS_PER_SECOND = 1000.0;
@@ -29,3 +32,10 @@ export const MS_PER_MINUTE = MS_PER_SECOND * 60.0;
 
 export const BEAT_INDICATOR_ON_OPACITY = 1;
 export const BEAT_INDICATOR_OFF_OPACITY = 0.2;
+
+// For pattern json
+export const NAME = "name";
+export const SWING = "swing";
+export const BARS = "bars";
+export const BPM = "bpm";
+export const TRACKS = "tracks";

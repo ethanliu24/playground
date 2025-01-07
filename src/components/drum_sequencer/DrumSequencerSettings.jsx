@@ -1,6 +1,7 @@
 import { useRef } from "react";
 import Knob from "./Knob.jsx";
 import { icons } from "../../utils/icons.js"
+import { MIN_BPM, MAX_BPM } from "./constants.js";
 
 export default function DrumSequencerSettings(props) {
   const bpmSliderRef = new useRef(null);
@@ -32,7 +33,7 @@ export default function DrumSequencerSettings(props) {
         <option value="16">16 bars</option>
       </select>
       <button id="clear-btn" className="channel-rack-ui" onClick={props.clearGrid}>clear</button>
-      <input type="range" min="40" max="200" value={props.bpm} className="slider" onChange={updateBPM} ref={bpmSliderRef} />
+      <input type="range" min={MIN_BPM} max={MAX_BPM} value={props.bpm} className="slider" onChange={updateBPM} ref={bpmSliderRef} />
       <div id="bpm-value" className="channel-rack-ui slider-value">{`bpm: ${props.bpm}`}</div>
     </div>
   );
