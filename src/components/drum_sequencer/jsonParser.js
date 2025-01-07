@@ -18,11 +18,11 @@ export function createPattern(name, swing, bars, bpm, tracks) {
   }
 
   return patternData = {
-    [C.NAME]: name,
-    [C.SWING]: swing,
-    [C.BARS]: bars,
-    [C.BPM]: bpm,
-    [C.TRACKS]: tracks,
+    [C.PRESET_NAME]: name,
+    [C.PATTERN_SWING]: swing,
+    [C.PATTERN_BARS]: bars,
+    [C.PATTERN_BPM]: bpm,
+    [C.PATTERN_TRACKS]: tracks,
   };
 }
 

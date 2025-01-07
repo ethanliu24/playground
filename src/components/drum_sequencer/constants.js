@@ -34,11 +34,11 @@ export const BEAT_INDICATOR_ON_OPACITY = 1;
 export const BEAT_INDICATOR_OFF_OPACITY = 0.2;
 
 // For pattern json
-export const NAME = "name";
-export const SWING = "swing";
-export const BARS = "bars";
-export const BPM = "bpm";
-export const TRACKS = "tracks";
+export const PRESET_NAME = "name";
+export const PATTERN_SWING = "swing";
+export const PATTERN_BARS = "bars";
+export const PATTERN_BPM = "bpm";
+export const PATTERN_TRACKS = "tracks";
 export const FILE_NAME = "file_name";
 export const TRACK_ID = "track_id";
 export const TRACK_MUTED = "muted";
