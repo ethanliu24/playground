@@ -37,10 +37,10 @@ export function createHipHop() {
       ]
     ),
     createTrack(
-      sampleNames.crash, false, C.CHANNEL_DEFAULT_VOL, C.CHANNEL_DEFAULT_PAN,
+      sampleNames.clap, false, C.CHANNEL_DEFAULT_VOL, C.CHANNEL_DEFAULT_PAN,
       [
        0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-       0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+       0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
       ]
     ),
     createTrack(
