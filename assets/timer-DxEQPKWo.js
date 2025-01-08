@@ -1,0 +1,1 @@
+(function(){"use strict";const l="start",n="stop",s="tick";var e=25,t=null;self.addEventListener("message",a=>{a.data===l?t=setInterval(()=>{postMessage(s)},e):a.data===n?(clearInterval(t),t=null):a.data.interval&&(e=a.data.interval,t&&(clearInterval(t),t=setInterval(()=>{postMessage(s)},e)))})})();
