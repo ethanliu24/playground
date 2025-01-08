@@ -6,6 +6,8 @@ import { createTrack, createPreset } from "./presetParser.js";
 import { sampleNames } from "../../utils/drumSequencerFiles.js";
 import * as C from "./constants.js";
 
+// NOTE: There's a bug where changing presets with less bars to more bars causes a crash.
+// I have not fixed this yet so keep presets the same amount of bars, which is 4 bars in thsi case.
 export function createNewJackSwing() {
   const tracks = [
     createTrack(
